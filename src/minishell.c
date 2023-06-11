@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 18:02:28 by macarval          #+#    #+#             */
-/*   Updated: 2023/04/07 14:55:31 by macarval         ###   ########.fr       */
+/*   Updated: 2023/06/10 20:49:02 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,15 @@ char	*is_var(t_shell **shell, t_block *current, char *line)
 		line_diff = line_tmp - line;
 		line = ft_substr(line, 0, line_diff);
 		variable = find_arg(shell, line);
-		current->current_var = variable->msg;
+		if (variable == NULL)
+		{
+			printf("Cheguei aqui - IS VAR\n");
+		// // 	current->current_var= ("NULL");
+		// // 	printf("Cheguei aqui!\n");
+		// // 	exit(1);
+		}
+		else
+			current->current_var = variable->msg;
 	}
 	return (line_tmp);
 }
@@ -74,7 +82,7 @@ char	*is_no_word(t_shell **shell, t_block *current, char *line)
 				if (line_tmp != line)
 					return (line_tmp);
 				if (!*line)
-					here_doc_exec(current, "\n");				
+					here_doc_exec(current, "\n");
 			}
 			line++;
 			break; 

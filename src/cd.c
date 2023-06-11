@@ -1,4 +1,4 @@
-#include "../headers/minishell.h"
+#include "../../headers/minishell.h"
 
 void	update_var(t_shell **shell, char *name, char *value)
 {

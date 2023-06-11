@@ -6,7 +6,7 @@
 #    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 15:52:33 by macarval          #+#    #+#              #
-#    Updated: 2023/06/07 07:49:11 by root             ###   ########.fr        #
+#    Updated: 2023/06/10 17:13:19 by root             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,14 +29,14 @@ FILES			= main.c \
 				execution.c \
 				split_commands.c \
 				built_in.c \
-				built-ins/echo.c \
-				built-ins/exit.c \
-				built-ins/env.c \
-				built-ins/export.c \
-				built-ins/pwd.c \
-				built-ins/unset.c \
+				echo.c \
+				exit.c \
+				env.c \
+				export.c \
+				pwd.c \
+				unset.c \
 				utils.c \
-				built-ins/cd.c \
+				cd.c \
 				heredoc.c \
 				signals.c \
 				clear.c \
