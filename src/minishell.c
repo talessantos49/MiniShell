@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 18:02:28 by macarval          #+#    #+#             */
-/*   Updated: 2023/06/10 20:49:02 by root             ###   ########.fr       */
+/*   Updated: 2023/06/20 08:52:32 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*is_var(t_shell **shell, t_block *current, char *line)
 	int		line_diff;
 
 	line_tmp = line;
-	if (*line_tmp == '$')
+	if (!strcmp_mod(line_tmp, "$"))
 	{
 		line++;
 		line_tmp++;
@@ -53,13 +53,16 @@ char	*is_var(t_shell **shell, t_block *current, char *line)
 		variable = find_arg(shell, line);
 		if (variable == NULL)
 		{
-			printf("Cheguei aqui - IS VAR\n");
+			printf("Cheguei aqui - IS NOT A VAR\n");
 		// // 	current->current_var= ("NULL");
 		// // 	printf("Cheguei aqui!\n");
 		// // 	exit(1);
 		}
 		else
+		{
+			printf("Cheguei aqui - IS VAR\n");
 			current->current_var = variable->msg;
+		}
 	}
 	return (line_tmp);
 }
@@ -239,6 +242,50 @@ char *is_spaces(char *line, char *spaces)
 	return (line); 
 }
 
+int	find(char *string1, char c)
+{
+	int		i;
+
+	i = ft_strlen(string1);
+	while (i >= 0)
+	{
+		if (string1[i] == c)
+			return (1);
+		i--;
+	}
+	return (0);
+}
+
+char *is_enviroment(t_shell **shell, t_block *current, char *line)
+{
+	char	*line_temp;
+	char	*str_temp;
+	int	i;
+	int	k;
+
+	line_temp = line;
+	i = 0;
+	k = 0;
+	if ((find(line_temp, '=')) == 1)
+	{
+		while(line_temp[i] != '=')
+			i++;
+		k = i;
+		while((line_temp[k] != ' ' && line_temp[k] != '\0') || k == 0)
+			k--;
+		str_temp = ft_substr(line_temp, k + 1, i - k);
+		str_temp = ft_substr(str_temp, 0, ft_strlen(str_temp) - 1);
+		current->current_var = str_temp;
+		(*shell)->env->var = str_temp;
+		(*shell)->env->msg = ft_substr(line_temp, i + 1, ft_strlen(line_temp) - i);
+		(*shell)->env->type = 0;
+		(*shell)->env->next = (*shell)->env;
+		(*shell)->env = (*shell)->env->next;
+		(*shell)->env->next = NULL;
+	}
+	return (line);
+}
+
 void pipe_list_build(t_shell **shell, char *line)
 {
 	t_block *current;
@@ -252,6 +299,7 @@ void pipe_list_build(t_shell **shell, char *line)
 			heredoc_name_setup(shell, current);
 		}
 		line = is_spaces(line, SPACES);
+		line = is_enviroment(shell, current, line);
 		line = is_special(shell, current, line, SPECIALS);
 		line = is_file_io(shell, current, line);
 		line = is_command(shell, current, line);

@@ -16,5 +16,5 @@ int	main(int argc, char **argv, char **envp)
 	shell->env = make_list(&shell, envp);
 	shell->std_io[0] = dup(0);
 	shell->std_io[1] = dup(1);
-    minishell(&shell);
+	minishell(&shell);
 }
