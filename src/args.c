@@ -19,32 +19,12 @@ t_env	*find_arg(t_shell **shell, char *var)
 	temp = (*shell)->env;
 	while (temp != NULL)
 	{
-		if (strcmp_mod(temp->var, var))
-		{
-			printf("Dentro var: %s\n", temp->var);
-			printf("Dentro msg: %s\n", temp->msg);
+		if (!strcmp_mod(temp->var, var))
 			return (temp);
-		}
-		printf("Fora var: %s\n", temp->var);
-		printf("Fora msg: %s\n", temp->msg);
 		temp = temp->next;
 	}
 	return (NULL);
 }
-// t_env	*find_arg(t_shell **shell, char *var)
-// {
-// 	t_env	*temp;
-
-// 	temp = (*shell)->env;
-// 	while (temp != NULL)
-// 	{
-// 		printf("temp->var: %s\n", temp->var);
-// 		if (!strcmp_mod(temp->var, var))
-// 			return (temp);
-// 		temp = temp->next;
-// 	}
-// 	return (NULL);
-// }
 
 int	is_args(t_shell **shell)
 {
@@ -71,3 +51,7 @@ void	apart_args(t_shell **shell, char c, void (*function)(t_shell **shell))
 	}
 	free_split(&split);
 }
+/////////////////////////////////////////////////////////ATENÇÃO
+
+
+
