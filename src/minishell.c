@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 18:02:28 by macarval          #+#    #+#             */
-/*   Updated: 2023/06/21 12:02:06 by root             ###   ########.fr       */
+/*   Updated: 2023/06/21 14:33:17 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,6 +256,9 @@ int	find(char *string1, char c)
 	return (0);
 }
 
+/// @brief / Add node to the end of the list
+/// @param list 		pointer to the list
+/// @param node 		pointer to the node
 void add_node(t_env **list, t_env *node)
 {
 	t_env	*temp;
@@ -272,18 +275,18 @@ void add_node(t_env **list, t_env *node)
 	node->prev = temp;
 }
 
-void	print_list(t_env *list)
-{
-	t_env	*temp;
+// void	print_list(t_env *list)
+// {
+// 	t_env	*temp;
 
-	temp = list;
-	while (temp != NULL)
-	{
-		printf("var: %s\n", temp->var);
-		printf("msg: %s\n", temp->msg);
-		temp = temp->next;
-	}
-}
+// 	temp = list;
+// 	while (temp != NULL)
+// 	{
+// 		printf("var: %s\n", temp->var);
+// 		printf("msg: %s\n", temp->msg);
+// 		temp = temp->next;
+// 	}
+// }
 
 char *is_enviroment(t_shell **shell, char *line)
 {
@@ -306,15 +309,10 @@ char *is_enviroment(t_shell **shell, char *line)
 			k--;
 		str_temp = ft_substr(line_temp, k + 1, i - k);
 		str_temp = ft_substr(str_temp, 0, ft_strlen(str_temp) - 1);
-		// current->current_var = str_temp;
 		new_arg->var = str_temp;
 		new_arg->msg = ft_substr(line_temp, i + 1, ft_strlen(line_temp) - i);
 		new_arg->type = 1;
-		// new_arg->next = NULL;
 		add_node(&(*shell)->env, new_arg);
-		print_list((*shell)->env);
-		// new_arg = insert_front(new_arg, str_temp, ft_substr(line_temp, i + 1, ft_strlen(line_temp) - i), 1);
-		// insert_last(&(*shell)->env, new_arg);
 	}
 	return (line);
 }

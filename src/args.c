@@ -51,7 +51,6 @@ void	apart_args(t_shell **shell, char c, void (*function)(t_shell **shell))
 	}
 	free_split(&split);
 }
-/////////////////////////////////////////////////////////ATENÇÃO
 
 
 
