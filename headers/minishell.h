@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:52:02 by macarval          #+#    #+#             */
-/*   Updated: 2023/06/21 11:20:52 by root             ###   ########.fr       */
+/*   Updated: 2023/06/22 09:05:44 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct s_shell
 	char		*command;
 	char		*content;
 	char		*flag;
+	char		*line;
 	char		*heredoc_name;
 	int			exit_code;
 	int			count;

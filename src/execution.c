@@ -111,6 +111,7 @@ int command_validate(t_shell **shell, t_block *current)
 		current->cmd = ft_strdup(current->args[0]);
 		return (0);
 	}
+	(*shell)->exit_code = 127;
 	perror_free(": command not found", current->cmd);
 	return(1);
 }

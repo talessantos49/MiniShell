@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 18:02:28 by macarval          #+#    #+#             */
-/*   Updated: 2023/06/21 14:33:17 by root             ###   ########.fr       */
+/*   Updated: 2023/06/22 16:13:59 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -333,6 +333,7 @@ void pipe_list_build(t_shell **shell, char *line)
 		line = is_enviroment(shell, line);
 		line = is_special(shell, current, line, SPECIALS);
 		line = is_file_io(shell, current, line);
+		(*shell)->line = line;
 		line = is_command(shell, current, line);
 		if (!*line || !current->set)
 				args_matrix(current);
