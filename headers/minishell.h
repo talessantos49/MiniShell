@@ -28,7 +28,7 @@
 # include <readline/history.h>
 # include "../libs/libft/libft.h"
 
-# define SPACES " \n\t\r\f\v"
+# define SPACES " \t\r\f\v"
 # define HDSIGQUIT1 "\nminishell: warning: here-document delimited by \
 end-of-file (wanted `"
 # define HDSIGQUIT2 "')\n"
