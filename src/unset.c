@@ -1,4 +1,4 @@
-#include "../../headers/minishell.h"
+#include "../headers/minishell.h"
 
 void	c_unset(t_shell **shell)
 {

@@ -6,11 +6,11 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 17:32:46 by root              #+#    #+#             */
-/*   Updated: 2023/06/10 17:32:47 by root             ###   ########.fr       */
+/*   Updated: 2023/06/27 11:16:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "../headers/minishell.h"
 
 void	c_pwd(t_shell **shell)
 {

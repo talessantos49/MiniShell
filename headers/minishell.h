@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:52:02 by macarval          #+#    #+#             */
-/*   Updated: 2023/06/10 12:18:32 by root             ###   ########.fr       */
+/*   Updated: 2023/06/22 19:16:57 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_shell
 	char		*command;
 	char		*content;
 	char		*flag;
+	char		*line;
 	char		*heredoc_name;
 	int			exit_code;
 	int			count;
@@ -109,7 +110,8 @@ char	**split_path(t_shell **shell, char *s, char c);
 t_block *new_block_on_pipe_list(t_shell **shell, t_block *block_current);
 
 // Built-in's
-int    	strcmp_mod(const char *s1, const char *s2);
+int		find(char *string1, char c);
+int		strcmp_mod(const char *s1, const char *s2);
 void	c_cd(t_shell **shell);
 void	c_echo(t_shell **shell);
 // char	*process_text(t_shell **shell);

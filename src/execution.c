@@ -138,4 +138,3 @@ void execution(t_shell **shell, t_block *current)
 		current = current->next;
 	}
 }
-

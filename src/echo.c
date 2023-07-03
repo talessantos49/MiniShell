@@ -6,11 +6,11 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:14:03 by macarval          #+#    #+#             */
-/*   Updated: 2023/06/10 22:42:21 by root             ###   ########.fr       */
+/*   Updated: 2023/07/03 10:18:18 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "../headers/minishell.h"
 
 // Passar norminette
 
