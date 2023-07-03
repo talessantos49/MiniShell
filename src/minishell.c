@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 18:02:28 by macarval          #+#    #+#             */
-/*   Updated: 2023/06/10 20:49:02 by root             ###   ########.fr       */
+/*   Updated: 2023/06/27 14:47:58 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*is_var(t_shell **shell, t_block *current, char *line)
 	int		line_diff;
 
 	line_tmp = line;
-	if (*line_tmp == '$')
+	if (!strcmp_mod(line_tmp, "$"))
 	{
 		line++;
 		line_tmp++;
@@ -69,13 +69,16 @@ char	*is_var(t_shell **shell, t_block *current, char *line)
 		variable = find_arg(shell, line);
 		if (variable == NULL)
 		{
-			printf("Cheguei aqui - IS VAR\n");
+			printf("Cheguei aqui - IS NOT A VAR\n");
 		// // 	current->current_var= ("NULL");
 		// // 	printf("Cheguei aqui!\n");
 		// // 	exit(1);
 		}
 		else
+		{
+			printf("Cheguei aqui - IS VAR\n");
 			current->current_var = variable->msg;
+		}
 	}
 	return (line_tmp);
 }
@@ -324,6 +327,81 @@ char *is_spaces(char *line, char *spaces)
 	return (line); 
 }
 
+int	find(char *string1, char c)
+{
+	int		i;
+
+	i = ft_strlen(string1);
+	while (i >= 0)
+	{
+		if (string1[i] == c)
+			return (1);
+		i--;
+	}
+	return (0);
+}
+
+/// @brief / Add node to the end of the list
+/// @param list 		pointer to the list
+/// @param node 		pointer to the node
+void add_node(t_env **list, t_env *node)
+{
+	t_env	*temp;
+
+	temp = *list;
+	if (temp == NULL)
+	{
+		*list = node;
+		return ;
+	}
+	while (temp->next != NULL)
+		temp = temp->next;
+	temp->next = node;
+	node->prev = temp;
+}
+
+// void	print_list(t_env *list)
+// {
+// 	t_env	*temp;
+
+// 	temp = list;
+// 	while (temp != NULL)
+// 	{
+// 		printf("var: %s\n", temp->var);
+// 		printf("msg: %s\n", temp->msg);
+// 		temp = temp->next;
+// 	}
+// }
+
+char *is_enviroment(t_shell **shell, char *line)
+{
+	char	*line_temp;
+	char	*str_temp;
+	t_env	*new_arg;
+	int	i;
+	int	k;
+
+	line_temp = line;
+	i = 0;
+	k = 0;
+	new_arg = (t_env *)ff_calloc(1, sizeof(t_env));
+	if ((find(line_temp, '=')) == 1)
+	{
+		while(line_temp[i] != '=')
+			i++;
+		k = i;
+		while((line_temp[k] != ' ' && line_temp[k] != '\0') || k == 0)
+			k--;
+		str_temp = ft_substr(line_temp, k + 1, i - k);
+		str_temp = ft_substr(str_temp, 0, ft_strlen(str_temp) - 1);
+		new_arg->var = str_temp;
+		new_arg->msg = ft_substr(line_temp, i + 1, ft_strlen(line_temp) - i);
+		new_arg->type = 1;
+		add_node(&(*shell)->env, new_arg);
+	}
+	return (line);
+}
+
 void pipe_list_build(t_shell **shell, char *line)
 {
 	t_block *current;
@@ -337,8 +415,10 @@ void pipe_list_build(t_shell **shell, char *line)
 			heredoc_name_setup(shell, current);
 		}
 		line = is_spaces(line, SPACES);
+		line = is_enviroment(shell, line);
 		line = is_special(shell, current, line, SPECIALS);
 		line = is_file_io(shell, current, line);
+		(*shell)->line = line;
 		line = is_command(shell, current, line);
 		if (!*line || !current->set)
 				args_matrix(current);
@@ -441,19 +521,20 @@ void	needs_env_update(t_shell **shell, t_env *current, int env_n)
 void minishell(t_shell **shell)
 {
 	char *line;
-	
+
 	signal_listener(SIG_IGN, handle_sigint);
 	while (1)
 	{
 		printf("\033[1;35m");
 		line = readline(make_text());
+		(*shell)->exit_code = 0;
 		if (line && *line)
 		{
 			needs_env_update(shell, (*shell)->env, (*shell)->env_n);
 			add_history(line);
 			pipe_list_build(shell, line);
 			execution(shell, (*shell)->pipelist);
-			free_pipe_list(shell, (*shell)->pipelist);
+			// free_pipe_list(shell, (*shell)->pipelist);
 		}
 		else if (line == NULL)
 			handle_sigquit(shell);

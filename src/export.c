@@ -1,4 +1,4 @@
-#include "../../headers/minishell.h"
+#include "../headers/minishell.h"
 
 void	print_export(t_shell **shell)
 {
