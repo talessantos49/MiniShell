@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:14:03 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/03 10:18:18 by root             ###   ########.fr       */
+/*   Updated: 2023/07/03 13:22:02 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ char	*flag_echo(t_shell **shell)
 	if ((*shell)->flag != NULL && (*shell)->flag[0] == test[0] && (*shell)->flag[1] == test[1])
 	{
 		flag = ft_strdup("-n");
-		(*shell)->line = temp_line;
+		if (temp_line[0] == test[0] && temp_line[1] == test[1])
+			(*shell)->line = "";
+		else
+			(*shell)->line = temp_line;
 	}
 	else
 		flag = ft_strdup("");
@@ -106,7 +109,7 @@ void	c_echo(t_shell **shell)
 		}
 	}
 	else
-			printf("%s", temp_line);
+		printf("%s", temp_line);
 	if (strcmp_mod(flag, "-n"))
 		printf("\n");
 	(*shell)->exit_code = 0;
