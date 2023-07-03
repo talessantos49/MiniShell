@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 18:02:28 by macarval          #+#    #+#             */
-/*   Updated: 2023/06/22 16:13:59 by root             ###   ########.fr       */
+/*   Updated: 2023/06/27 14:47:58 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -442,13 +442,14 @@ void minishell(t_shell **shell)
 	{
 		printf("\033[1;35m");
 		line = readline(make_text());
+		(*shell)->exit_code = 0;
 		if (line && *line)
 		{
 			needs_env_update(shell, (*shell)->env, (*shell)->env_n);
 			add_history(line);
 			pipe_list_build(shell, line);
 			execution(shell, (*shell)->pipelist);
-			free_pipe_list(shell, (*shell)->pipelist);
+			// free_pipe_list(shell, (*shell)->pipelist);
 		}
 		else if (line == NULL)
 			handle_sigquit(shell);

@@ -86,6 +86,32 @@ void child(t_shell **shell, t_block *current)
 	}
 }
 
+int	is_env_variable(t_shell **shell)
+{
+	char	*line_temp;
+	int		i;
+
+	i = 0;
+	line_temp = (*shell)->line;
+	if (find(line_temp, '=') == 1)
+	{
+		while (line_temp[i] && line_temp[i] != '=')
+		{
+			if (line_temp[i] == ' ')
+				return (0);
+			if (isdigit(line_temp[0]))
+				return (0);
+			else if (isalpha(line_temp[i]) || isdigit(line_temp[i]))
+				i++;
+			else
+				return (0);
+		}
+		return (1);
+	}
+	else
+		return (0);
+}
+
 int command_validate(t_shell **shell, t_block *current)
 {
 	char	*cmd_tmp;
@@ -97,6 +123,8 @@ int command_validate(t_shell **shell, t_block *current)
 	while (++i < (*shell)->paths_n)
 	{
 		cmd_tmp = ff_strjoin((*shell)->paths_mtx[i], current->cmd);
+		// if (is_env_variable(shell))
+		// 	return (0);
 		if (!(access(cmd_tmp, X_OK)))
 		{
 			safe_free((void **)&current->cmd);
