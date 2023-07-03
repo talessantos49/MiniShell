@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:14:03 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/03 13:29:26 by root             ###   ########.fr       */
+/*   Updated: 2023/07/03 15:43:17 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*flag_echo(t_shell **shell)
 
 void	c_echo(t_shell **shell)
 {
-	t_env	*temp_node;
+	// t_env	*temp_node;
 	char	*temp_line;
 	char	*flag;
 	int		i;
@@ -69,7 +69,7 @@ void	c_echo(t_shell **shell)
 		return ;
 	flag = flag_echo(shell);
 	temp_line = (*shell)->line;
-	temp_node = (t_env *)ff_calloc(1, sizeof (t_env));
+	// temp_node = (t_env *)ff_calloc(1, sizeof (t_env));
 	if ((find(temp_line, '$')) == 1)
 	{
 		while (temp_line[i])
@@ -82,9 +82,9 @@ void	c_echo(t_shell **shell)
 			else if (temp_line[i] == '$')
 			{
 				temp_line += i;
-				temp_node = find_arg(shell, ++temp_line);
-				printf("%s", temp_node->msg);
-				len_var = ft_strlen(temp_node->msg);
+				// temp_node = find_arg(shell, ++temp_line);
+				// printf("%s", temp_node->msg);
+				// len_var = ft_strlen(temp_node->msg);
 			}
 			else
 				printf("%c", temp_line[i]);
