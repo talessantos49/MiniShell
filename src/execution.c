@@ -15,7 +15,7 @@ static char	*ff_strjoin(char *s1, char *s2)
 		ln1++;
 	while (*++ptr_2)
 		ln2++;
-	ptr = ff_calloc((ln1 + ln2) + 2, sizeof(char));
+	ptr = ft_calloc((ln1 + ln2) + 2, sizeof(char));
 	ptr_2 = (ptr + ln1);
 	ptr_2++;
 	if (ptr != NULL)
@@ -79,37 +79,11 @@ void child(t_shell **shell, t_block *current)
 		else
 			restore_std_io((*shell)->std_io);
 	}
-	else if (execve(current->cmd, current->args, (*shell)->env_mtx) < 0)
+	else if (execve(current->cmd, current->args, (*shell)->env_in) < 0)
 	{
 		perror(current->cmd);
 		exit(-1);
 	}
-}
-
-int	is_env_variable(t_shell **shell)
-{
-	char	*line_temp;
-	int		i;
-
-	i = 0;
-	line_temp = (*shell)->line;
-	if (find(line_temp, '=') == 1)
-	{
-		while (line_temp[i] && line_temp[i] != '=')
-		{
-			if (line_temp[i] == ' ')
-				return (0);
-			if (isdigit(line_temp[0]))
-				return (0);
-			else if (isalpha(line_temp[i]) || isdigit(line_temp[i]))
-				i++;
-			else
-				return (0);
-		}
-		return (1);
-	}
-	else
-		return (0);
 }
 
 int command_validate(t_shell **shell, t_block *current)
@@ -118,13 +92,10 @@ int command_validate(t_shell **shell, t_block *current)
 	int		i;
 
 	i = -1;
-	if (current->built_in)
-		return (builtin_setup(shell, current->args));
-	while (++i < (*shell)->paths_n)
+
+	while (++i < (*shell)->path_in_n)
 	{
-		cmd_tmp = ff_strjoin((*shell)->paths_mtx[i], current->cmd);
-		// if (is_env_variable(shell))
-		// 	return (0);
+		cmd_tmp = ff_strjoin((*shell)->path_in[i], current->cmd);
 		if (!(access(cmd_tmp, X_OK)))
 		{
 			safe_free((void **)&current->cmd);
@@ -139,7 +110,6 @@ int command_validate(t_shell **shell, t_block *current)
 		current->cmd = ft_strdup(current->args[0]);
 		return (0);
 	}
-	(*shell)->exit_code = 127;
 	perror_free(": command not found", current->cmd);
 	return(1);
 }
@@ -168,4 +138,3 @@ void execution(t_shell **shell, t_block *current)
 		current = current->next;
 	}
 }
-

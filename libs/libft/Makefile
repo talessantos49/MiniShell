@@ -1,75 +1,26 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/04/21 00:40:38 by macarval          #+#    #+#              #
-#    Updated: 2022/11/04 01:02:34 by macarval         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+SRCS	= ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_itoa.c ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c ft_lstiter.c ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstsize.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c  ft_printf_utils.c ft_printf.c ft_putchar_fd.c  ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c  ft_split.c ft_strchr.c ft_strdup.c ft_striteri.c   ft_strjoin.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c get_next_line.c
 
-FILES		= ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c \
-			ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
-			ft_itoa.c ft_memchr.c ft_memcmp.c  ft_memcpy.c \
-			ft_memmove.c ft_memset.c ft_putchar_fd.c \
-			ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c \
-			ft_split.c  ft_strchr.c ft_strdup.c ft_striteri.c \
-			ft_strjoin.c ft_strlcat.c ft_strlcpy.c ft_strlen.c \
-			ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c \
-			ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c
+SRCS_H	= libft.h
 
-FIL_BON		= ft_lstnew.c ft_lstadd_front.c ft_lstsize.c \
-			ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c \
-			ft_lstclear.c ft_lstiter.c ft_lstmap.c
-			
-EXE		= $(FILES:.c=.o)
+OBJS	= ${SRCS:.c=.o}
 
-EXE_BON	= $(FIL_BON:.c=.o)
+NAME	= libft.a
 
-NAME		= libft.a
+%.o: %.c	
+		@gcc -Wall -Wextra -Werror -c $< -o $@
 
-NAME_BON	= libft_bonus.a
+all:	${NAME} 
+		@echo "Libft created!!"
 
-AR			= ar -crs
-
-LIB			= ranlib
-
-GCC			= gcc
-
-CFLAGS		= -Wall -Wextra -Werror
-
-$(NAME):	$(EXE)
-			@$(AR) $(NAME) $(EXE)
-			@$(LIB) $(NAME)
-			@echo "Lifbt created!!"
-
-$(NAME_BON):	$(EXE_BON)
-				@$(AR) $(NAME) $(EXE_BON)
-				@cp $(NAME) $(NAME_BON)
-				@echo "Lifbt_bonus created!!"
-
-all:		$(NAME)
-
-bonus:		$(NAME_BON)	
-
-.c.o:
-			@$(GCC) $(CFLAGS) -c $< -o $(<:.c=.o)
+${NAME}:${OBJS} ${SRCS_H} 
+		@ar -rcs $@ $^
 
 clean:
-			@rm -f $(EXE) $(EXE_BON) $(NAME_BON)
-			@echo "clean Done!"
-# Remove sem confirmação todos os executáveis.
+		rm -f ${OBJS}
 
-fclean:		clean
-			@rm -f $(NAME)
-			@echo "fclean Done!"
-# Executa clean (ver acima)
-# Remove sem confirmação o arquivo de biblioteca
+fclean:	clean 
+		rm -f ${NAME}
 
-re:			fclean all
-# Executa fclean (ver acima)
-# Executa all (ver acima)
+re:		fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY:	all clean fclean re 

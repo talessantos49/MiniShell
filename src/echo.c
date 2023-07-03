@@ -16,32 +16,16 @@
 
 // void	c_echo(t_shell **shell)
 // {
-// 	t_env	*node;
-// 	char	*temp_line;
-// 	int		i;
-// 	int		k;
-
-// 	i = 0;
-// 	k = 0;
-// 	temp_line = (*shell)->line;
-// 	while (temp_line[i])
+// 	shell = (shell);
+// 	if ((*shell)->content && (*shell)->content[0] == '$')
 // 	{
-// 		if (temp_line[i] == '$')
-// 			k++;
-// 		i++;
-// 	}
-// 	printf("%d, %s\n", k, temp_line);
-// 	printf("(*shell)->content: %s\n", (*shell)->content);
-// 	printf("(*shell)->content[0]: %c\n", (*shell)->content[0]);
-// 	//Isso ta errado, precisamos mudar pra quando tiver mais de uma variavel com entrada $var
-// 	if ((*shell)->content && (*shell)->content[0] == '$' && (*shell)->content[1] != '?')
-// 	{
+// 		printf("Cheguei aqui! - ECHO\n");
 // 		node = find_arg(shell, ++(*shell)->content);
+// 		printf("Qual o argumento?\n");
 // 		if (node)
 // 			printf("%s", node->msg);
+// //ARRUMAR IMPRESSÃO DE CARACTERES COM O $
 // 	}
-// 	else if ((*shell)->content[0] == '$' && (*shell)->content[1] == '?')
-// 		printf("%d", (*shell)->exit_code);
 // 	else
 // 		printf("%s", (*shell)->content);
 // 	if (!(*shell)->flag || strcmp_mod((*shell)->flag, "-n"))

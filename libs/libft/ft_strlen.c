@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: bluiz-al <bluiz-al@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/03 15:59:38 by macarval          #+#    #+#             */
-/*   Updated: 2022/04/21 01:29:45 by macarval         ###   ########.fr       */
+/*   Created: 2022/06/01 21:31:58 by bluiz-al          #+#    #+#             */
+/*   Updated: 2022/06/23 01:56:38 by bluiz-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,10 @@
 
 size_t	ft_strlen(const char *s)
 {
-	size_t	r;
+	size_t	len;
 
-	r = 0;
-	while (*s != '\0')
-	{
-		s++;
-		r++;
-	}
-	return (r);
+	len = 0;
+	while (s && *s++)
+		++len;
+	return (len);
 }

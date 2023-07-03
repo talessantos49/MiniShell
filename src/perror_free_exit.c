@@ -10,7 +10,10 @@ void    restore_std_io(int *std_io)
 
 void    safe_free(void **ptr)
 {
-    if (*ptr != NULL)
+    unsigned char **ptr_str;
+
+    ptr_str = (unsigned char **)ptr;
+    if (*ptr != NULL && **ptr_str != 0)
     {
         free(*ptr);
         *ptr = NULL;
@@ -21,26 +24,9 @@ void    free_shell(t_shell **shell)
 {
     int idx;
 
-    while(idx < (*shell)->paths_n)
-        free((*shell)->paths_mtx[idx++]);
+    while(idx < (*shell)->path_in_n)
+        free((*shell)->path_in[idx++]);
     free_pipe_list(shell, (*shell)->pipelist);
-}
-
-void	free_list(t_env *list)
-{
-	t_env	*temp;
-	t_env	*next;
-
-	temp = list;
-	while (temp != NULL)
-	{
-		free(temp->var);
-		if (temp->msg)
-			free(temp->msg);
-		next = temp->next;
-		free(temp);
-		temp = next;
-	}
 }
 
 void    free_pipe_list(t_shell **shell, t_block *current)

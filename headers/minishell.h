@@ -28,7 +28,8 @@
 # include <readline/history.h>
 # include "../libs/libft/libft.h"
 
-# define SPACES " \n\t\r\f\v"
+# define SPACES " \t\r\f\v"
+# define COLOR "\033[1;35m"
 # define HDSIGQUIT1 "\nminishell: warning: here-document delimited by \
 end-of-file (wanted `"
 # define HDSIGQUIT2 "')\n"
@@ -55,15 +56,6 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }					t_cmd;
 
-typedef struct s_env
-{
-	char			*var;
-	char			*msg;
-	int				type;
-	struct s_env	*prev;
-	struct s_env	*next;
-}	t_env;
-
 typedef struct s_block
 {
 	char			*heredoc_name;
@@ -84,9 +76,8 @@ typedef struct s_block
 
 typedef struct s_shell
 {
-	int			status;
-	char		**env_mtx;
-	char		**paths_mtx;
+	char		**env_in;
+	char		**path_in;
 	char		*cmd;
 	char		*command;
 	char		*content;
@@ -95,13 +86,13 @@ typedef struct s_shell
 	char		*heredoc_name;
 	int			exit_code;
 	int			count;
-	int			env_n;
-	int			paths_n;
+	int			env_in_n;
+	int			path_in_n;
 	int			pipelist_n;
+	int			status;
 	int			std_io[2];
 	pid_t		pid;
 	t_block		*pipelist;
-	t_env		*env;
 }				t_shell;
 
 // base
@@ -111,11 +102,9 @@ void	execution(t_shell **shell, t_block *current);
 void    free_pipe_list(t_shell **shell, t_block *current);
 void	perror_free(char *type, char *name);
 void    safe_free(void **ptr);
-t_env	*make_list(t_shell **shell, char **envp);
 
 // Split
-char	**split_commands(t_shell **shell, char *s, char c);
-void	*ff_calloc(size_t nmemb, size_t size);
+char	**split_path(t_shell **shell, char *s, char c);
 
 // Pipe_List
 t_block *new_block_on_pipe_list(t_shell **shell, t_block *block_current);
@@ -134,15 +123,11 @@ void	c_unset(t_shell **shell);
 void	c_clear(t_shell **shell);
 void	*is_built_in(char *command);
 void    restore_std_io(int *std_io);
-void	free_list(t_env *list);
 char	*strchr_rev(const char *str, int c);
-t_env	*insert_front(t_env *new, char *var, char *msg, int type);
 int		strcmp_mod(const char *s1, const char *s2);
 char	*strchr_mod(const char *str, int c);
 char	*strchr_rev(const char *str, int c);
-void	env_mtx_update(t_shell **shell, t_env *current, int env_n);
 int		ft_isalnum_mod(int c);
-void	insert_last(t_env **env, t_env *new);
 void	apart_args(t_shell **shell, char c, void (*function)());
 void	add_export();
 int		is_args();
@@ -153,6 +138,8 @@ void	heredoc_name_setup(t_shell **shell, t_block *current);
 // void	here_doc_exec(t_block *current, char *delimiter, int mode);
 void	here_doc_exec(t_block *current, char *delimiter);
 char	*here_doc_setup(t_shell **shell, t_block *current, char *line);
+char	**make_env(t_shell **shell, char **envp, int set);
+char	**make_path(t_shell **shell, char **envp);
 
 void	handle_sigquit(t_shell **shell);
 void	handle_sigint(int signal);
@@ -165,7 +152,7 @@ char	*is_spaces(char *line, char *spaces);
 char	*is_no_word(t_shell **shell, t_block *current, char *line);
 void    free_shell(t_shell **shell);
 // args
-t_env	*find_arg(t_shell **shell, char *var);
+
 int		is_flag_null(t_shell **shell, char *pattern);
 void	print_flag_error(char *command, char *flag, int flag_len, int cmd_len);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: bluiz-al <bluiz-al@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/03 16:42:20 by macarval          #+#    #+#             */
-/*   Updated: 2022/04/22 14:36:43 by macarval         ###   ########.fr       */
+/*   Created: 2022/06/02 21:17:41 by bluiz-al          #+#    #+#             */
+/*   Updated: 2022/06/02 22:57:29 by bluiz-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int	ft_toupper(int c)
 {
-	if (c >= 97 && c <= 122)
-		c -= 32;
+	if (ft_isalpha(c) && c > 96)
+	{
+		return (c - 32);
+	}
 	return (c);
 }
