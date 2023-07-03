@@ -3,77 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: bluiz-al <bluiz-al@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/08 23:46:52 by macarval          #+#    #+#             */
-/*   Updated: 2022/04/29 21:54:49 by macarval         ###   ########.fr       */
+/*   Created: 2022/06/15 21:53:48 by bluiz-al          #+#    #+#             */
+/*   Updated: 2022/06/30 18:17:07 by bluiz-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	init(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, const char *set)
 {
-	size_t		i;
-	size_t		j;
+	char	*trim;
+	char	*rev;
 
-	i = 0;
-	j = 0;
-	while (set[j] && s1[i])
+	trim = (char *)set;
+	rev = (char *)s1 + ft_strlen(s1) - 1;
+	while (*set && *s1)
 	{
-		if (s1[i] == set[j])
+		if (*s1 == *set || *rev == *set)
 		{
-			i++;
-			j = -1;
+			s1 += *s1 == *set;
+			rev -= *rev == *set;
+			set = trim;
 		}
-		j++;
+		else
+			set++;
 	}
-	return (i);
-}
-
-static size_t	final(char const *s1, char const *set)
-{
-	size_t	j;
-	size_t	k;
-
-	j = 0;
-	k = ft_strlen(s1) - 1;
-	while (set[j] && k)
-	{
-		if (s1[k] == set[j])
-		{
-			k--;
-			j = -1;
-		}
-		j++;
-	}
-	return (k);
-}
-
-char	*ft_strtrim(char const *s1, char const *set)
-{
-	size_t		j;
-	size_t		k;
-	char		*str;
-
-	j = 0;
-	if (init(s1, set) >= ft_strlen(s1))
-	{
-		str = (char *) malloc (1 * sizeof(char));
-		if (!str)
-			return (NULL);
-		str[0] = '\0';
-		return (str);
-	}
-	k = final(s1, set);
-	str = (char *) malloc ((k - init(s1, set) + 2) * sizeof(char));
-	if (!str)
-		return (NULL);
-	while (init(s1, set) + j <= k)
-	{
-		str[j] = s1[init(s1, set) + j];
-		j++;
-	}
-	str[j] = '\0';
-	return (str);
+	trim = ft_calloc(((rev - s1) + 2) * (*s1 > 0) + (*s1 == 0), sizeof(char));
+	ft_strlcpy(trim, s1, ((rev - s1) + 2) * (*s1 > 0) + (*s1 == 0));
+	return (trim);
 }

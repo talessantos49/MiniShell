@@ -13,7 +13,6 @@ void	c_exit(t_shell **shell)
 		exit_code = 2;
 	}
 	rl_clear_history();
-	free_list((*shell)->env);
 	free_pipe_list(shell, (*shell)->pipelist);
 	exit(exit_code);
 }

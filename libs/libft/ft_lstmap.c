@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: bluiz-al <bluiz-al@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/28 02:34:53 by macarval          #+#    #+#             */
-/*   Updated: 2022/04/29 03:15:55 by macarval         ###   ########.fr       */
+/*   Created: 2022/07/07 00:13:06 by bluiz-al          #+#    #+#             */
+/*   Updated: 2022/07/07 04:28:18 by bluiz-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,23 @@
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*new;
-	t_list	*node;
+	t_list	*ptr;
+	t_list	*new_lst;
 
-	new = NULL;
-	while (lst != NULL)
+	if (!(lst))
+		return (NULL);
+	ptr = ft_lstnew((*f)(lst->content));
+	new_lst = ptr;
+	while (lst->next)
 	{
-		node = ft_lstnew(f(lst->content));
-		if (!node)
-		{
-			ft_lstclear(&new, del);
-			return (NULL);
-		}
-		ft_lstadd_back(&new, node);
 		lst = lst->next;
+		ptr->next = ft_lstnew((*f)(lst->content));
+		if (!ptr->next)
+		{
+			ft_lstdelone(ptr->next, del);
+			continue ;
+		}
+		ptr = ptr->next;
 	}
-	return (new);
+	return (new_lst);
 }
