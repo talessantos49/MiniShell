@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: bluiz-al <bluiz-al@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/21 00:14:09 by macarval          #+#    #+#             */
-/*   Updated: 2022/04/21 01:28:11 by macarval         ###   ########.fr       */
+/*   Created: 2022/06/22 21:43:11 by bluiz-al          #+#    #+#             */
+/*   Updated: 2022/07/27 23:45:41 by bluiz-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,26 @@
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	if (n >= -2147483647 && n <= 2147483647)
+	int		divisor;
+	int		count;
+	char	c;
+
+	divisor = 1;
+	count = 1;
+	while (n / divisor > 9 || n / divisor < -9)
 	{
-		if (n < 0)
-		{
-			write(fd, "-", 1);
-			n = -n;
-		}
-		if (n >= 10)
-		{
-			ft_putnbr_fd(n / 10, fd);
-			ft_putnbr_fd(n % 10, fd);
-		}
-		else
-		{
-			n += '0';
-			write(fd, &n, 1);
-		}
+		divisor *= 10;
+		count++;
 	}
-	if (n == -2147483648)
-		write(fd, "-2147483648", 11);
+	if (n < 0)
+		write(fd, "-", 1);
+	count += n < 0;
+	while (divisor > 0)
+	{
+		c = (n / divisor % 10) * ((n >= 0) - (n < 0)) + '0';
+		write(fd, &c, 1);
+		if (divisor == 1)
+			divisor--;
+		divisor /= 10;
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: bluiz-al <bluiz-al@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/03 17:55:43 by macarval          #+#    #+#             */
-/*   Updated: 2022/04/22 14:36:39 by macarval         ###   ########.fr       */
+/*   Created: 2022/06/02 20:01:08 by bluiz-al          #+#    #+#             */
+/*   Updated: 2022/06/02 22:59:40 by bluiz-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int	ft_tolower(int c)
 {
-	if (c >= 65 && c <= 90)
-		c += 32;
+	if (ft_isalpha(c) && c < 91)
+	{
+		return (c + 32);
+	}
 	return (c);
 }

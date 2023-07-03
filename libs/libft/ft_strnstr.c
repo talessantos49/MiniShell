@@ -3,35 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: bluiz-al <bluiz-al@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 22:18:56 by macarval          #+#    #+#             */
-/*   Updated: 2022/07/07 21:59:27 by macarval         ###   ########.fr       */
+/*   Created: 2022/06/10 21:23:39 by bluiz-al          #+#    #+#             */
+/*   Updated: 2022/06/23 02:03:32 by bluiz-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *big, const char *little, size_t len)
+char	*ft_strnstr(const char	*big, const char *little, size_t len)
 {
-	size_t		i;
-	size_t		j;
+	char	*ptr;
+	char	*ptr_l;
 
-	i = 0;
-	if (little[0] == '\0')
+	if (!*little)
 		return ((char *)big);
-	if (ft_strlen(big) > ft_strlen(little))
+	ptr_l = (char *)little;
+	while (big && *big && len--)
 	{
-		while (big[i] && i < len)
+		if (*big == *little)
 		{
-			j = 0;
-			while (big[i + j] == little[j]
-				&& little[j] && i + j < len)
-				j++;
-			if (j == ft_strlen(little))
-				return ((char *)big + i);
-			i++;
+			ptr = (char *)big;
+			while (!*little || (*ptr == *little
+					&& len + 1 > (size_t)(ptr - big)))
+			{
+				if (!*little)
+					return ((char *)big);
+				little++;
+				ptr++;
+			}
 		}
+		big++;
+		little = ptr_l;
 	}
-	return (0);
+	return (NULL);
 }

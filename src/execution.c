@@ -15,7 +15,7 @@ static char	*ff_strjoin(char *s1, char *s2)
 		ln1++;
 	while (*++ptr_2)
 		ln2++;
-	ptr = ff_calloc((ln1 + ln2) + 2, sizeof(char));
+	ptr = ft_calloc((ln1 + ln2) + 2, sizeof(char));
 	ptr_2 = (ptr + ln1);
 	ptr_2++;
 	if (ptr != NULL)
@@ -79,7 +79,7 @@ void child(t_shell **shell, t_block *current)
 		else
 			restore_std_io((*shell)->std_io);
 	}
-	else if (execve(current->cmd, current->args, (*shell)->env_mtx) < 0)
+	else if (execve(current->cmd, current->args, (*shell)->env_in) < 0)
 	{
 		perror(current->cmd);
 		exit(-1);
@@ -92,11 +92,10 @@ int command_validate(t_shell **shell, t_block *current)
 	int		i;
 
 	i = -1;
-	if (current->built_in)
-		return (builtin_setup(shell, current->args));
-	while (++i < (*shell)->paths_n)
+
+	while (++i < (*shell)->path_in_n)
 	{
-		cmd_tmp = ff_strjoin((*shell)->paths_mtx[i], current->cmd);
+		cmd_tmp = ff_strjoin((*shell)->path_in[i], current->cmd);
 		if (!(access(cmd_tmp, X_OK)))
 		{
 			safe_free((void **)&current->cmd);

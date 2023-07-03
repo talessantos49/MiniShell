@@ -16,20 +16,18 @@
 
 void	c_echo(t_shell **shell)
 {
-	t_env	*node;
-
 	shell = (shell);
-	if ((*shell)->content && (*shell)->content[0] == '$')
-	{
-		printf("Cheguei aqui! - ECHO\n");
-		node = find_arg(shell, ++(*shell)->content);
-		printf("Qual o argumento?\n");
-		if (node)
-			printf("%s", node->msg);
-//ARRUMAR IMPRESSÃO DE CARACTERES COM O $
-	}
-	else
-		printf("%s", (*shell)->content);
-	if (!(*shell)->flag || strcmp_mod((*shell)->flag, "-n"))
-		printf("\n");
+// 	if ((*shell)->content && (*shell)->content[0] == '$')
+// 	{
+// 		printf("Cheguei aqui! - ECHO\n");
+// 		node = find_arg(shell, ++(*shell)->content);
+// 		printf("Qual o argumento?\n");
+// 		if (node)
+// 			printf("%s", node->msg);
+// //ARRUMAR IMPRESSÃO DE CARACTERES COM O $
+// 	}
+// 	else
+// 		printf("%s", (*shell)->content);
+// 	if (!(*shell)->flag || strcmp_mod((*shell)->flag, "-n"))
+// 		printf("\n");
 }
