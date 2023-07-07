@@ -18,6 +18,7 @@ static char	*mtx_substr(char *s, unsigned int start, size_t len)
 	ptr = ft_calloc(len + 1, sizeof(char));
 	while (len-- && s[start])
 		ptr[index++] = s[start++];
+	ptr[index] = '\0';
 	return (ptr);
 }
 
@@ -45,7 +46,7 @@ static char	**ft_mtx(t_shell **shell, char *s, char *c, char **mtx)
 		mtx = (char **)ft_calloc((*shell)->count + 1, sizeof(char *));
 		return (ft_mtx(shell, s, c, mtx));
 	}
-	mtx[(*shell)->count] = 0;
+	mtx[(*shell)->count] = NULL;
 	return (mtx);
 }
 

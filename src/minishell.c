@@ -124,6 +124,8 @@ int quote_nested(char *string, char quote)
 	while (*string)
 	{
 		quote_pair = ft_strchr(string, quote);
+		if (!quote_pair)
+			break;
 		quote_pair = ft_strchr(quote_pair + 1, quote);
 		if (!quote_pair)
 			return (1);
@@ -262,8 +264,6 @@ char *is_file_io(t_shell **shell, t_block *current, char *line)
 		return("error file");
 	return(line + line_diff);
 } 
-
-
 
 char *special_cases(t_shell **shell, t_block *current, char *line)
 {

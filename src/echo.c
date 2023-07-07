@@ -32,6 +32,13 @@
 // 		printf("\n");
 // }
 
+int		find(char *string1, char c)
+{
+	if (string1 && c)
+		return (0);
+	return(0);
+}
+
 char	*flag_echo(t_shell **shell)
 {
 	char	*temp_line;

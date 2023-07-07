@@ -43,7 +43,7 @@ char	**make_env(t_shell **shell, char **envp, int set)
 	envp_tmp = envp;
 	if (set)
 	{
-		env_in = (char **)ft_calloc((*shell)->env_in_n, sizeof(char *));
+		env_in = (char **)ft_calloc((*shell)->env_in_n + 1, sizeof(char *));
 		env_in_tmp = env_in;
 	}
 	while (*envp_tmp)

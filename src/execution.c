@@ -1,34 +1,5 @@
 #include "../headers/minishell.h"
 
-static char	*ff_strjoin(char *s1, char *s2)
-{
-	char	*ptr;
-	char	*ptr_2;
-	int		ln1;
-	int		ln2;
-
-	ptr = s1;
-	ptr_2 = s2;
-	ln1 = 1;
-	ln2 = 1;
-	while (*++ptr)
-		ln1++;
-	while (*++ptr_2)
-		ln2++;
-	ptr = ft_calloc((ln1 + ln2) + 2, sizeof(char));
-	ptr_2 = (ptr + ln1);
-	ptr_2++;
-	if (ptr != NULL)
-	{
-		while (--ln1 > -1)
-			ptr[ln1] = s1[ln1];
-		*(ptr_2 - 1) = '/';
-		while (--ln2 > -1)
-			ptr_2[ln2] = s2[ln2];
-	}
-	return (ptr);
-}
-
 void close_all_pipes(t_block *current)
 {
 	while (current && current->pipe[0])
@@ -89,21 +60,24 @@ void child(t_shell **shell, t_block *current)
 int command_validate(t_shell **shell, t_block *current)
 {
 	char	*cmd_tmp;
+	char	*cmd_tmp2;
 	int		i;
 
 	i = -1;
 
 	while (++i < (*shell)->path_in_n)
 	{
-		cmd_tmp = ff_strjoin((*shell)->path_in[i], current->cmd);
-		if (!(access(cmd_tmp, X_OK)))
+		cmd_tmp = ft_strjoin((*shell)->path_in[i], "/");
+		cmd_tmp2 = ft_strjoin(cmd_tmp, current->cmd);
+		safe_free((void **)&cmd_tmp);
+		if (!(access(cmd_tmp2, X_OK)))
 		{
 			safe_free((void **)&current->cmd);
-			current->cmd = cmd_tmp;
+			current->cmd = cmd_tmp2;
 			return (0);
 		}
 		else
-			safe_free((void **)&cmd_tmp);
+			safe_free((void **)&cmd_tmp2);
 	}
 	if (!(access(current->args[0], X_OK)))
 	{
