@@ -23,7 +23,7 @@ t_env	*find_arg(t_shell **shell, char *var)
 			return (temp);
 		temp = temp->next;
 	}
-	return (NULL);
+	return NULL;
 }
 
 int	is_args(t_shell **shell)

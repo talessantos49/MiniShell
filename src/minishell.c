@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 18:02:28 by macarval          #+#    #+#             */
-/*   Updated: 2023/06/27 14:47:58 by root             ###   ########.fr       */
+/*   Updated: 2023/07/10 06:57:06 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,7 +288,79 @@ void add_node(t_env **list, t_env *node)
 // 	}
 // }
 
-char *is_enviroment(t_shell **shell, char *line)
+char *replace_string(char *string, char *src, char *dest)
+{
+	char	*temp_string;
+	int		string_len;
+	int		src_len;
+	int		dest_len;
+	int		i;
+
+	string_len = ft_strlen(string);
+	src_len = ft_strlen(src);
+	dest_len = ft_strlen(dest);
+	i = 0;
+	temp_string = (char *)calloc(string_len - src_len + dest_len + 1, sizeof(char));
+	// printf("temp_string = %s\n", temp_string);  TEM QUE LIDAR COM OS PROBLEMAS DE CONTINUAÇÃO DA STRING ---PRECISA VERIFICAR.
+	while (string[i])
+	{
+		if (string[i] == src[0])
+		{
+			if (ft_strncmp(&string[i], src, src_len) == 0)
+			{
+				ft_strlcpy(&temp_string[i], dest, dest_len + 1);
+				i += dest_len;
+			}
+			else
+				temp_string[i] = string[i];
+		}
+		else
+			temp_string[i] = string[i];
+		// printf("temp_string = %c\n", temp_string[i]);
+		i++;
+	}
+	// printf("temp_string = %s\n", temp_string);
+	return (temp_string);
+}
+
+char *change_enviroment(t_shell **shell, char *line)
+{
+	char	*temp_line;
+	char	*temp_variable;
+	char	*searched_variable;
+	t_env	*temp_node;
+	int		i;
+	int		k;
+
+	i = 0;
+	temp_line = line;
+	if (find(temp_line, '$'))
+	{
+		while (temp_line[i])
+		{
+			if (temp_line[i] == '$')
+			{
+				k = i + 1;
+				while (temp_line[k] && temp_line[k] != ' ' && temp_line[k] != '$')
+					k++;
+				temp_variable = (char *)calloc(k - i + 1, sizeof(char));
+				temp_variable = ft_substr(temp_line, i + 1, k - i);
+				temp_node = find_arg(shell, temp_variable);
+				if (temp_node)
+					searched_variable = temp_node->msg;
+				else
+					searched_variable = "";
+				temp_variable = ft_strjoin("$", temp_variable);
+				temp_line = replace_string(temp_line, temp_variable, searched_variable);
+			}
+			i++;
+		}
+	}
+	(*shell)->exit_code = 0;
+	return (temp_line);
+}
+
+char *is_enviroment_definition(t_shell **shell, char *line)
 {
 	char	*line_temp;
 	char	*str_temp;
@@ -309,19 +381,173 @@ char *is_enviroment(t_shell **shell, char *line)
 			k--;
 		str_temp = ft_substr(line_temp, k + 1, i - k);
 		str_temp = ft_substr(str_temp, 0, ft_strlen(str_temp) - 1);
+		new_arg->len_var = ft_strlen(str_temp);
 		new_arg->var = str_temp;
 		new_arg->msg = ft_substr(line_temp, i + 1, ft_strlen(line_temp) - i);
+		new_arg->len_msg = ft_strlen(new_arg->msg);
 		new_arg->type = 1;
 		add_node(&(*shell)->env, new_arg);
 	}
 	return (line);
 }
 
+// void pipe_list_build(t_shell **shell, char *line)
+// {
+// 	t_block *current;
+// 	char	**splited_line;
+// 	int		i;
+// 	char	*temp_line;
+
+// 	current = NULL;
+// 	printf("line: %s\n", line);
+// 	(*shell)->parser = (t_parser *)ff_calloc(1, sizeof(t_parser));
+// 	i = 1;
+// 	if (find(line, '|'))
+// 		printf("pipe found\n");
+// 	else
+// 	{
+// 		if (find(line, ' '))
+// 			splited_line= ft_split(line, ' ');
+// 		else
+// 			printf("no space found\n");
+// 		(*shell)->parser->command = splited_line[0];
+// 		if (find(splited_line[1], '-'))
+// 			(*shell)->parser->flag = splited_line[1];
+// 		while (splited_line[i + 1])
+// 		{
+// 			temp_line = ft_strjoin(splited_line[i], " ");
+// 			temp_line = ft_strjoin(temp_line, splited_line[i + 1]);
+// 			printf("temp_line: %s\n", temp_line);
+// 			i++;
+// 		}
+// 		(*shell)->parser->content = splited_line[2];
+// 		printf("parser->command: %s\n", (*shell)->parser->command);
+// 		printf("parser->flag: %s\n", (*shell)->parser->flag);
+// 		printf("parser->content: %s\n", (*shell)->parser->content);
+// 	}
+// 	// (*shell)->line1 = is_command(shell, current, (*shell)->line1);
+// 	// (*shell)->line1 = is_spaces((*shell)->line1, SPACES);
+// 	while (line && *line)
+// 	{
+// 		if (!current || !current->set)
+// 		{
+// 			current = new_block_on_pipe_list(shell, current);
+// 			heredoc_name_setup(shell, current);
+// 		}
+// 		// printf("shell line : %s\n", (*shell)->line1);
+// 		line = is_spaces(line, SPACES);
+// 		line = is_enviroment(shell, line);
+// 		line = is_special(shell, current, line, SPECIALS);
+// 		line = is_file_io(shell, current, line);
+// 		(*shell)->line = line;
+// 		line = is_command(shell, current, line);
+// 		if (!*line || !current->set)
+// 				args_matrix(current);
+// 		if (g_signal)
+// 			break;
+// 	}
+// }
+
 void pipe_list_build(t_shell **shell, char *line)
 {
 	t_block *current;
+	// char	**splited_line;
+	// char	**splited_pipes;
+	// int		i;
+	// int		k;
+	// char	*temp_line;
 
 	current = NULL;
+	// printf("line: %s\n", line);
+	// (*shell)->parser = (t_parser *)ff_calloc(1, sizeof(t_parser));
+	// (*shell)->parser->command = NULL;
+	// (*shell)->parser->flag = NULL;
+	// (*shell)->parser->content = NULL;
+	// i = 1;
+	// k = 0;
+	// if (find(line, '|'))
+	// {
+	// 	printf("pipe found\n");
+	// 	splited_pipes = ft_split(line, '|');
+	// 	while (splited_pipes[k])
+	// 	{
+	// 		i = 1;
+	// 		if (find(splited_pipes[k], ' '))
+	// 		{
+	// 			splited_line= ft_split(splited_pipes[k], ' ');
+	// 			(*shell)->parser->command = splited_line[0];
+	// 			if (find(splited_line[i], '-'))
+	// 				(*shell)->parser->flag = splited_line[i++];
+	// 			while (splited_line[i + 1])
+	// 			{
+	// 				temp_line = ft_strjoin(splited_line[i], " ");
+	// 				temp_line = ft_strjoin(temp_line, splited_line[i + 1]);
+	// 				splited_line[i + 1] = temp_line;
+	// 				printf("[%d- splited_line: %s]\n",i,  splited_line[i]);
+	// 				i++;
+	// 			}
+	// 			(*shell)->parser->content = splited_line[i];
+	// 			// ("splited_line[%d]: %s\n", i, splited_line[i]);
+	// 			// (*shell)->parser->content = splited_line[2];
+	// 			printf("parser->command: %s\n", (*shell)->parser->command);
+	// 			printf("parser->flag: %s\n", (*shell)->parser->flag);
+	// 			printf("parser->content: %s\n", (*shell)->parser->content);
+	// 			(*shell)->parser->next = (t_parser *)ff_calloc(1, sizeof(t_parser));
+	// 			(*shell)->parser = (*shell)->parser->next;
+	// 		}
+	// 		else
+	// 			printf("no space found\n");
+	// 		// printf("Separou por aqui\n");
+	// 		k++;
+	// 	}
+	// }
+	// else
+	// 	if (find(line, ' '))
+	// 	{
+	// 		line = ft_strtrim(line, " ");
+	// 		if (find(line, ' '))
+	// 		{
+	// 			// line = ft_strtrim(line, " ");
+	// 			// if (find(line, ' '))
+	// 			splited_line= ft_split(line, ' ');
+	// 			// else
+	// 				// (*shell)->parser->command = line;
+	// 		}
+	// 		else
+	// 			(*shell)->parser->command = line;
+	// 			// printf("no space inside found\n");
+	// 		// (*shell)->parser->command = splited_line[0];
+	// 		if (find(splited_line[1], '-'))
+	// 			(*shell)->parser->flag = splited_line[i++];
+	// 		while (splited_line[i + 1])
+	// 		{
+	// 			temp_line = ft_strjoin(splited_line[i], " ");
+	// 			temp_line = ft_strjoin(temp_line, splited_line[i + 1]);
+	// 			splited_line[i + 1] = temp_line;
+	// 			i++;
+	// 		}
+	// 		if ((*shell)->parser->command == NULL)
+	// 		{
+	// 			(*shell)->parser->command = splited_line[0];
+	// 		}
+	// 		if (find(line, ' '))
+	// 			(*shell)->parser->content = splited_line[i];
+	// 		// ("splited_line[%d]: %s\n", i, splited_line[i]);
+	// 		// (*shell)->parser->content = splited_line[2];a
+	// 		printf("parser->command: %s\n", (*shell)->parser->command);
+	// 		printf("parser->flag: %s\n", (*shell)->parser->flag);
+	// 		printf("parser->content: %s\n", (*shell)->parser->content);
+	// 	}
+	// 	else
+	// 	{
+	// 		printf("no space found\n");
+	// 		(*shell)->parser->command = ft_strjoin(line, "\0");
+	// 		printf("parser->command: %s\n", (*shell)->parser->command);
+	// 		printf("parser->flag: %s\n", (*shell)->parser->flag);
+	// 		printf("parser->content: %s\n", (*shell)->parser->content);
+	// 	}
+	// (*shell)->parser->command = is_enviroment_definition(shell, (*shell)->parser->command);
+	
 	while (line && *line)
 	{
 		if (!current || !current->set)
@@ -330,10 +556,13 @@ void pipe_list_build(t_shell **shell, char *line)
 			heredoc_name_setup(shell, current);
 		}
 		line = is_spaces(line, SPACES);
-		line = is_enviroment(shell, line);
+		line = is_enviroment_definition(shell, line);
+		line = replace_string(line, "$?", ft_itoa((*shell)->exit_code));
+		line = change_enviroment(shell, line);
 		line = is_special(shell, current, line, SPECIALS);
 		line = is_file_io(shell, current, line);
 		(*shell)->line = line;
+		// printf("line: %s\n", line);
 		line = is_command(shell, current, line);
 		if (!*line || !current->set)
 				args_matrix(current);
