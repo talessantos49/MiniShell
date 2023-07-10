@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 18:02:28 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/10 06:57:06 by root             ###   ########.fr       */
+/*   Updated: 2023/07/10 07:06:06 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -570,6 +570,7 @@ void pipe_list_build(t_shell **shell, char *line)
 			break;
 	}
 }
+
 
 char	*make_text(void)
 {
