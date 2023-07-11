@@ -83,10 +83,27 @@ typedef struct s_block
 	void			(*built_in)(void *shell);
 }					t_block;
 
+typedef struct s_block
+{
+	char			*heredoc_name;
+	char			*current_var;
+	char			**args;
+	char			*cmd;
+	char			quote;
+	int				commands_n;
+	int				fd[2];
+	int				pipe[2];
+	int				set;
+	int				signal;
+	t_cmd			*commands;
+	t_cmd			*current_command;
+	struct s_block	*next;
+	void			(*built_in)(void *shell);
+}					t_block;
 typedef struct s_shell
 {
-	char		**env_in;
-	char		**path_in;
+	char		**env_mtx;
+	char		**paths_mtx;
 	char		*cmd;
 	char		*command;
 	char		*content;
@@ -95,14 +112,38 @@ typedef struct s_shell
 	char		*heredoc_name;
 	int			exit_code;
 	int			count;
-	int			env_in_n;
-	int			path_in_n;
+	int			env_n;
+	int			paths_n;
 	int			pipelist_n;
 	int			status;
 	int			std_io[2];
 	pid_t		pid;
 	t_block		*pipelist;
+	t_env		*env;
 }				t_shell;
+	t_env;
+
+typedef struct s_shell
+{
+	int			status;
+	char		**env_mtx;
+	char		**paths_mtx;
+	char		*cmd;
+	char		*command;
+	char		*content;
+	char		*flag;
+	char		*heredoc_name;
+	int			exit_code;
+	int			count;
+	int			env_n;
+	int			paths_n;
+	int			pipelist_n;
+	int			std_io[2];
+	pid_t		pid;
+	t_block		*pipelist;
+	t_env		*env;
+}				t_shell;
+
 
 // base
 char	*make_text(void);
