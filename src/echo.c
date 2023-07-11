@@ -12,33 +12,6 @@
 
 #include "../headers/minishell.h"
 
-// Passar norminette
-
-// void	c_echo(t_shell **shell)
-// {
-// 	shell = (shell);
-// 	if ((*shell)->content && (*shell)->content[0] == '$')
-// 	{
-// 		printf("Cheguei aqui! - ECHO\n");
-// 		node = find_arg(shell, ++(*shell)->content);
-// 		printf("Qual o argumento?\n");
-// 		if (node)
-// 			printf("%s", node->msg);
-// //ARRUMAR IMPRESSÃO DE CARACTERES COM O $
-// 	}
-// 	else
-// 		printf("%s", (*shell)->content);
-// 	if (!(*shell)->flag || strcmp_mod((*shell)->flag, "-n"))
-// 		printf("\n");
-// }
-
-int		find(char *string1, char c)
-{
-	if (string1 && c)
-		return (0);
-	return(0);
-}
-
 char	*flag_echo(t_shell **shell)
 {
 	char	*temp_line;
@@ -76,7 +49,7 @@ void	c_echo(t_shell **shell)
 		return ;
 	flag = flag_echo(shell);
 	temp_line = (*shell)->line;
-	temp_node = (t_env *)ft_calloc(1, sizeof (t_env));
+	// temp_node = (t_env *)ft_calloc(1, sizeof (t_env));
 	if ((find(temp_line, '$')) == 1)
 	{
 		while (temp_line[i])

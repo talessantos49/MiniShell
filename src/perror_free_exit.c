@@ -24,8 +24,8 @@ void    free_shell(t_shell **shell)
 {
     int idx;
 
-    while(idx < (*shell)->path_in_n)
-        free((*shell)->path_in[idx++]);
+    while(idx < (*shell)->paths_n)
+        free((*shell)->paths_mtx[idx++]);
     free_pipe_list(shell, (*shell)->pipelist);
 }
 

@@ -27,7 +27,7 @@ FILES			= main.c \
 				minishell.c \
 				pipe_list.c \
 				execution.c \
-				split_path.c \
+				split_commands.c \
 				built_in.c \
 				echo.c \
 				exit.c \

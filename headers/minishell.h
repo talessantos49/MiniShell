@@ -82,24 +82,6 @@ typedef struct s_block
 	struct s_block	*next;
 	void			(*built_in)(void *shell);
 }					t_block;
-
-typedef struct s_block
-{
-	char			*heredoc_name;
-	char			*current_var;
-	char			**args;
-	char			*cmd;
-	char			quote;
-	int				commands_n;
-	int				fd[2];
-	int				pipe[2];
-	int				set;
-	int				signal;
-	t_cmd			*commands;
-	t_cmd			*current_command;
-	struct s_block	*next;
-	void			(*built_in)(void *shell);
-}					t_block;
 typedef struct s_shell
 {
 	char		**env_mtx;
@@ -131,7 +113,7 @@ void	perror_free(char *type, char *name);
 void    safe_free(void **ptr);
 
 // Split
-char	**split_path(t_shell **shell, char *s, char c);
+char	**split_commands(t_shell **shell, char *s, char c);
 
 // Pipe_List
 t_block *new_block_on_pipe_list(t_shell **shell, t_block *block_current);
@@ -165,8 +147,7 @@ void	heredoc_name_setup(t_shell **shell, t_block *current);
 // void	here_doc_exec(t_block *current, char *delimiter, int mode);
 void	here_doc_exec(t_block *current, char *delimiter);
 char	*here_doc_setup(t_shell **shell, t_block *current, char *line);
-char	**make_env(t_shell **shell, char **envp, int set);
-char	**make_path(t_shell **shell, char **envp);
+t_env	*make_list(t_shell **shell, char **envp);
 
 void	handle_sigquit(t_shell **shell);
 void	handle_sigint(int signal);

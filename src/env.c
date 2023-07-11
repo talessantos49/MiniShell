@@ -23,23 +23,6 @@ void	c_env(t_shell **shell)
     }
 }
 
-t_env	*make_list(t_shell **shell, char **envp)
-{
-	t_env	*env;
-	t_env	*node;
-
-	env = NULL;
-	while (*envp)
-	{
-		node = NULL;
-		node = insert_front(node, strchr_rev(*envp, '='), \
-		strchr_mod(*envp, '='), ENVP);
-		insert_last(&env, node);
-		envp++;
-		(*shell)->env_n++;
-	}
-	return (env);
-}
 
 t_env	*insert_front(t_env *new, char *var, char *msg, int type)
 {
@@ -79,4 +62,22 @@ void	insert_last(t_env **env, t_env *new)
 	}
 	else
 		*env = new;
+}
+
+t_env	*make_list(t_shell **shell, char **envp)
+{
+	t_env	*env;
+	t_env	*node;
+
+	env = NULL;
+	while (*envp)
+	{
+		node = NULL;
+		node = insert_front(node, strchr_rev(*envp, '='), \
+		strchr_mod(*envp, '='), ENVP);
+		insert_last(&env, node);
+		envp++;
+		(*shell)->env_n++;
+	}
+	return (env);
 }

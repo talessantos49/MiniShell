@@ -196,24 +196,6 @@ char	*is_no_word(t_shell **shell, t_block *current, char *line)
 	return (line);
 }
 
-void new_command(t_block *current)
-{
-	current->commands_n += 1;
-	if (!current->current_command)
-	{
-	    current->current_command = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
-		current->current_command->quote = current->quote;
-		current->commands = current->current_command;
-	}
-	else if (current->commands)
-	{
-		current->current_command->next = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
-		current->current_command->next->quote = current->quote;
-		current->current_command = current->current_command->next;
-	}
-	current->quote = 0;
-}
-
 char *is_command(t_shell **shell, t_block *current, char *line)
 {
 	char *line_tmp;

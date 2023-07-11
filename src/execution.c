@@ -50,7 +50,7 @@ void child(t_shell **shell, t_block *current)
 		else
 			restore_std_io((*shell)->std_io);
 	}
-	else if (execve(current->cmd, current->args, (*shell)->env_in) < 0)
+	else if (execve(current->cmd, current->args, (*shell)->env_mtx) < 0)
 	{
 		perror(current->cmd);
 		exit(-1);
@@ -60,13 +60,14 @@ void child(t_shell **shell, t_block *current)
 int command_validate(t_shell **shell, t_block *current)
 {
 	char	*cmd_tmp;
+	char	*cmd_tmp2;
 	int		i;
 
 	i = -1;
 
-	while (++i < (*shell)->path_in_n)
+	while (++i < (*shell)->paths_n)
 	{
-		cmd_tmp = ft_strjoin((*shell)->path_in[i], "/");
+		cmd_tmp = ft_strjoin((*shell)->paths_mtx[i], "/");
 		cmd_tmp2 = ft_strjoin(cmd_tmp, current->cmd);
 		safe_free((void **)&cmd_tmp);
 		if (!(access(cmd_tmp2, X_OK)))

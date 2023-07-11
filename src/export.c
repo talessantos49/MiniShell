@@ -2,7 +2,7 @@
 
 void	print_export(t_shell **shell)
 {
-	while ((*shell)->env_in != NULL)
+	while (*shell != NULL)
 	{
 		/*
 		// Colocar em ordem alfabética
