@@ -92,7 +92,7 @@ void execution(t_shell **shell, t_block *current)
 {
 	while (current && current->commands)
 	{
-		if(command_validate(shell, current))
+		if(!current->built_in && command_validate(shell, current))
 		{
 			current = current->next;
 			continue;

@@ -234,7 +234,7 @@ void manage_file_descriptors(t_block *current, char *file_name)
 	else if (current->set >= 3 && current->fd[1])
 		close(current->fd[1]);
 	if (current->set == 2)
-		current->fd[0] = open(file_name, O_RDONLY);
+		current->fd[0] = open(file_name, O_RDONLY, 0644);
 	else if (current->set == 3)
 		current->fd[1] = open(file_name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else if (current->set == 4)
@@ -519,6 +519,7 @@ void minishell(t_shell **shell)
 		line = readline(make_text());
 		if (line && *line)
 		{
+			needs_env_update(shell, (*shell)->env, (*shell)->env_n);
 			add_history(line);
 			pipe_list_build(shell, line);
 			execution(shell, (*shell)->pipelist);
