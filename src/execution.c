@@ -60,7 +60,6 @@ void child(t_shell **shell, t_block *current)
 int command_validate(t_shell **shell, t_block *current)
 {
 	char	*cmd_tmp;
-	char	*cmd_tmp2;
 	int		i;
 
 	i = -1;

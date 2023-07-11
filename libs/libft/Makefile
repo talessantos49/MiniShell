@@ -10,16 +10,15 @@ NAME	= libft.a
 		@gcc -Wall -Wextra -Werror -c $< -o $@
 
 all:	${NAME} 
-		@echo "Libft created!!"
 
 ${NAME}:${OBJS} ${SRCS_H} 
 		@ar -rcs $@ $^
 
 clean:
-		rm -f ${OBJS}
+		@rm -f ${OBJS}
 
 fclean:	clean 
-		rm -f ${NAME}
+		@rm -f ${NAME}
 
 re:		fclean all
 

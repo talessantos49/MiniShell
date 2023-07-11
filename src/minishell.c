@@ -40,7 +40,7 @@ void args_matrix(t_block *current)
 		return ;
 	index = -1;
 	current_cmd = current->commands;
-	current->args = (char **)ft_calloc(current->commands_n, sizeof(char *));
+	current->args = (char **)ft_calloc(current->commands_n + 1, sizeof(char *));
 	while (current_cmd && ++index < current->commands_n)
 	{
 		if (!index)
@@ -196,6 +196,23 @@ char	*is_no_word(t_shell **shell, t_block *current, char *line)
 	return (line);
 }
 
+void new_command(t_block *current)
+{
+	current->commands_n += 1;
+	if (!current->current_command)
+	{
+	    current->current_command = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
+		current->current_command->quote = current->quote;
+		current->commands = current->current_command;
+	}
+	else if (current->commands)
+	{
+		current->current_command->next = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
+		current->current_command->next->quote = current->quote;
+		current->current_command = current->current_command->next;
+	}
+	current->quote = 0;
+}
 
 char *is_command(t_shell **shell, t_block *current, char *line)
 {
@@ -321,6 +338,81 @@ char *is_spaces(char *line, char *spaces)
 	return (line); 
 }
 
+int	find(char *string1, char c)
+{
+	int		i;
+
+	i = ft_strlen(string1);
+	while (i >= 0)
+	{
+		if (string1[i] == c)
+			return (1);
+		i--;
+	}
+	return (0);
+}
+
+/// @brief / Add node to the end of the list
+/// @param list 		pointer to the list
+/// @param node 		pointer to the node
+void add_node(t_env **list, t_env *node)
+{
+	t_env	*temp;
+
+	temp = *list;
+	if (temp == NULL)
+	{
+		*list = node;
+		return ;
+	}
+	while (temp->next != NULL)
+		temp = temp->next;
+	temp->next = node;
+	node->prev = temp;
+}
+
+// void	print_list(t_env *list)
+// {
+// 	t_env	*temp;
+
+// 	temp = list;
+// 	while (temp != NULL)
+// 	{
+// 		printf("var: %s\n", temp->var);
+// 		printf("msg: %s\n", temp->msg);
+// 		temp = temp->next;
+// 	}
+// }
+
+char *is_enviroment(t_shell **shell, char *line)
+{
+	char	*line_temp;
+	char	*str_temp;
+	t_env	*new_arg;
+	int	i;
+	int	k;
+
+	line_temp = line;
+	i = 0;
+	k = 0;
+	new_arg = (t_env *)ft_calloc(1, sizeof(t_env));
+	if ((find(line_temp, '=')) == 1)
+	{
+		while(line_temp[i] != '=')
+			i++;
+		k = i;
+		while((line_temp[k] != ' ' && line_temp[k] != '\0') || k == 0)
+			k--;
+		str_temp = ft_substr(line_temp, k + 1, i - k);
+		str_temp = ft_substr(str_temp, 0, ft_strlen(str_temp) - 1);
+		new_arg->var = str_temp;
+		new_arg->msg = ft_substr(line_temp, i + 1, ft_strlen(line_temp) - i);
+		new_arg->type = 1;
+		add_node(&(*shell)->env, new_arg);
+	}
+	return (line);
+}
+
 void pipe_list_build(t_shell **shell, char *line)
 {
 	t_block *current;
@@ -390,6 +482,49 @@ void	free_env_mtx(char **env, int env_n, char **paths, int paths_n)
 		env_tmp++;
 	}
 	safe_free((void **)&paths);
+}
+
+void	env_mtx_update(t_shell **shell, t_env *current, int env_n)
+{
+	char	**env_mtx;
+	int		var_len;
+	int		msg_len;
+
+	if ((*shell)->env && (*shell)->paths_mtx)
+		free_env_mtx((*shell)->env_mtx, env_n, (*shell)->paths_mtx, (*shell)->paths_n);
+	(*shell)->env_mtx = (char **)ft_calloc(env_n + 1, sizeof(char *));
+	env_mtx = (*shell)->env_mtx;
+	while (current)
+	{
+		if (!strcmp_mod("PATH", current->var))
+			(*shell)->paths_mtx = split_commands(shell, current->msg, ':');
+		(*shell)->paths_n = (*shell)->count;
+		var_len = strlen(current->var);
+		msg_len = strlen(current->msg);
+		*env_mtx = (char *)ft_calloc(var_len + msg_len + 2, sizeof(char));
+		ft_strlcpy(*env_mtx, current->var, var_len + 1);
+		ft_strlcpy(*env_mtx + var_len, "=", 2);
+		ft_strlcpy(*env_mtx + var_len + 1, current->msg, msg_len + 1);
+		*(env_mtx + var_len + msg_len) = '\0';
+		current = current->next;
+		env_mtx++;
+	}
+	env_mtx = NULL;
+}
+
+void	needs_env_update(t_shell **shell, t_env *current, int env_n)
+{
+	int	needs;
+
+	needs = 0;
+	needs += ((*shell)->env_mtx == NULL);
+	if ((*shell)->pipelist)
+	{
+		needs += ((*shell)->pipelist->built_in == (void *)c_export);
+		needs += ((*shell)->pipelist->built_in == (void *)c_unset);
+	}
+	if (needs)
+		env_mtx_update(shell, current, env_n);
 }
 
 void minishell(t_shell **shell)

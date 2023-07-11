@@ -6,14 +6,14 @@
 /*   By: bluiz-al <bluiz-al@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 01:31:59 by bluiz-al          #+#    #+#             */
-/*   Updated: 2022/07/21 22:39:39 by bluiz-al         ###   ########.fr       */
+/*   Updated: 2022/11/27 02:18:38 by bluiz-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-# define BUFFER_SIZE 128
+#define BUFFER_SIZE 128
 
-static char	*GNL_strchr(const char *s, int c)
+static char	*gnl_strchr(const char *s, int c)
 {
 	int	len;
 
@@ -27,7 +27,7 @@ static char	*GNL_strchr(const char *s, int c)
 	return (NULL);
 }
 
-static char	*GNL_strdup(const char *s)
+static char	*gnl_strdup(const char *s)
 {
 	char	*cache;
 	char	*ptr;
@@ -44,7 +44,7 @@ static char	*GNL_strdup(const char *s)
 	return (ptr);
 }
 
-static char	*GNL_strjoin(char const *s1, char const *s2)
+static char	*gnl_strjoin(char const *s1, char const *s2)
 {
 	char	*ptr;
 	char	*ptr_2;
@@ -53,7 +53,7 @@ static char	*GNL_strjoin(char const *s1, char const *s2)
 
 	if (!s1 || !*s1)
 	{		
-		s1 = GNL_strdup(s2);
+		s1 = gnl_strdup(s2);
 		free((char *)s2);
 		return ((char *)s1);
 	}
@@ -81,7 +81,7 @@ char	*get_next_line(int fd)
 	char		*buffer;
 
 	tmp = cache[fd];
-	while ((fd >= 0 && BUFFER_SIZE > 0) && (!tmp || !GNL_strchr(tmp, 10)))
+	while ((fd >= 0 && BUFFER_SIZE > 0) && (!tmp || !gnl_strchr(tmp, 10)))
 	{
 		buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 		reads = read(fd, buffer, BUFFER_SIZE);
@@ -91,9 +91,9 @@ char	*get_next_line(int fd)
 			break ;
 		}
 		buffer[reads] = '\0';
-		tmp = GNL_strjoin(tmp, buffer);
+		tmp = gnl_strjoin(tmp, buffer);
 	}
-	buffer = GNL_strchr(tmp, 10);
-	cache[fd] = GNL_strdup(buffer);
+	buffer = gnl_strchr(tmp, 10);
+	cache[fd] = gnl_strdup(buffer);
 	return (tmp);
 }
