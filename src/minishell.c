@@ -24,7 +24,7 @@ void args_matrix(t_block *current)
 		return ;
 	index = -1;
 	current_cmd = current->commands;
-	current->args = (char **)ff_calloc(current->commands_n, sizeof(char *));
+	current->args = (char **)ft_calloc(current->commands_n + 1, sizeof(char *));
 	while (current_cmd && ++index < current->commands_n)
 	{
 		if (!index)
@@ -103,13 +103,13 @@ void new_command(t_block *current)
 	current->commands_n += 1;
 	if (!current->current_command)
 	{
-	    current->current_command = (t_cmd *)ff_calloc(1, sizeof(t_cmd));
+	    current->current_command = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
 		current->current_command->quote = current->quote;
 		current->commands = current->current_command;
 	}
 	else if (current->commands)
 	{
-		current->current_command->next = (t_cmd *)ff_calloc(1, sizeof(t_cmd));
+		current->current_command->next = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
 		current->current_command->next->quote = current->quote;
 		current->current_command = current->current_command->next;
 	}
@@ -299,7 +299,7 @@ char *is_enviroment(t_shell **shell, char *line)
 	line_temp = line;
 	i = 0;
 	k = 0;
-	new_arg = (t_env *)ff_calloc(1, sizeof(t_env));
+	new_arg = (t_env *)ft_calloc(1, sizeof(t_env));
 	if ((find(line_temp, '=')) == 1)
 	{
 		while(line_temp[i] != '=')
@@ -398,7 +398,7 @@ void	env_mtx_update(t_shell **shell, t_env *current, int env_n)
 
 	if ((*shell)->env && (*shell)->paths_mtx)
 		free_env_mtx((*shell)->env_mtx, env_n, (*shell)->paths_mtx, (*shell)->paths_n);
-	(*shell)->env_mtx = (char **)ff_calloc(env_n, sizeof(char *));
+	(*shell)->env_mtx = (char **)ft_calloc(env_n + 1, sizeof(char *));
 	env_mtx = (*shell)->env_mtx;
 	while (current)
 	{
@@ -407,7 +407,7 @@ void	env_mtx_update(t_shell **shell, t_env *current, int env_n)
 		(*shell)->paths_n = (*shell)->count;
 		var_len = strlen(current->var);
 		msg_len = strlen(current->msg);
-		*env_mtx = (char *)ff_calloc(var_len + msg_len + 2, sizeof(char));
+		*env_mtx = (char *)ft_calloc(var_len + msg_len + 2, sizeof(char));
 		ft_strlcpy(*env_mtx, current->var, var_len + 1);
 		ft_strlcpy(*env_mtx + var_len, "=", 2);
 		ft_strlcpy(*env_mtx + var_len + 1, current->msg, msg_len + 1);

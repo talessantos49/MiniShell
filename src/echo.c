@@ -85,7 +85,7 @@ void	c_echo(t_shell **shell)
 		return ;
 	flag = flag_echo(shell);
 	temp_line = (*shell)->line;
-	temp_node = (t_env *)ff_calloc(1, sizeof (t_env));
+	temp_node = (t_env *)ft_calloc(1, sizeof (t_env));
 	if ((find(temp_line, '$')) == 1)
 	{
 		while (temp_line[i])

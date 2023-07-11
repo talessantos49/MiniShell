@@ -15,7 +15,7 @@ static char	*ff_strjoin(char *s1, char *s2)
 		ln1++;
 	while (*++ptr_2)
 		ln2++;
-	ptr = ff_calloc((ln1 + ln2) + 2, sizeof(char));
+	ptr = ft_calloc((ln1 + ln2) + 2, sizeof(char));
 	ptr_2 = (ptr + ln1);
 	ptr_2++;
 	if (ptr != NULL)
