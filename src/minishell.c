@@ -15,10 +15,26 @@
 char *is_special(t_shell **shell, t_block *current, char *line, char *specials);
 char *special_cases(t_shell **shell, t_block *current, char *line);
 
+void quote_clean(t_block *current, t_cmd **command, char quote)
+{
+	char *quote_ptr;
+
+	current->cmd = ft_strtrim((*command)->arg, &quote);
+	quote_ptr = current->cmd;
+	while (quote_ptr)
+	{
+		quote_ptr = ft_strchr(quote_ptr, (*command)->quote);
+		if (!quote_ptr)
+			break;
+		quote_ptr[0] = 1;
+		quote_ptr += 1;
+	}
+}
+
 void args_matrix(t_block *current)
 {
-	t_cmd *current_cmd;
-	int index;
+	t_cmd	*current_cmd;
+	int		index;
 
 	if (!current->commands)
 		return ;
@@ -28,7 +44,7 @@ void args_matrix(t_block *current)
 	while (current_cmd && ++index < current->commands_n)
 	{
 		if (!index)
-			current->cmd = ft_strtrim(current_cmd->arg, &current_cmd->quote);
+			quote_clean(current, &current_cmd, current_cmd->quote);		
 		current->args[index] = current_cmd->arg;
 		current_cmd = current_cmd->next;
 	}
@@ -67,37 +83,6 @@ char	*is_var(t_shell **shell, t_block *current, char *line)
 	return (line_tmp);
 }
 
-char	*is_no_word(t_shell **shell, t_block *current, char *line)
-{
-	char *line_tmp;
-
-	while (*line && line == is_special(shell, current, line, SPECIALS))
-	{
-		line_tmp = is_var(shell, current, line);
-		if (line_tmp != line)
-			return (line_tmp);
-		if (*line == '\'' || *line == '\"')
-		{
-			current->quote = *line;
-			while (*++line != current->quote)
-			{
-				line_tmp = is_var(shell, current, line);
-				if (line_tmp != line)
-					return (line_tmp);
-				if (!*line)
-					here_doc_exec(current, "\n");
-			}
-			line++;
-			break; 
-		}
-		else
-			line++;
-		if (line != is_spaces(line, SPACES))
-			break;
-	}
-	return (line);
-}
-
 void new_command(t_block *current)
 {
 	current->commands_n += 1;
@@ -115,6 +100,106 @@ void new_command(t_block *current)
 	}
 	current->quote = 0;
 }
+
+char *quote_append(char **current, char* append, int newline)
+{
+	char	*new;
+	char	*new_appd;
+	int		appd_len;
+	int		crrt_len; 
+
+	if (!*current)
+		*current = "";
+	crrt_len = ft_strlen(*current);
+	appd_len = ft_strlen(append);
+	new = (char *)ff_calloc((crrt_len + appd_len) + newline, sizeof(char));
+	new_appd = new + crrt_len + newline;
+	ft_strlcpy(new, *current, (crrt_len + appd_len) + 1);
+	ft_strlcpy(new_appd - 1, "\n", (newline * 2));
+	ft_strlcpy(new_appd, append, appd_len + 1);
+	safe_free((void **)current);
+	return (new);
+}
+
+int quote_nested(char *string, char quote)
+{
+	char	*quote_pair;
+
+	while (*string)
+	{
+		quote_pair = ft_strchr(string, quote);
+		quote_pair = ft_strchr(quote_pair + 1, quote);
+		if (!quote_pair)
+			return (1);
+		else
+			string = quote_pair + 1;
+	}
+	return (0);
+}
+
+
+char *quote_unclosed(t_block *current, char *input)
+{
+	char	**final_str;
+	char	*quote_break;
+	
+	quote_break = NULL;
+	new_command(current);
+    signal_listener(signal_set, handle_sigint);
+	final_str = &current->commands->arg;
+	*final_str = quote_append(&current->commands->arg, input, 0);
+	while (1 && !quote_break)
+	{
+		input = readline("> ");
+		*final_str = quote_append(&current->commands->arg, input, 1);
+		if (quote_nested(input, current->current_command->quote))
+			break;
+	}
+	add_history(*final_str);
+	return ("\0");
+}
+
+int	 is_quote(t_block *current, char line)
+{
+	if (line == '\'')
+		current->quote = '\'';
+	else if (line == '\"')
+		current->quote = '\"';
+	else
+		return (0);
+	return (1);
+}
+
+char	*is_no_word(t_shell **shell, t_block *current, char *line)
+{
+	char *line_tmp;
+
+	while (*line && line == is_special(shell, current, line, SPECIALS))
+	{
+		line_tmp = is_var(shell, current, line);
+		if (line_tmp != line)
+			return (line_tmp);
+		if (is_quote(current, *line))
+		{
+			while (*++line != current->quote)
+			{
+				if (!*line)
+					return (quote_unclosed(current, line_tmp));
+				line_tmp = is_var(shell, current, line);
+				if (line_tmp != line)
+					return (line_tmp);
+			}
+			line++;
+			break; 
+		}
+		else
+			line++;
+		if (line != is_spaces(line, SPACES))
+			break;
+	}
+	return (line);
+}
+
 
 char *is_command(t_shell **shell, t_block *current, char *line)
 {

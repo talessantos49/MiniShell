@@ -10,10 +10,10 @@ void    restore_std_io(int *std_io)
 
 void    safe_free(void **ptr)
 {
-    unsigned char   *test_chr;
+    unsigned char **ptr_str;
 
-    test_chr = *ptr;
-    if (*ptr != NULL && *test_chr != 0)
+    ptr_str = (unsigned char **)ptr;
+    if (*ptr != NULL && **ptr_str != 0)
     {
         free(*ptr);
         *ptr = NULL;
