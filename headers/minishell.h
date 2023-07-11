@@ -56,6 +56,15 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }					t_cmd;
 
+typedef struct s_env
+{
+	char			*var;
+	char			*msg;
+	int				type;
+	struct s_env	*prev;
+	struct s_env	*next;
+}	t_env;
+
 typedef struct s_block
 {
 	char			*heredoc_name;
