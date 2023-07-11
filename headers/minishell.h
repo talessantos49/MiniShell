@@ -121,29 +121,6 @@ typedef struct s_shell
 	t_block		*pipelist;
 	t_env		*env;
 }				t_shell;
-	t_env;
-
-typedef struct s_shell
-{
-	int			status;
-	char		**env_mtx;
-	char		**paths_mtx;
-	char		*cmd;
-	char		*command;
-	char		*content;
-	char		*flag;
-	char		*heredoc_name;
-	int			exit_code;
-	int			count;
-	int			env_n;
-	int			paths_n;
-	int			pipelist_n;
-	int			std_io[2];
-	pid_t		pid;
-	t_block		*pipelist;
-	t_env		*env;
-}				t_shell;
-
 
 // base
 char	*make_text(void);
