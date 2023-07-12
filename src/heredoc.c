@@ -2,16 +2,15 @@
 
 static int signal_handle(char *delimiter)
 {
-    if (g_signal == SIGQUIT)
-        return (1);
-    else if (g_signal == SIGINT)
-    {
-        ft_putstr_fd(HDSIGQUIT1, STDERR_FILENO);
-        ft_putstr_fd(delimiter, STDERR_FILENO);
-        ft_putstr_fd(HDSIGQUIT2, STDERR_FILENO);
-        return (1);
-    }
-    return (0);
+	if (g_signal == SIGQUIT)
+	{
+		ft_putstr_fd(HDSIGQUIT1, STDERR_FILENO);
+		ft_putstr_fd(delimiter, STDERR_FILENO);
+		ft_putstr_fd(HDSIGQUIT2, STDERR_FILENO);
+	}
+	if (g_signal)
+		return (1);
+	return (0);
 }
 
 void heredoc_name_setup(t_shell **shell, t_block *current)
@@ -38,18 +37,19 @@ void here_doc_exec(t_block *current, char *delimiter)
 
 	heredoc_name = current->heredoc_name;
 	current->fd[0] = open(heredoc_name, O_CREAT | O_RDWR, 0644);
-    signal_listener(signal_set, handle_sigint);
+    signal_listener(signal_set, signal_set);
 	while (1)
 	{
 		user_input = readline("> ");
-		signal_handle(delimiter);
 		user_input_len = ft_strlen(user_input);
-		if (!strcmp_mod(user_input, delimiter))
+		if (g_signal || !strcmp_mod(user_input, delimiter))
 			break;
 		write(current->fd[0], user_input, user_input_len);
 		write(current->fd[0], "\n", 1);
 	}
 	close(current->fd[0]);
+	if (signal_handle(delimiter))
+		return;
 	current->fd[0] = open(heredoc_name, O_RDONLY);
 }
 
