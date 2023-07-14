@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:14:03 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/10 07:05:01 by root             ###   ########.fr       */
+/*   Updated: 2023/07/14 20:23:24 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,35 @@
 // 	if (!(*shell)->flag || strcmp_mod((*shell)->flag, "-n"))
 // 		printf("\n");
 // }
+
+void	print_args_echo(t_cmd *list)
+{
+	t_cmd	*temp;
+	char	*cmd;
+	char	*flag;
+
+	flag = "-n";
+	cmd = "echo";
+	temp = list;
+	while (temp != NULL)
+	{
+		if (!strcmp_mod(temp->arg, cmd))
+			temp = temp->next;
+		else if (!strcmp_mod(temp->arg, flag))
+			temp = temp->next;
+		else if (temp->next != NULL)
+		{
+			printf("%s ", temp->arg);
+			temp = temp->next;
+		}
+		else
+		{
+			printf("%s", temp->arg);
+			temp = temp->next;
+		}
+	}
+}
+
 
 char	*flag_echo(t_shell **shell)
 {
@@ -148,7 +177,7 @@ char	*flag_echo(t_shell **shell)
 void	c_echo(t_shell **shell)
 {
 	// t_env	*temp_node;
-	char	*temp_line;
+	// char	*temp_line;
 	// char	*temp_variable;
 	char	*flag;
 	// int		i;
@@ -164,7 +193,7 @@ void	c_echo(t_shell **shell)
 	if ((*shell)->line == NULL)
 		return ;
 	flag = flag_echo(shell);
-	temp_line = (*shell)->line;
+	// temp_line = (*shell)->line;
 	// temp_line = (*shell)->parser->content;
 	// temp_line = ft_strdup((*shell)->line1);
 	// temp_node = (t_env *)ff_calloc(1, sizeof (t_env));
@@ -213,7 +242,8 @@ void	c_echo(t_shell **shell)
 	// else
 	// arrumar pra quando tiver mais de uma variavel com entrada $var
 	//Arrumar problema com aspas duplas e simples
-		printf("%s", temp_line);
+		print_args_echo((*shell)->pipelist->commands);
+		// printf("line : %s", temp_line);
 	if (strcmp_mod(flag, "-n"))
 		printf("\n");
 	(*shell)->exit_code = 0;
