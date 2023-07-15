@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   flags.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/15 20:21:13 by root              #+#    #+#             */
+/*   Updated: 2023/07/15 20:21:19 by root             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../headers/minishell.h"
 
 char	verify_flags(t_shell **shell, char *pattern)
@@ -17,7 +29,6 @@ char	verify_flags(t_shell **shell, char *pattern)
 	}
 	return (letter);
 }
-
 
 int	is_flag_null(t_shell **shell, char *pattern)
 {

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/15 20:21:30 by root              #+#    #+#             */
+/*   Updated: 2023/07/15 20:22:55 by root             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../headers/minishell.h"
 
-static int signal_handle(char *delimiter)
+static int	signal_handle(char *delimiter)
 {
 	if (g_signal == SIGQUIT)
 	{
@@ -13,10 +25,10 @@ static int signal_handle(char *delimiter)
 	return (0);
 }
 
-void heredoc_name_setup(t_shell **shell, t_block *current)
+void	heredoc_name_setup(t_shell **shell, t_block *current)
 {
 	if (!(*shell)->heredoc_name)
-		(*shell)->heredoc_name = ft_substr(HEREDOCNAME, 0, 6) ;
+		(*shell)->heredoc_name = ft_substr(HEREDOCNAME, 0, 6);
 	else if ((*shell)->heredoc_name)
 	{
 		if ((*shell)->heredoc_name[5] == '9')
@@ -29,7 +41,7 @@ void heredoc_name_setup(t_shell **shell, t_block *current)
 	current->heredoc_name = ft_substr((*shell)->heredoc_name, 0, 6);
 }
 
-void here_doc_exec(t_block *current, char *delimiter)
+void	here_doc_exec(t_block *current, char *delimiter)
 {
 	char	*heredoc_name;
 	char	*user_input;
@@ -37,27 +49,27 @@ void here_doc_exec(t_block *current, char *delimiter)
 
 	heredoc_name = current->heredoc_name;
 	current->fd[0] = open(heredoc_name, O_CREAT | O_RDWR, 0644);
-    signal_listener(signal_set, signal_set);
+	signal_listener(signal_set, signal_set);
 	while (1)
 	{
 		user_input = readline("> ");
 		user_input_len = ft_strlen(user_input);
 		if (g_signal || !strcmp_mod(user_input, delimiter))
-			break;
+			break ;
 		write(current->fd[0], user_input, user_input_len);
 		write(current->fd[0], "\n", 1);
 	}
 	close(current->fd[0]);
 	if (signal_handle(delimiter))
-		return;
+		return ;
 	current->fd[0] = open(heredoc_name, O_RDONLY);
 }
 
-char *here_doc_setup(t_shell **shell, t_block *current, char *line)
+char	*here_doc_setup(t_shell **shell, t_block *current, char *line)
 {
-	char *line_tmp;
-	int  line_diff;
-	char *delimiter;
+	char	*line_tmp;
+	int		line_diff;
+	char	*delimiter;
 
 	current->set = 3;
 	line = is_spaces(line, SPACES);

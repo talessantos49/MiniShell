@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/15 19:57:08 by root              #+#    #+#             */
+/*   Updated: 2023/07/15 20:13:35 by root             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../headers/minishell.h"
 
-void close_all_pipes(t_block *current)
+void	close_all_pipes(t_block *current)
 {
 	while (current && current->pipe[0])
 	{
@@ -10,7 +22,7 @@ void close_all_pipes(t_block *current)
 	}
 }
 
-void pipeline_manager(t_shell **shell, t_block *current)
+void	pipeline_manager(t_shell **shell, t_block *current)
 {
 	if (current->fd[0])
 	{
@@ -29,22 +41,14 @@ void pipeline_manager(t_shell **shell, t_block *current)
 	}
 }
 
-static void	signal_handle(t_shell **shell)
+void	child(t_shell **shell, t_block *current)
 {
-	signal_listener(NULL, signal_set);
-	if (shell)
-		shell = NULL;
-	// if (g_signal == SIGINT)
-	// 	handle_sigint(shell);
-}
-
-void child(t_shell **shell, t_block *current)
-{
-	signal_handle(shell);
+	signal_handled_exec(shell);
+	// signal_handled(shell);
 	pipeline_manager(shell, current);
 	if (current->built_in)
 	{
-		current->built_in(shell); 
+		current->built_in(shell);
 		if (!((*shell)->pipelist == current && current->pipe[0] == 0))
 			exit(0);
 		else
@@ -57,14 +61,13 @@ void child(t_shell **shell, t_block *current)
 	}
 }
 
-int command_validate(t_shell **shell, t_block *current)
+int	command_validate(t_shell **shell, t_block *current)
 {
 	char	*cmd_tmp;
 	char	*cmd_tmp2;
 	int		i;
 
 	i = -1;
-
 	while (++i < (*shell)->paths_n)
 	{
 		cmd_tmp = ft_strjoin((*shell)->paths_mtx[i], "/");
@@ -85,21 +88,21 @@ int command_validate(t_shell **shell, t_block *current)
 		return (0);
 	}
 	perror_free(": command not found", current->cmd);
-	return(1);
+	return (1);
 }
 
-void execution(t_shell **shell, t_block *current)
+void	execution(t_shell **shell, t_block *current)
 {
 	while (current && current->commands)
 	{
-		if(!current->built_in && command_validate(shell, current))
+		if (!current->built_in && command_validate(shell, current))
 		{
 			current = current->next;
-			continue;
+			continue ;
 		}
 		signal_listener(NULL, SIG_IGN);
-		if (!((*shell)->pipelist == current && current->pipe[0] == 0) 
-		|| !current->built_in)
+		if (!((*shell)->pipelist == current && current->pipe[0] == 0)
+			|| !current->built_in)
 			(*shell)->pid = fork();
 		if (!(*shell)->pid)
 			child(shell, current);

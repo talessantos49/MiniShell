@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/15 20:02:11 by root              #+#    #+#             */
+/*   Updated: 2023/07/15 20:05:38 by root             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../headers/minishell.h"
 
 void	print_export(t_shell **shell)
@@ -34,7 +46,6 @@ void	c_export(t_shell **shell)
 
 void	add_export(t_shell **shell)
 {
-
 	if (!is_args(shell))
 		return ;
 }

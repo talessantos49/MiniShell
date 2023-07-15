@@ -6,13 +6,13 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:13:26 by macarval          #+#    #+#             */
-/*   Updated: 2023/06/21 19:47:17 by root             ###   ########.fr       */
+/*   Updated: 2023/07/15 19:48:33 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-void *is_built_in(char *command)
+void	*is_built_in(char *command)
 {
 	if (!strcmp_mod(command, "cd"))
 		return (c_cd);

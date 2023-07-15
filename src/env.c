@@ -1,28 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/15 19:49:18 by root              #+#    #+#             */
+/*   Updated: 2023/07/15 19:51:42 by root             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../headers/minishell.h"
 
 void	c_env(t_shell **shell)
 {
-	int var_len;
-	int msg_len;
+	int	var_len;
+	int	msg_len;
 
 	shell = (shell);
-    if (!is_flag_null(shell, ""))
-        return ;
-    while ((*shell)->env != NULL)
-    {
-        if ((*shell)->env->type != LOCAL && (*shell)->env->msg)
+	if (!is_flag_null(shell, ""))
+		return ;
+	while ((*shell)->env != NULL)
+	{
+		if ((*shell)->env->type != LOCAL && (*shell)->env->msg)
 		{
 			var_len = ft_strlen((*shell)->env->var);
 			msg_len = ft_strlen((*shell)->env->msg);
-            write(1, (*shell)->env->var, var_len);
+			write(1, (*shell)->env->var, var_len);
 			write(1, "=", 1);
-            write(1, (*shell)->env->msg, msg_len);
+			write(1, (*shell)->env->msg, msg_len);
 			write(1, "\n", 1);
 		}
-        (*shell)->env = (*shell)->env->next;
-    }
+		(*shell)->env = (*shell)->env->next;
+	}
 }
-
 
 t_env	*insert_front(t_env *new, char *var, char *msg, int type)
 {

@@ -6,16 +6,13 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 16:31:09 by root              #+#    #+#             */
-/*   Updated: 2023/07/15 19:41:49 by root             ###   ########.fr       */
+/*   Updated: 2023/07/15 20:43:26 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-/// @brief / Add node to the end of the list
-/// @param list 		pointer to the list
-/// @param node 		pointer to the node
-void add_node(t_env **list, t_env *node)
+void	add_node(t_env **list, t_env *node)
 {
 	t_env	*temp;
 
@@ -31,13 +28,13 @@ void add_node(t_env **list, t_env *node)
 	node->prev = temp;
 }
 
-char *is_enviroment_definition(t_shell **shell, char *line)
+char	*is_enviroment_definition(t_shell **shell, char *line)
 {
 	char	*line_temp;
 	char	*str_temp;
 	t_env	*new_arg;
-	int	i;
-	int	k;
+	int		i;
+	int		k;
 
 	line_temp = line;
 	i = 0;
@@ -45,10 +42,10 @@ char *is_enviroment_definition(t_shell **shell, char *line)
 	new_arg = (t_env *)ft_calloc(1, sizeof(t_env));
 	if ((find(line_temp, '=')) == 1)
 	{
-		while(line_temp[i] != '=')
+		while (line_temp[i] != '=')
 			i++;
 		k = i;
-		while((line_temp[k] != ' ' && line_temp[k] != '\0') || k == 0)
+		while ((line_temp[k] != ' ' && line_temp[k] != '\0') || k == 0)
 			k--;
 		str_temp = ft_substr(line_temp, k + 1, i - k);
 		str_temp = ft_substr(str_temp, 0, ft_strlen(str_temp) - 1);
@@ -62,7 +59,7 @@ char *is_enviroment_definition(t_shell **shell, char *line)
 	return (line);
 }
 
-char *change_enviroment(t_shell **shell, char *line)
+char	*change_enviroment(t_shell **shell, char *line)
 {
 	char	*temp_line;
 	char	*temp_variable;
@@ -80,7 +77,8 @@ char *change_enviroment(t_shell **shell, char *line)
 			if (temp_line[i] == '$')
 			{
 				k = i + 1;
-				while (temp_line[k] && temp_line[k] != ' ' && temp_line[k] != '$')
+				while (temp_line[k] && temp_line[k] != ' '
+					&& temp_line[k] != '$')
 					k++;
 				temp_variable = (char *)calloc(k - i + 1, sizeof(char));
 				temp_variable = ft_substr(temp_line, i + 1, k - i);
@@ -97,7 +95,7 @@ char *change_enviroment(t_shell **shell, char *line)
 						searched_variable = "";
 				}
 				temp_variable = ft_strjoin("$", temp_variable);
-				replaceWord(temp_line, temp_variable, searched_variable);
+				replace_word(temp_line, temp_variable, searched_variable);
 			}
 			i++;
 		}
@@ -106,41 +104,36 @@ char *change_enviroment(t_shell **shell, char *line)
 	return (temp_line);
 }
 
-void replaceWord(char* sentence, const char* wordToReplace, const char* replacement)
+void	replace_word(char *sentence, const char *word_replace,
+			const char *replacement)
 {
-    char* foundWord = strstr(sentence, wordToReplace);
-    if (foundWord != NULL)
-    {
-        size_t wordToReplaceLength = strlen(wordToReplace);
-        size_t replacementLength = strlen(replacement);
+	char	*found_word;
+	char	*new_sentence;
+	size_t	word_replace_len;
+	size_t	replacement_len;
+	size_t	new_sentence_len;
+	int		offset;
 
-        int offset = replacementLength - wordToReplaceLength;
-        size_t newSentenceLength = strlen(sentence) + offset + 1;
-
-        // Aloca memória para a nova string
-        char* newSentence = malloc(newSentenceLength);
-        if (newSentence == NULL)
-        {
-            printf("Erro ao alocar memória\n");
-            return;
-        }
-
-        // Copia a parte da string antes da palavra a ser substituída
-        strncpy(newSentence, sentence, foundWord - sentence);
-        newSentence[foundWord - sentence] = '\0';
-
-        // Concatena a substituição na nova string
-        strcat(newSentence, replacement);
-
-        // Concatena a parte da string após a palavra a ser substituída
-        strcat(newSentence, foundWord + wordToReplaceLength);
-
-        // Copia a nova string de volta para a string original
-        strcpy(sentence, newSentence);
-
-        // Libera a memória alocada
-        free(newSentence);
-    }
+	found_word = strstr(sentence, word_replace);
+	if (found_word != NULL)
+	{
+		word_replace_len = ft_strlen(word_replace);
+		replacement_len = ft_strlen(replacement);
+		offset = replacement_len - word_replace_len;
+		new_sentence_len = ft_strlen(sentence) + offset + 1;
+		new_sentence = malloc(new_sentence_len);
+		if (new_sentence == NULL)
+		{
+			printf("Erro ao alocar memória\n");
+			return ;
+		}
+		strncpy(new_sentence, sentence, found_word - sentence);
+		new_sentence[found_word - sentence] = '\0';
+		strcat(new_sentence, replacement);
+		strcat(new_sentence, found_word + word_replace_len);
+		strcpy(sentence, new_sentence);
+		free(new_sentence);
+	}
 }
 
 // size_t	ft_strlcpy_open(char *dst, const char *src, size_t dstsize)
@@ -164,4 +157,41 @@ void replaceWord(char* sentence, const char* wordToReplace, const char* replacem
 // 		}
 // 	}
 // 	return (len);
+// }
+
+// void replaceWord(char* sentence, const char* wordToReplace, const char* replacement)
+// {
+//     char* foundWord = strstr(sentence, wordToReplace);
+//     if (foundWord != NULL)
+//     {
+//         size_t wordToReplaceLength = strlen(wordToReplace);
+//         size_t replacementLength = strlen(replacement);
+
+//         int offset = replacementLength - wordToReplaceLength;
+//         size_t newSentenceLength = strlen(sentence) + offset + 1;
+
+//         // Aloca memória para a nova string
+//         char* newSentence = malloc(newSentenceLength);
+//         if (newSentence == NULL)
+//         {
+//             printf("Erro ao alocar memória\n");
+//             return;
+//         }
+
+//         // Copia a parte da string antes da palavra a ser substituída
+//         strncpy(newSentence, sentence, foundWord - sentence);
+//         newSentence[foundWord - sentence] = '\0';
+
+//         // Concatena a substituição na nova string
+//         strcat(newSentence, replacement);
+
+//         // Concatena a parte da string após a palavra a ser substituída
+//         strcat(newSentence, foundWord + wordToReplaceLength);
+
+//         // Copia a nova string de volta para a string original
+//         strcpy(sentence, newSentence);
+
+//         // Libera a memória alocada
+//         free(newSentence);
+//     }
 // }

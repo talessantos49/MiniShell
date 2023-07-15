@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   args.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/15 19:46:47 by root              #+#    #+#             */
+/*   Updated: 2023/07/15 19:47:17 by root             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../headers/minishell.h"
 
 void	free_split(char ***split)
@@ -23,7 +35,7 @@ t_env	*find_arg(t_shell **shell, char *var)
 			return (temp);
 		temp = temp->next;
 	}
-	return NULL;
+	return (NULL);
 }
 
 int	is_args(t_shell **shell)
@@ -51,6 +63,3 @@ void	apart_args(t_shell **shell, char c, void (*function)(t_shell **shell))
 	}
 	free_split(&split);
 }
-
-
-

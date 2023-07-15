@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:52:02 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/15 19:42:32 by root             ###   ########.fr       */
+/*   Updated: 2023/07/15 20:42:23 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ void    free_pipe_list(t_shell **shell, t_block *current);
 void	perror_free(char *type, char *name);
 void    safe_free(void **ptr);
 
+
 // Split
 char	**split_commands(t_shell **shell, char *s, char c);
 
@@ -179,8 +180,12 @@ void	print_flag_error(char *command, char *flag, int flag_len, int cmd_len);
 char	*is_enviroment_definition(t_shell **shell, char *line);
 void	add_node(t_env **list, t_env *node);
 char	*change_enviroment(t_shell **shell, char *line);
-void	replaceWord(char *sentence, const char *wordToReplace, const char *replacement);
+void	replace_word(char *sentence, const char *wordToReplace, const char *replacement);
 t_env	*find_arg(t_shell **shell, char *var);
 
+void	signal_handled_exec(t_shell **shell);
+
+// void	signal_handled(t_shell **shell);
+// static void	signal_handled(t_shell **shell);
 
 #endif
