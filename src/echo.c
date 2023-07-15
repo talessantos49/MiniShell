@@ -6,11 +6,39 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:14:03 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/03 15:43:17 by root             ###   ########.fr       */
+/*   Updated: 2023/07/15 19:32:32 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
+
+void	print_args_echo(t_cmd *list)
+{
+	t_cmd	*temp;
+	char	*cmd;
+	char	*flag;
+
+	flag = "-n";
+	cmd = "echo";
+	temp = list;
+	while (temp != NULL)
+	{
+		if (!strcmp_mod(temp->arg, cmd))
+			temp = temp->next;
+		else if (!strcmp_mod(temp->arg, flag))
+			temp = temp->next;
+		else if (temp->next != NULL)
+		{
+			printf("%s ", temp->arg);
+			temp = temp->next;
+		}
+		else
+		{
+			printf("%s", temp->arg);
+			temp = temp->next;
+		}
+	}
+}
 
 char	*flag_echo(t_shell **shell)
 {
@@ -18,11 +46,12 @@ char	*flag_echo(t_shell **shell)
 	char	*flag;
 	char	*test;
 
-	test= "-n";
+	test = "-n";
 	temp_line = (*shell)->line;
 	if ((*shell)->line == NULL)
 		return (NULL);
-	if ((*shell)->flag != NULL && (*shell)->flag[0] == test[0] && (*shell)->flag[1] == test[1])
+	if ((*shell)->flag != NULL && (*shell)->flag[0] == test[0]
+		&& (*shell)->flag[1] == test[1])
 	{
 		flag = ft_strdup("-n");
 		if (temp_line[0] == test[0] && temp_line[1] == test[1])
@@ -37,43 +66,12 @@ char	*flag_echo(t_shell **shell)
 
 void	c_echo(t_shell **shell)
 {
-	// t_env	*temp_node;
-	char	*temp_line;
 	char	*flag;
-	int		i;
-	int		len_var;
 
-	i = 0;
-	len_var = 0;
 	if ((*shell)->line == NULL)
 		return ;
 	flag = flag_echo(shell);
-	temp_line = (*shell)->line;
-	// temp_node = (t_env *)ft_calloc(1, sizeof (t_env));
-	if ((find(temp_line, '$')) == 1)
-	{
-		while (temp_line[i])
-		{
-			if (temp_line[i] == '$' && temp_line[i + 1] == '?')
-			{
-				i++;
-				printf("%d", (*shell)->exit_code);
-			}
-			else if (temp_line[i] == '$')
-			{
-				temp_line += i;
-				// temp_node = find_arg(shell, ++temp_line);
-				// printf("%s", temp_node->msg);
-				// len_var = ft_strlen(temp_node->msg);
-			}
-			else
-				printf("%c", temp_line[i]);
-			i++;
-			i = i + len_var;
-		}
-	}
-	else
-		printf("%s", temp_line);
+	print_args_echo((*shell)->pipelist->commands);
 	if (strcmp_mod(flag, "-n"))
 		printf("\n");
 	(*shell)->exit_code = 0;

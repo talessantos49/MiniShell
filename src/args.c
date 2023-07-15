@@ -12,6 +12,20 @@ void	free_split(char ***split)
 	free(*split);
 }
 
+t_env	*find_arg(t_shell **shell, char *var)
+{
+	t_env	*temp;
+
+	temp = (*shell)->env;
+	while (temp != NULL)
+	{
+		if (!strcmp_mod(temp->var, var))
+			return (temp);
+		temp = temp->next;
+	}
+	return NULL;
+}
+
 int	is_args(t_shell **shell)
 {
 	if ((*shell)->content[0] == '=' || ft_isdigit((*shell)->content[0]))
