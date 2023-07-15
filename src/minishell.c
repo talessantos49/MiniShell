@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 18:02:28 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/10 14:30:06 by root             ###   ########.fr       */
+/*   Updated: 2023/07/15 08:54:35 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,8 +184,6 @@ char *is_file_io(t_shell **shell, t_block *current, char *line)
 	return(line + line_diff);
 } 
 
-
-
 char *special_cases(t_shell **shell, t_block *current, char *line)
 {
 	if (*line == '<' && *++line)
@@ -256,25 +254,6 @@ int	find(char *string1, char c)
 	return (0);
 }
 
-/// @brief / Add node to the end of the list
-/// @param list 		pointer to the list
-/// @param node 		pointer to the node
-void add_node(t_env **list, t_env *node)
-{
-	t_env	*temp;
-
-	temp = *list;
-	if (temp == NULL)
-	{
-		*list = node;
-		return ;
-	}
-	while (temp->next != NULL)
-		temp = temp->next;
-	temp->next = node;
-	node->prev = temp;
-}
-
 // void	print_list(t_env *list)
 // {
 // 	t_env	*temp;
@@ -288,254 +267,67 @@ void add_node(t_env **list, t_env *node)
 // 	}
 // }
 
-size_t	ft_strlcpy_open(char *dst, const char *src, size_t dstsize)
-{	
-	size_t	len;
-	size_t	control;
-	size_t	i;
 
-	len = ft_strlen(src);
-	i = 0;
-	if (dstsize)
-	{
-		if (dstsize > len)
-			control = len;
-		else
-			control = dstsize - 1;
-		while (i < control)
-		{
-			dst[i] = src[i];
-			i++;
-		}
-	}	
-	return (len);
-}
+// char *replace_string(char *string, char *src, char *dest)
+// {
+// 	char	*temp_string;
+// 	int		string_len;
+// 	int		src_len;
+// 	int		dest_len;
+// 	char	*teste;
+// 	int		i;
+// 	int		k;
+// 	int		len_total;
 
-void replaceWord(char* sentence, const char* wordToReplace, const char* replacement) {
-    char* foundWord = strstr(sentence, wordToReplace);
-    if (foundWord != NULL) {
-        size_t wordToReplaceLength = strlen(wordToReplace);
-        size_t replacementLength = strlen(replacement);
-
-        int offset = replacementLength - wordToReplaceLength;
-        size_t newSentenceLength = strlen(sentence) + offset + 1;
-
-        // Aloca memória para a nova string
-        char* newSentence = malloc(newSentenceLength);
-        if (newSentence == NULL) {
-            printf("Erro ao alocar memória\n");
-            return;
-        }
-
-        // Copia a parte da string antes da palavra a ser substituída
-        strncpy(newSentence, sentence, foundWord - sentence);
-        newSentence[foundWord - sentence] = '\0';
-
-        // Concatena a substituição na nova string
-        strcat(newSentence, replacement);
-
-        // Concatena a parte da string após a palavra a ser substituída
-        strcat(newSentence, foundWord + wordToReplaceLength);
-
-        // Copia a nova string de volta para a string original
-        strcpy(sentence, newSentence);
-
-        // Libera a memória alocada
-        free(newSentence);
-    }
-}
-
-// void replaceWord(char* sentence, const char* wordToReplace, const char* replacement) {
-//     char* foundWord = strstr(sentence, wordToReplace);
-//     if (foundWord != NULL) {
-//         size_t wordToReplaceLength = strlen(wordToReplace);
-//         size_t replacementLength = strlen(replacement);
-
-//        ft_memmove(foundWord + replacementLength, foundWord + wordToReplaceLength, ft_strlen(foundWord + wordToReplaceLength) + 1);
-//     	ft_memcpy(foundWord, replacement, replacementLength);
-//     }
+// 	teste=string;
+// 	string_len = ft_strlen(string);
+// 	src_len = ft_strlen(src);
+// 	dest_len = ft_strlen(dest);
+// 	len_total = string_len - src_len + dest_len + 1;
+// 	printf("len_total = %d\n", len_total);
+// 	i = 0;
+// 	k = 0;
+// 	temp_string = (char *)calloc(string_len - src_len + dest_len + 1, sizeof(char));
+// 	// printf("temp_string = %s\n", temp_string);  TEM QUE LIDAR COM OS PROBLEMAS DE CONTINUAÇÃO DA STRING ---PRECISA VERIFICAR.
+// 	// printf("in string_len = %d\n", string_len);
+// 	// printf("in string = %s\n", string);
+// 	// printf("in temp_string = %s\n", temp_string);
+// 	while (string[i] || i < string_len)
+// 	{
+// 		if (string[i] == src[0])
+// 		{
+// 			if (ft_strncmp(&string[i], src, src_len) == 0)
+// 			{
+// 				while (dest[k])
+// 				{
+// 					temp_string[i + k] = dest[k];
+// 					k++;
+// 				}
+// 				i += src_len;
+// 				k = 0;
+// 			}
+// 			else
+// 				temp_string[i + k] = string[i];
+// 		}
+// 		else
+// 		{
+// 			temp_string[i + k] = string[i];
+// 			printf("string = %s\t", string);
+// 			printf("temp_string = %s\t", temp_string);
+// 			printf("[%d]\n", i);
+// 		}
+// 		i++;
+// 	}
+// 	temp_string[i + k] = '\0';
+// 	// printf("out temp_string_len = %ld\n", ft_strlen(temp_string));
+// 	// printf("out string_len = %d\n", string_len);
+// 	// printf("out string = %s\n", string);
+// 	printf("out temp_string = %s\n", temp_string);
+// 	// printf("-----------------------\n");
+// 	replaceWord(teste, src, dest);
+// 	printf("out teste = %s\n", teste);
+// 	return (temp_string);
 // }
-
-// #include <stdio.h>
-// #include <stdlib.h>
-// #include <string.h>
-
-// void replaceWord(char* sentence, const char* wordToReplace, const char* replacement) {
-//     char* foundWord = strstr(sentence, wordToReplace);
-//     if (foundWord != NULL) {
-//         size_t wordToReplaceLength = strlen(wordToReplace);
-//         size_t replacementLength = strlen(replacement);
-
-//         // Calcula o deslocamento necessário para a substituição
-//         int offset = replacementLength - wordToReplaceLength;
-
-//         // Calcula o novo tamanho da string
-//         size_t newSentenceLength = strlen(sentence) + offset + 1;
-
-//         // Aloca memória para a nova string
-//         char* newSentence = malloc(newSentenceLength);
-
-//         // Copia a parte da string antes da palavra a ser substituída
-//         strncpy(newSentence, sentence, foundWord - sentence);
-//         newSentence[foundWord - sentence] = '\0';
-
-//         // Concatena a substituição na nova string
-//         strcat(newSentence, replacement);
-
-//         // Concatena a parte da string após a palavra a ser substituída
-//         strcat(newSentence, foundWord + wordToReplaceLength);
-
-//         // Atualiza a string original com a nova string
-//         strcpy(sentence, newSentence);
-
-//         // Libera a memória alocada
-//         free(newSentence);
-//     }
-// }
-
-// int main() {
-//     char sentence[] = "echo teste1 $? teste2";
-//     char wordToReplace[] = "$?";
-//     char replacement[] = "10";
-
-//     printf("Antes: %s\n", sentence);
-//     replaceWord(sentence, wordToReplace, replacement);
-//     printf("Depois: %s\n", sentence);
-
-//     return 0;
-// }
-
-
-
-char *replace_string(char *string, char *src, char *dest)
-{
-	char	*temp_string;
-	int		string_len;
-	int		src_len;
-	int		dest_len;
-	char	*teste;
-	int		i;
-	int		k;
-	int		len_total;
-
-	teste=string;
-	string_len = ft_strlen(string);
-	src_len = ft_strlen(src);
-	dest_len = ft_strlen(dest);
-	len_total = string_len - src_len + dest_len + 1;
-	printf("len_total = %d\n", len_total);
-	i = 0;
-	k = 0;
-	temp_string = (char *)calloc(string_len - src_len + dest_len + 1, sizeof(char));
-	// printf("temp_string = %s\n", temp_string);  TEM QUE LIDAR COM OS PROBLEMAS DE CONTINUAÇÃO DA STRING ---PRECISA VERIFICAR.
-	// printf("in string_len = %d\n", string_len);
-	// printf("in string = %s\n", string);
-	// printf("in temp_string = %s\n", temp_string);
-	while (string[i] || i < string_len)
-	{
-		if (string[i] == src[0])
-		{
-			if (ft_strncmp(&string[i], src, src_len) == 0)
-			{
-				while (dest[k])
-				{
-					temp_string[i + k] = dest[k];
-					k++;
-				}
-				i += src_len;
-				k = 0;
-			}
-			else
-				temp_string[i + k] = string[i];
-		}
-		else
-		{
-			temp_string[i + k] = string[i];
-			printf("string = %s\t", string);
-			printf("temp_string = %s\t", temp_string);
-			printf("[%d]\n", i);
-		}
-		i++;
-	}
-	temp_string[i + k] = '\0';
-	// printf("out temp_string_len = %ld\n", ft_strlen(temp_string));
-	// printf("out string_len = %d\n", string_len);
-	// printf("out string = %s\n", string);
-	printf("out temp_string = %s\n", temp_string);
-	// printf("-----------------------\n");
-	replaceWord(teste, src, dest);
-	printf("out teste = %s\n", teste);
-	return (temp_string);
-}
-
-char *change_enviroment(t_shell **shell, char *line)
-{
-	char	*temp_line;
-	char	*temp_variable;
-	char	*searched_variable;
-	t_env	*temp_node;
-	int		i;
-	int		k;
-
-	i = 0;
-	temp_line = line;
-	if (find(temp_line, '$'))
-	{
-		while (temp_line[i])
-		{
-			if (temp_line[i] == '$')
-			{
-				k = i + 1;
-				while (temp_line[k] && temp_line[k] != ' ' && temp_line[k] != '$')
-					k++;
-				temp_variable = (char *)calloc(k - i + 1, sizeof(char));
-				temp_variable = ft_substr(temp_line, i + 1, k - i);
-				temp_node = find_arg(shell, temp_variable);
-				if (temp_node)
-					searched_variable = temp_node->msg;
-				else
-					searched_variable = "";
-				temp_variable = ft_strjoin("$", temp_variable);
-				replaceWord(temp_line, temp_variable, searched_variable);
-				// temp_line = replace_string(temp_line, temp_variable, searched_variable);
-			}
-			i++;
-		}
-	}
-	(*shell)->exit_code = 0;
-	return (temp_line);
-}
-
-char *is_enviroment_definition(t_shell **shell, char *line)
-{
-	char	*line_temp;
-	char	*str_temp;
-	t_env	*new_arg;
-	int	i;
-	int	k;
-
-	line_temp = line;
-	i = 0;
-	k = 0;
-	new_arg = (t_env *)ff_calloc(1, sizeof(t_env));
-	if ((find(line_temp, '=')) == 1)
-	{
-		while(line_temp[i] != '=')
-			i++;
-		k = i;
-		while((line_temp[k] != ' ' && line_temp[k] != '\0') || k == 0)
-			k--;
-		str_temp = ft_substr(line_temp, k + 1, i - k);
-		str_temp = ft_substr(str_temp, 0, ft_strlen(str_temp) - 1);
-		new_arg->len_var = ft_strlen(str_temp);
-		new_arg->var = str_temp;
-		new_arg->msg = ft_substr(line_temp, i + 1, ft_strlen(line_temp) - i);
-		new_arg->len_msg = ft_strlen(new_arg->msg);
-		new_arg->type = 1;
-		add_node(&(*shell)->env, new_arg);
-	}
-	return (line);
-}
 
 // void pipe_list_build(t_shell **shell, char *line)
 // {

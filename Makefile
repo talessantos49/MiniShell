@@ -6,7 +6,7 @@
 #    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 15:52:33 by macarval          #+#    #+#              #
-#    Updated: 2023/06/10 17:13:19 by root             ###   ########.fr        #
+#    Updated: 2023/07/15 08:55:00 by root             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,9 @@ FILES			= main.c \
 				clear.c \
 				args.c \
 				flags.c \
-				perror_free_exit.c
+				perror_free_exit.c \
+				enviroment.c
+
 FILES_BONUS		= minishell_bonus.c
 
 IFLAGS			= -I./libs/libft

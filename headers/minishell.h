@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:52:02 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/08 20:16:53 by root             ###   ########.fr       */
+/*   Updated: 2023/07/15 08:57:04 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,5 +182,8 @@ t_env	*find_arg(t_shell **shell, char *var);
 int		is_flag_null(t_shell **shell, char *pattern);
 void	print_flag_error(char *command, char *flag, int flag_len, int cmd_len);
 char	*is_enviroment_definition(t_shell **shell, char *line);
+void	add_node(t_env **list, t_env *node);
+char	*change_enviroment(t_shell **shell, char *line);
+void	replaceWord(char *sentence, const char *wordToReplace, const char *replacement);
 
 #endif
