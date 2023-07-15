@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 16:31:09 by root              #+#    #+#             */
-/*   Updated: 2023/07/15 08:56:06 by root             ###   ########.fr       */
+/*   Updated: 2023/07/15 19:41:49 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char *is_enviroment_definition(t_shell **shell, char *line)
 	line_temp = line;
 	i = 0;
 	k = 0;
-	new_arg = (t_env *)ff_calloc(1, sizeof(t_env));
+	new_arg = (t_env *)ft_calloc(1, sizeof(t_env));
 	if ((find(line_temp, '=')) == 1)
 	{
 		while(line_temp[i] != '=')
