@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:52:02 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/15 21:31:51 by root             ###   ########.fr       */
+/*   Updated: 2023/07/15 23:54:10 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_block
 	struct s_block	*next;
 	void			(*built_in)(void *shell);
 }					t_block;
+
 typedef struct s_shell
 {
 	char		**env_mtx;
