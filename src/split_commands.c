@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:29:21 by root              #+#    #+#             */
-/*   Updated: 2023/07/15 21:13:03 by root             ###   ########.fr       */
+/*   Updated: 2023/07/15 21:32:56 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ char	**split_commands(t_shell **shell, char *s, char c)
 	return (ft_mtx(shell, s, &c, NULL));
 }
 
-void new_command(t_block *current)
+void	new_command(t_block *current)
 {
 	current->commands_n += 1;
 	if (!current->current_command)
 	{
-	    current->current_command = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
+		current->current_command = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
 		current->current_command->quote = current->quote;
 		current->commands = current->current_command;
 	}

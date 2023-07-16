@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:52:02 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/15 21:13:43 by root             ###   ########.fr       */
+/*   Updated: 2023/07/15 21:31:51 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,5 +199,6 @@ char *special_cases(t_shell **shell, t_block *current, char *line);
 void args_matrix(t_block *current);
 void pipe_list_build(t_shell **shell, char *line);
 void	needs_env_update(t_shell **shell, t_env *current, int env_n);
+int	is_var(t_shell **shell, char *var);
 
 #endif

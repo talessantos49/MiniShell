@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:14:03 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/15 19:32:32 by root             ###   ########.fr       */
+/*   Updated: 2023/07/15 22:58:26 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,15 @@ char	*flag_echo(t_shell **shell)
 	char	*test;
 
 	test = "-n";
-	temp_line = (*shell)->line;
+	if ((*shell)->pipelist->commands->next == NULL)
+	{
+		flag = ft_strdup("");
+		return (NULL);
+	}
+	temp_line = (*shell)->pipelist->commands->next->arg;
 	if ((*shell)->line == NULL)
 		return (NULL);
-	if ((*shell)->flag != NULL && (*shell)->flag[0] == test[0]
-		&& (*shell)->flag[1] == test[1])
+	if (temp_line[0] == test[0] && temp_line[1] == test[1])
 	{
 		flag = ft_strdup("-n");
 		if (temp_line[0] == test[0] && temp_line[1] == test[1])
@@ -72,7 +76,8 @@ void	c_echo(t_shell **shell)
 		return ;
 	flag = flag_echo(shell);
 	print_args_echo((*shell)->pipelist->commands);
-	if (strcmp_mod(flag, "-n"))
+	if (flag == NULL || (*shell)->pipelist->commands->next == NULL || strcmp_mod(flag, "-n"))
 		printf("\n");
 	(*shell)->exit_code = 0;
+	free (flag);
 }

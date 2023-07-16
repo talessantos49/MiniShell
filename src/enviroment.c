@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 16:31:09 by root              #+#    #+#             */
-/*   Updated: 2023/07/15 20:43:26 by root             ###   ########.fr       */
+/*   Updated: 2023/07/15 22:55:55 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,23 @@ void	add_node(t_env **list, t_env *node)
 		temp = temp->next;
 	temp->next = node;
 	node->prev = temp;
+}
+
+void	change_var(t_shell **shell, char *var, char *msg)
+{
+	t_env	*temp;
+
+	temp = (*shell)->env;
+	while (temp != NULL)
+	{
+		if (!strcmp_mod(temp->var, var))
+		{
+			free(temp->msg);
+			temp->msg = ft_strdup(msg);
+			return ;
+		}
+		temp = temp->next;
+	}
 }
 
 char	*is_enviroment_definition(t_shell **shell, char *line)
@@ -49,12 +66,17 @@ char	*is_enviroment_definition(t_shell **shell, char *line)
 			k--;
 		str_temp = ft_substr(line_temp, k + 1, i - k);
 		str_temp = ft_substr(str_temp, 0, ft_strlen(str_temp) - 1);
-		new_arg->len_var = ft_strlen(str_temp);
-		new_arg->var = str_temp;
-		new_arg->msg = ft_substr(line_temp, i + 1, ft_strlen(line_temp) - i);
-		new_arg->len_msg = ft_strlen(new_arg->msg);
-		new_arg->type = 1;
-		add_node(&(*shell)->env, new_arg);
+		if (is_var(shell, str_temp))
+			change_var(shell, str_temp, ft_substr(line_temp, i + 1, ft_strlen(line_temp) - i));
+		else
+		{
+			new_arg->len_var = ft_strlen(str_temp);
+			new_arg->var = str_temp;
+			new_arg->msg = ft_substr(line_temp, i + 1, ft_strlen(line_temp) - i);
+			new_arg->len_msg = ft_strlen(new_arg->msg);
+			new_arg->type = 1;
+			add_node(&(*shell)->env, new_arg);
+		}
 	}
 	return (line);
 }
@@ -70,6 +92,7 @@ char	*change_enviroment(t_shell **shell, char *line)
 
 	i = 0;
 	temp_line = line;
+	searched_variable = NULL;
 	if (find(temp_line, '$'))
 	{
 		while (temp_line[i])
@@ -80,14 +103,15 @@ char	*change_enviroment(t_shell **shell, char *line)
 				while (temp_line[k] && temp_line[k] != ' '
 					&& temp_line[k] != '$')
 					k++;
-				temp_variable = (char *)calloc(k - i + 1, sizeof(char));
+				temp_variable = (char *)calloc(k - i + 2, sizeof(char));
 				temp_variable = ft_substr(temp_line, i + 1, k - i);
 				temp_node = find_arg(shell, temp_variable);
 				if (temp_node)
 					searched_variable = temp_node->msg;
 				else
 				{
-					temp_variable = ft_substr(temp_variable, 0, ft_strlen(temp_variable) - 1);
+					// temp_variable = ft_substr(temp_variable, 0, ft_strlen(temp_variable) - 1);
+					temp_variable = ft_substr(temp_variable, 0, ft_strlen(temp_variable));
 					temp_node = find_arg(shell, temp_variable);
 					if (temp_node)
 						searched_variable = temp_node->msg;
@@ -135,29 +159,6 @@ void	replace_word(char *sentence, const char *word_replace,
 		free(new_sentence);
 	}
 }
-
-// size_t	ft_strlcpy_open(char *dst, const char *src, size_t dstsize)
-// {
-// 	size_t	len;
-// 	size_t	control;
-// 	size_t	i;
-
-// 	len = ft_strlen(src);
-// 	i = 0;
-// 	if (dstsize)
-// 	{
-// 		if (dstsize > len)
-// 			control = len;
-// 		else
-// 			control = dstsize - 1;
-// 		while (i < control)
-// 		{
-// 			dst[i] = src[i];
-// 			i++;
-// 		}
-// 	}
-// 	return (len);
-// }
 
 // void replaceWord(char* sentence, const char* wordToReplace, const char* replacement)
 // {

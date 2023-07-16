@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 21:09:59 by root              #+#    #+#             */
-/*   Updated: 2023/07/15 21:11:00 by root             ###   ########.fr       */
+/*   Updated: 2023/07/15 21:32:18 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,18 @@ void	needs_env_update(t_shell **shell, t_env *current, int env_n)
 	}
 	if (needs)
 		env_mtx_update(shell, current, env_n);
+}
+
+int	is_var(t_shell **shell, char *var)
+{
+	t_env	*temp;
+
+	temp = (*shell)->env;
+	while (temp != NULL)
+	{
+		if (!strcmp_mod(temp->var, var))
+			return (1);
+		temp = temp->next;
+	}
+	return (0);
 }

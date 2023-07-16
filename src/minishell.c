@@ -6,39 +6,11 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 18:02:28 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/15 21:15:37 by root             ###   ########.fr       */
+/*   Updated: 2023/07/15 21:19:47 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
-
-// char	*is_var(t_shell **shell, t_block *current, char *line)
-// {
-// 	char	*line_tmp;
-// 	int		line_diff;
-
-// 	line_tmp = line;
-// 	if (*line_tmp == '$')
-// 	{
-// 		line++;
-// 		line_tmp++;
-// 		while (*line_tmp && ft_isalnum_mod(*line_tmp))
-// 			line_tmp++;
-// 		line_diff = line_tmp - line;
-// 		line = ft_substr(line, 0, line_diff);
-// 		// variable = find_arg(shell, line);
-// 		// if (variable == NULL)
-// 		// {
-// 		// 	printf("Cheguei aqui - IS VAR\n");
-// 		// // // 	current->current_var= ("NULL");
-// 		// // // 	printf("Cheguei aqui!\n");
-// 		// // // 	exit(1);
-// 		// }
-// 		// else
-// 		// 	current->current_var = variable->msg;
-// 	}
-// 	return (line_tmp);
-// }
 
 void	manage_file_descriptors(t_block *current, char *file_name)
 {
