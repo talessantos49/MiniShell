@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:46:47 by root              #+#    #+#             */
-/*   Updated: 2023/07/15 19:47:17 by root             ###   ########.fr       */
+/*   Updated: 2023/07/15 21:05:40 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,24 @@ void	apart_args(t_shell **shell, char c, void (*function)(t_shell **shell))
 		function(shell);
 	}
 	free_split(&split);
+}
+
+void	args_matrix(t_block *current)
+{
+	t_cmd	*current_cmd;
+	int		index;
+
+	if (!current->commands)
+		return ;
+	index = -1;
+	current_cmd = current->commands;
+	current->args = (char **)ft_calloc(current->commands_n + 1, sizeof(char *));
+	while (current_cmd && ++index < current->commands_n)
+	{
+		if (!index)
+			quote_clean(current, current_cmd->arg, current_cmd->quote);
+		current->args[index] = current_cmd->arg;
+		current_cmd = current_cmd->next;
+	}
+	current->args[index + 1] = NULL;
 }

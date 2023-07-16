@@ -6,7 +6,7 @@
 #    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 15:52:33 by macarval          #+#    #+#              #
-#    Updated: 2023/07/15 08:55:00 by root             ###   ########.fr        #
+#    Updated: 2023/07/15 21:09:35 by root             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,10 @@ FILES			= main.c \
 				args.c \
 				flags.c \
 				perror_free_exit.c \
-				enviroment.c
+				enviroment.c \
+				quotes.c \
+				validations_input.c \
+				initial_env.c
 
 FILES_BONUS		= minishell_bonus.c
 

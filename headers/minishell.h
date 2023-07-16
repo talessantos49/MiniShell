@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:52:02 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/15 20:42:23 by root             ###   ########.fr       */
+/*   Updated: 2023/07/15 21:13:43 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,8 +184,20 @@ void	replace_word(char *sentence, const char *wordToReplace, const char *replace
 t_env	*find_arg(t_shell **shell, char *var);
 
 void	signal_handled_exec(t_shell **shell);
+//ordenated later;
 
-// void	signal_handled(t_shell **shell);
-// static void	signal_handled(t_shell **shell);
+void	quote_clean(t_block *current, char *command, char quote);
+char	*quote_unclosed(t_block *current, char *input);
+int		is_quote(t_block *current, char line);
+void	new_command(t_block *current);
+char	*is_command(t_shell **shell, t_block *current, char *line);
+char	*is_file_io(t_shell **shell, t_block *current, char *line);
+char	*is_special(t_shell **shell,
+	t_block *current, char *line, char *specials);
+void manage_file_descriptors(t_block *current, char *file_name);
+char *special_cases(t_shell **shell, t_block *current, char *line);
+void args_matrix(t_block *current);
+void pipe_list_build(t_shell **shell, char *line);
+void	needs_env_update(t_shell **shell, t_env *current, int env_n);
 
 #endif
