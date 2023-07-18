@@ -70,3 +70,25 @@ int	ft_isalnum_mod(int c)
 			|| (c >= '0' && c <= '9') || (c == '_' ));
 	return (r);
 }
+
+char	*ft_strip(char *line, char striped_char)
+{
+	int		i;
+	int		k;
+	int		len_line;
+	int		len_total;
+	char	*temp;
+
+	len_line = ft_strlen(line) - 1;
+	i = 0;
+	k = len_line;
+	while (line[i] && line[i] == striped_char)
+		i++;
+	while (k >= 0 && line[k] == striped_char)
+		k--;
+	len_total = k - i + 1;
+	temp = ft_calloc(sizeof(char *), len_total);
+	temp = ft_substr(line, i, len_total);
+	temp[len_total] = '\0';
+	return (temp);
+}

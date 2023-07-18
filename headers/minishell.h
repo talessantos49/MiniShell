@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:52:02 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/15 23:54:10 by root             ###   ########.fr       */
+/*   Updated: 2023/07/18 16:28:55 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,6 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-typedef struct s_parser
-{
-	char			*command;
-	char			*flag;
-	char			*content;
-	int				*number;
-	struct s_parser	*next;
-}	t_parser;
-
 typedef struct s_block
 {
 	char			*heredoc_name;
@@ -115,7 +106,6 @@ typedef struct s_shell
 	pid_t		pid;
 	t_block		*pipelist;
 	t_env		*env;
-	t_parser	*parser;
 }				t_shell;
 
 // base
@@ -199,7 +189,10 @@ void manage_file_descriptors(t_block *current, char *file_name);
 char *special_cases(t_shell **shell, t_block *current, char *line);
 void args_matrix(t_block *current);
 void pipe_list_build(t_shell **shell, char *line);
-void	needs_env_update(t_shell **shell, t_env *current, int env_n);
+void needs_env_update(t_shell **shell, t_env *current, int env_n);
 int	is_var(t_shell **shell, char *var);
+void remove_variable(t_env **list, char *var);
+char	*ft_strip(char *line, char striped_char);
+
 
 #endif

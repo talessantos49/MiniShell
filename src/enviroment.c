@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 16:31:09 by root              #+#    #+#             */
-/*   Updated: 2023/07/15 22:55:55 by root             ###   ########.fr       */
+/*   Updated: 2023/07/18 16:31:01 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,39 @@ void	add_node(t_env **list, t_env *node)
 	temp->next = node;
 	node->prev = temp;
 }
+
+// void	remove_variable(t_env **list, t_env *node)
+// {
+// 	t_env	*temp;
+
+// 	temp = *list;
+// 	if (temp == NULL)
+// 		return ;
+// 	while (temp != NULL)
+// 	{
+// 		if (temp == node)
+// 		{
+// 			if (temp->prev == NULL)
+// 			{
+// 				*list = temp->next;
+// 				if (temp->next)
+// 					temp->next->prev = NULL;
+// 			}
+// 			else if (temp->next == NULL)
+// 				temp->prev->next = NULL;
+// 			else
+// 			{
+// 				temp->prev->next = temp->next;
+// 				temp->next->prev = temp->prev;
+// 			}
+// 			free(temp->var);
+// 			free(temp->msg);
+// 			free(temp);
+// 			return ;
+// 		}
+// 		temp = temp->next;
+// 	}
+// }
 
 void	change_var(t_shell **shell, char *var, char *msg)
 {
@@ -81,6 +114,51 @@ char	*is_enviroment_definition(t_shell **shell, char *line)
 	return (line);
 }
 
+// int	inside_quotes(char	*str,char inside)
+// {
+// 	int	i;
+// 	int	opened_quotes;
+// 	int	closed_quotes;
+// 	int	index_inside;
+
+// 	i = 0;
+// 	opened_quotes = 0;
+// 	closed_quotes = 0;
+// 	index_inside = 0;
+// 	printf("Cheguei aqui!\n");
+// 	while (str[i])
+// 	{
+// 		if (str[i] == inside)
+// 			index_inside = i;
+// 		if (str[i] == '\'')
+// 		{
+// 			if (opened_quotes == 0)
+// 				opened_quotes = i;
+// 			else
+// 				closed_quotes = i;
+// 		}
+// 		if (opened_quotes != 0 && closed_quotes != 0)
+// 		{
+// 			printf("Cheguei aqui dentro do quotes!\n");
+// 			if (index_inside >= opened_quotes && index_inside <= closed_quotes)
+// 			{
+// 				printf("1 - opened_quotes: %d\n", opened_quotes);
+// 				printf("2 - closed_quotes: %d\n", closed_quotes);
+// 				return (1);
+// 			}
+// 			else
+// 			{
+// 				printf("3 - opened_quotes: %d\n", opened_quotes);
+// 				printf("4 - closed_quotes: %d\n", closed_quotes);
+// 				return (0);
+// 			}
+// 		}
+// 		i++;
+// 	}
+// 	printf("Cheguei aqui!\n");
+// 	return (0);
+// }
+
 char	*change_enviroment(t_shell **shell, char *line)
 {
 	char	*temp_line;
@@ -99,24 +177,28 @@ char	*change_enviroment(t_shell **shell, char *line)
 		{
 			if (temp_line[i] == '$')
 			{
+				// if (inside_quotes(temp_line, '$'))
+				// 	return (temp_line);
 				k = i + 1;
 				while (temp_line[k] && temp_line[k] != ' '
 					&& temp_line[k] != '$')
 					k++;
-				temp_variable = (char *)calloc(k - i + 2, sizeof(char));
+				temp_variable = (char *)calloc(k - i + 1, sizeof(char));
+				if (find(temp_variable, ' '))
+					k--;
 				temp_variable = ft_substr(temp_line, i + 1, k - i);
+				temp_variable = ft_strip(temp_variable, ' ');
 				temp_node = find_arg(shell, temp_variable);
 				if (temp_node)
 					searched_variable = temp_node->msg;
 				else
 				{
-					// temp_variable = ft_substr(temp_variable, 0, ft_strlen(temp_variable) - 1);
 					temp_variable = ft_substr(temp_variable, 0, ft_strlen(temp_variable));
 					temp_node = find_arg(shell, temp_variable);
 					if (temp_node)
 						searched_variable = temp_node->msg;
 					else
-						searched_variable = "";
+						searched_variable = " ";
 				}
 				temp_variable = ft_strjoin("$", temp_variable);
 				replace_word(temp_line, temp_variable, searched_variable);

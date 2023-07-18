@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:14:03 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/15 22:58:26 by root             ###   ########.fr       */
+/*   Updated: 2023/07/17 11:23:50 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ void	c_echo(t_shell **shell)
 		return ;
 	flag = flag_echo(shell);
 	print_args_echo((*shell)->pipelist->commands);
-	if (flag == NULL || (*shell)->pipelist->commands->next == NULL || strcmp_mod(flag, "-n"))
+	if (flag == NULL || (*shell)->pipelist->commands->next == NULL
+		|| strcmp_mod(flag, "-n"))
 		printf("\n");
 	(*shell)->exit_code = 0;
 	free (flag);

@@ -6,11 +6,44 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:29:34 by root              #+#    #+#             */
-/*   Updated: 2023/07/16 10:16:06 by root             ###   ########.fr       */
+/*   Updated: 2023/07/17 15:30:06 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
+
+void remove_variable(t_env **list, char *var)
+{
+	t_env	*temp;
+
+	temp = *list;
+	if (temp == NULL)
+		return ;
+	while (temp != NULL)
+	{
+		if (temp->var == var)
+		{
+			if (temp->prev == NULL)
+			{
+				*list = temp->next;
+				if (temp->next)
+					temp->next->prev = NULL;
+			}
+			else if (temp->next == NULL)
+				temp->prev->next = NULL;
+			else
+			{
+				temp->prev->next = temp->next;
+				temp->next->prev = temp->prev;
+			}
+			free(temp->var);
+			free(temp->msg);
+			free(temp);
+			return ;
+		}
+		temp = temp->next;
+	}
+}
 
 // void	c_unset(t_shell **shell)
 // {
@@ -37,7 +70,10 @@ void	c_unset(t_shell **shell)
 	// printf("command: %s\n", (*shell)->pipelist->commands->arg);
 	// printf("command: %s\n", (*shell)->command);
 	if (is_var(shell, (*shell)->pipelist->commands->next->arg))
+	{
 		printf("achei\n");
+		remove_variable(&(*shell)->env, (*shell)->pipelist->commands->next->arg);
+	}
 	else
 	{
 		(*shell)->exit_code = 0;
