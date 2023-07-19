@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:29:34 by root              #+#    #+#             */
-/*   Updated: 2023/07/19 08:57:06 by root             ###   ########.fr       */
+/*   Updated: 2023/07/19 09:18:55 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,5 @@ void	c_unset(t_shell **shell)
 {
 	if (is_var(shell, (*shell)->pipelist->commands->next->arg))
 		remove_variable(&(*shell)->env, (*shell)->pipelist->commands->next->arg);
-	else
-		(*shell)->exit_code = 0;
+	(*shell)->exit_code = 0;
 }
-

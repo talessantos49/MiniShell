@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 16:31:09 by root              #+#    #+#             */
-/*   Updated: 2023/07/18 16:31:01 by root             ###   ########.fr       */
+/*   Updated: 2023/07/19 09:12:40 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,11 @@ char	*is_enviroment_definition(t_shell **shell, char *line)
 			new_arg->len_msg = ft_strlen(new_arg->msg);
 			new_arg->type = 1;
 			add_node(&(*shell)->env, new_arg);
+			free (new_arg->var);
+			free (new_arg->msg);
+			free (new_arg);
 		}
+		free (str_temp);
 	}
 	return (line);
 }
