@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 16:31:09 by root              #+#    #+#             */
-/*   Updated: 2023/07/19 16:39:03 by root             ###   ########.fr       */
+/*   Updated: 2023/07/19 16:43:47 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,7 @@ void	is_enviroment_definition(t_shell **shell, char *line)
 		while ((line_temp[k] != ' ' && line_temp[k] != '\0') || k == 0)
 			k--;
 		str_temp = ft_substr(line_temp, k + 1, i - k);
-		// printf("1 - str_temp [%s]\n", str_temp);
 		str_temp = ft_substr(str_temp, 0, ft_strlen(str_temp) - 1);
-		// printf("2 - str_temp [%s]\n", str_temp);
 		if (is_var(shell, str_temp))
 			change_var(shell, str_temp, ft_substr(line_temp, i + 1, ft_strlen(line_temp) - i));
 		else
@@ -128,13 +126,8 @@ void	is_enviroment_definition(t_shell **shell, char *line)
 			new_arg->len_msg = ft_strlen(new_arg->msg);
 			new_arg->type = 1;
 			add_node(&(*shell)->env, new_arg);
-			// free (new_arg->var);
-			// free (new_arg->msg);
-			// free (new_arg);
 		}
-		// free (str_temp);
 	}
-	// return (line);
 }
 
 // int	inside_quotes(char	*str,char inside)
