@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:29:34 by root              #+#    #+#             */
-/*   Updated: 2023/07/17 15:30:06 by root             ###   ########.fr       */
+/*   Updated: 2023/07/19 08:57:06 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void remove_variable(t_env **list, char *var)
 		return ;
 	while (temp != NULL)
 	{
-		if (temp->var == var)
+		if (!strcmp_mod(temp->var, var))
 		{
 			if (temp->prev == NULL)
 			{
@@ -64,20 +64,9 @@ void	exe_unset(t_shell **shell)
 
 void	c_unset(t_shell **shell)
 {
-	// t_env	*temp;
-
-	// temp = find_arg(shell, (*shell)->pipelist->commands->next->arg);
-	// printf("command: %s\n", (*shell)->pipelist->commands->arg);
-	// printf("command: %s\n", (*shell)->command);
 	if (is_var(shell, (*shell)->pipelist->commands->next->arg))
-	{
-		printf("achei\n");
 		remove_variable(&(*shell)->env, (*shell)->pipelist->commands->next->arg);
-	}
 	else
-	{
 		(*shell)->exit_code = 0;
-		printf("nao achei!\n");
-	}
 }
 
