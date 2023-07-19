@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:28:00 by root              #+#    #+#             */
-/*   Updated: 2023/07/18 16:32:13 by root             ###   ########.fr       */
+/*   Updated: 2023/07/19 16:19:57 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	pipe_list_build(t_shell **shell, char *line)
 			heredoc_name_setup(shell, current);
 		}
 		line = is_spaces(line, SPACES);
-		line = is_enviroment_definition(shell, line);
+		// line = is_enviroment_definition(shell, line);
 		replace_word(line, "$?", ft_itoa((*shell)->exit_code));
 		line = change_enviroment(shell, line);
 		line = is_special(shell, current, line, SPECIALS);

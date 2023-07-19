@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 16:31:09 by root              #+#    #+#             */
-/*   Updated: 2023/07/19 11:10:57 by root             ###   ########.fr       */
+/*   Updated: 2023/07/19 16:39:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,24 @@ void	change_var(t_shell **shell, char *var, char *msg)
 	}
 }
 
-char	*is_enviroment_definition(t_shell **shell, char *line)
+void c_var_definition(t_shell **shell)
+{
+	char	*args;
+	t_cmd	*temp_node;
+
+	temp_node = (t_cmd *)ft_calloc(1, (sizeof(t_cmd)));
+	temp_node = (*shell)->pipelist->commands;
+	while (temp_node)
+	{
+		args = (temp_node->arg);
+		if (find(args, '='))
+			is_enviroment_definition(shell, args);
+		temp_node = temp_node->next;
+	}
+}
+
+// char	*is_enviroment_definition(t_shell **shell, char *line)
+void	is_enviroment_definition(t_shell **shell, char *line)
 {
 	char	*line_temp;
 	char	*str_temp;
@@ -117,7 +134,7 @@ char	*is_enviroment_definition(t_shell **shell, char *line)
 		}
 		// free (str_temp);
 	}
-	return (line);
+	// return (line);
 }
 
 // int	inside_quotes(char	*str,char inside)

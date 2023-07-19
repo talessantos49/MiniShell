@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:52:02 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/18 16:28:55 by root             ###   ########.fr       */
+/*   Updated: 2023/07/19 16:38:20 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,8 @@ void    free_shell(t_shell **shell);
 
 int		is_flag_null(t_shell **shell, char *pattern);
 void	print_flag_error(char *command, char *flag, int flag_len, int cmd_len);
-char	*is_enviroment_definition(t_shell **shell, char *line);
+// char	*is_enviroment_definition(t_shell **shell, char *line);
+void	is_enviroment_definition(t_shell **shell, char *line);
 void	add_node(t_env **list, t_env *node);
 char	*change_enviroment(t_shell **shell, char *line);
 void	replace_word(char *sentence, const char *wordToReplace, const char *replacement);
@@ -193,6 +194,7 @@ void needs_env_update(t_shell **shell, t_env *current, int env_n);
 int	is_var(t_shell **shell, char *var);
 void remove_variable(t_env **list, char *var);
 char	*ft_strip(char *line, char striped_char);
+void c_var_definition(t_shell **shell);
 
 
 #endif
