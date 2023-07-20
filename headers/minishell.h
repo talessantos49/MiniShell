@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:52:02 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/19 16:38:20 by root             ###   ########.fr       */
+/*   Updated: 2023/07/20 10:56:47 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_block
 	char			**args;
 	char			*cmd;
 	char			quote;
+	int				*quote_position;
 	int				commands_n;
 	int				fd[2];
 	int				pipe[2];

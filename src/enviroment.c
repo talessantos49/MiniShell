@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 16:31:09 by root              #+#    #+#             */
-/*   Updated: 2023/07/19 16:43:47 by root             ###   ########.fr       */
+/*   Updated: 2023/07/20 16:53:40 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,50 +130,105 @@ void	is_enviroment_definition(t_shell **shell, char *line)
 	}
 }
 
-// int	inside_quotes(char	*str,char inside)
-// {
-// 	int	i;
-// 	int	opened_quotes;
-// 	int	closed_quotes;
-// 	int	index_inside;
+void	positions_and_values(t_shell **shell, int values, char *line, char character)
+{
+	int	*positions = (int *)malloc(sizeof(int) * values);
+	int	i;
+	int	opened_quotes;
+	int	closed_quotes;
 
-// 	i = 0;
-// 	opened_quotes = 0;
-// 	closed_quotes = 0;
-// 	index_inside = 0;
-// 	printf("Cheguei aqui!\n");
-// 	while (str[i])
-// 	{
-// 		if (str[i] == inside)
-// 			index_inside = i;
-// 		if (str[i] == '\'')
-// 		{
-// 			if (opened_quotes == 0)
-// 				opened_quotes = i;
-// 			else
-// 				closed_quotes = i;
-// 		}
-// 		if (opened_quotes != 0 && closed_quotes != 0)
-// 		{
-// 			printf("Cheguei aqui dentro do quotes!\n");
-// 			if (index_inside >= opened_quotes && index_inside <= closed_quotes)
-// 			{
-// 				printf("1 - opened_quotes: %d\n", opened_quotes);
-// 				printf("2 - closed_quotes: %d\n", closed_quotes);
-// 				return (1);
-// 			}
-// 			else
-// 			{
-// 				printf("3 - opened_quotes: %d\n", opened_quotes);
-// 				printf("4 - closed_quotes: %d\n", closed_quotes);
-// 				return (0);
-// 			}
-// 		}
-// 		i++;
-// 	}
-// 	printf("Cheguei aqui!\n");
-// 	return (0);
-// }
+	i = 0;
+	opened_quotes = -1;
+	closed_quotes = 0;
+	values = 0;
+	while (line[i])
+	{
+		if (line[i] == '\'')
+		{
+			if (opened_quotes == -1)
+				opened_quotes = i;
+			else
+				closed_quotes = i;
+		}
+		if (opened_quotes != -1 && closed_quotes == 0)
+		{
+			if (line[i] == character)
+			{
+				positions[values] = i;
+				values++;
+				printf("positions[%d]: [%d]\n", values, positions[values - 1]);
+			}
+		}
+		i++;
+	}
+	(*shell)->pipelist->quote_position = positions;
+	return ;
+}
+
+int	counting_inside_quotes(t_shell **shell, char *line, char	character)
+{
+	int	i;
+	int	value;
+	int	opened_quotes;
+	int	closed_quotes;
+
+	i = 0;
+	value = 0;
+	opened_quotes = -1;
+	closed_quotes = 0;
+	while (line[i])
+	{
+		if (line[i] == '\'')
+		{
+			if (opened_quotes == -1)
+				opened_quotes = i;
+			else
+				closed_quotes = i;
+		}
+		if (opened_quotes != -1 && closed_quotes == 0)
+		{
+			if (line[i] == character)
+				value++;
+		}
+		i++;
+	}
+	positions_and_values(shell, value, line, character);
+	return (value);
+}
+
+int	inside_quotes(char	*str,char inside)
+{
+	int	i;
+	int	index_inside;
+	int closed_quotes;
+	int opened_quotes;
+
+	i = 0;
+	index_inside = 0;
+	closed_quotes = 0;
+	opened_quotes = 0;
+	while (str[i])
+	{
+		if (str[i] == inside)
+			index_inside = i;
+		if (str[i] == '\'')
+		{
+			if (opened_quotes == 0)
+				opened_quotes = i;
+			else
+				closed_quotes = i;
+		}
+		if (opened_quotes != 0 && closed_quotes != 0)
+		{
+			if ((index_inside >= opened_quotes) && (index_inside <= closed_quotes))
+				return (1);
+			else
+				return (0);
+		}
+		i++;
+	}
+	return (0);
+}
 
 char	*change_enviroment(t_shell **shell, char *line)
 {
@@ -183,6 +238,7 @@ char	*change_enviroment(t_shell **shell, char *line)
 	t_env	*temp_node;
 	int		i;
 	int		k;
+	int		quotes_in;
 
 	i = 0;
 	temp_line = line;
@@ -193,16 +249,26 @@ char	*change_enviroment(t_shell **shell, char *line)
 		{
 			if (temp_line[i] == '$')
 			{
-				// if (inside_quotes(temp_line, '$'))
-				// 	return (temp_line);
+				if (inside_quotes(temp_line, '$'))
+				{
+					if (quotes_in == 0)
+					{
+						quotes_in = counting_inside_quotes(shell, temp_line, '$');
+						temp_line[i] = '#';
+					}
+				}
+				// replace_word(line, "$?", ft_itoa((*shell)->exit_code));
 				k = i + 1;
 				while (temp_line[k] && temp_line[k] != ' '
-					&& temp_line[k] != '$')
-					k++;
-				temp_variable = (char *)calloc(k - i + 1, sizeof(char));
+					&& temp_line[k] != '$' && temp_line[k] != '\'' && temp_line[k] != '\"')
+						k++;
+				temp_variable = (char *)ft_calloc(k - i + 1, sizeof(char));
 				if (find(temp_variable, ' '))
 					k--;
-				temp_variable = ft_substr(temp_line, i + 1, k - i);
+				// if (temp_line[k] == '\"')
+				temp_variable = ft_substr(temp_line, i + 1, k - i - 1);
+				// else
+				// 	temp_variable = ft_substr(temp_line, i + 1, k - i);
 				temp_variable = ft_strip(temp_variable, ' ');
 				temp_node = find_arg(shell, temp_variable);
 				if (temp_node)
@@ -214,7 +280,7 @@ char	*change_enviroment(t_shell **shell, char *line)
 					if (temp_node)
 						searched_variable = temp_node->msg;
 					else
-						searched_variable = " ";
+						searched_variable = "";
 				}
 				temp_variable = ft_strjoin("$", temp_variable);
 				replace_word(temp_line, temp_variable, searched_variable);
