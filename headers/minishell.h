@@ -51,6 +51,7 @@ end-of-file (wanted `"
 extern int			g_signal;
 typedef struct s_cmd
 {
+	int				is_var;			
 	char			quote;
 	char			*arg;
 	struct s_cmd	*next;

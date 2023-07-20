@@ -30,8 +30,5 @@ void	*is_built_in(char *command)
 		return (c_pwd);
 	if (!strcmp_mod(command, "unset"))
 		return (c_unset);
-	// if (!strcmp_mod(command, "="))
-	if (find(command, '='))
-		return (c_var_definition);
 	return (NULL);
 }

@@ -138,13 +138,7 @@ void	is_enviroment_definition(t_shell **shell, char *line)
 // 	int	index_inside;
 
 // 	i = 0;
-// 	opened_quotes = 0;
-// 	closed_quotes = 0;
-// 	index_inside = 0;
-// 	printf("Cheguei aqui!\n");
-// 	while (str[i])
-// 	{
-// 		if (str[i] == inside)
+// 	opened_quotes = 0;current->args[index] = current_cmd->arg;
 // 			index_inside = i;
 // 		if (str[i] == '\'')
 // 		{

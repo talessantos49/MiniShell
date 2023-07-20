@@ -42,12 +42,8 @@ void	pipe_list_build(t_shell **shell, char *line)
 			heredoc_name_setup(shell, current);
 		}
 		line = is_spaces(line, SPACES);
-		// line = is_enviroment_definition(shell, line);
-		replace_word(line, "$?", ft_itoa((*shell)->exit_code));
-		line = change_enviroment(shell, line);
 		line = is_special(shell, current, line, SPECIALS);
 		line = is_file_io(shell, current, line);
-		(*shell)->line = line;
 		line = is_command(shell, current, line);
 		if ((line && !*line) || !current->set)
 			args_matrix(current);

@@ -68,17 +68,26 @@ void	args_matrix(t_block *current)
 {
 	t_cmd	*current_cmd;
 	int		index;
+	int		is_cmd;
 
+	is_cmd = 0;
 	if (!current->commands)
 		return ;
 	index = -1;
 	current_cmd = current->commands;
 	current->args = (char **)ft_calloc(current->commands_n + 1, sizeof(char *));
-	while (current_cmd && ++index < current->commands_n)
+	while (current_cmd && index < current->commands_n)
 	{
-		if (!index)
-			quote_clean(current, current_cmd->arg, current_cmd->quote);
-		current->args[index] = current_cmd->arg;
+		is_cmd += (!strchr_mod(current_cmd->arg, '='));
+		if (is_cmd)
+		{
+			if (is_cmd == 1)
+				quote_clean(current, current_cmd->arg, current_cmd->quote);
+			current->args[index] = current_cmd->arg;
+			index += 1;
+		}
+		else
+			
 		current_cmd = current_cmd->next;
 	}
 	current->args[index + 1] = NULL;
