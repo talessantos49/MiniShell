@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:53:49 by root              #+#    #+#             */
-/*   Updated: 2023/07/17 12:51:51 by root             ###   ########.fr       */
+/*   Updated: 2023/07/20 20:58:55 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ char	*is_command(t_shell **shell, t_block *current, char *line)
 	line_tmp = is_no_word(shell, current, line_tmp);
 	current->set = 1;
 	line_diff = line_tmp - line;
+	// printf("1 - Is no word: %s\n", line_tmp);
 	new_command(current);
+	// printf("2 - Is no word: %s\n", line_tmp);
+	// printf("quotes %c\n", current->current_command->quote);
 	if (current->current_var && current->quote != '\'')
 	{
 		current->current_command->arg = current->current_var;
@@ -67,6 +70,8 @@ char	*is_command(t_shell **shell, t_block *current, char *line)
 		current->current_command->arg = ft_substr(line, 0, line_diff);
 	if (!current->commands->next)
 		current->built_in = is_built_in(current->current_command->arg);
+	// printf("arg %s\n", current->current_command->arg);
+	// printf("3 - Is no word: %s\n", line_tmp);
 	return (line_tmp);
 }
 

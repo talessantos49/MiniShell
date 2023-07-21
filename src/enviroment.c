@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 16:31:09 by root              #+#    #+#             */
-/*   Updated: 2023/07/20 16:53:40 by root             ###   ########.fr       */
+/*   Updated: 2023/07/21 17:54:55 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,105 +130,105 @@ void	is_enviroment_definition(t_shell **shell, char *line)
 	}
 }
 
-void	positions_and_values(t_shell **shell, int values, char *line, char character)
-{
-	int	*positions = (int *)malloc(sizeof(int) * values);
-	int	i;
-	int	opened_quotes;
-	int	closed_quotes;
+// void	positions_and_values(t_shell **shell, int values, char *line, char character)
+// {
+// 	int	*positions = (int *)malloc(sizeof(int) * values);
+// 	int	i;
+// 	int	opened_quotes;
+// 	int	closed_quotes;
 
-	i = 0;
-	opened_quotes = -1;
-	closed_quotes = 0;
-	values = 0;
-	while (line[i])
-	{
-		if (line[i] == '\'')
-		{
-			if (opened_quotes == -1)
-				opened_quotes = i;
-			else
-				closed_quotes = i;
-		}
-		if (opened_quotes != -1 && closed_quotes == 0)
-		{
-			if (line[i] == character)
-			{
-				positions[values] = i;
-				values++;
-				printf("positions[%d]: [%d]\n", values, positions[values - 1]);
-			}
-		}
-		i++;
-	}
-	(*shell)->pipelist->quote_position = positions;
-	return ;
-}
+// 	i = 0;
+// 	opened_quotes = -1;
+// 	closed_quotes = 0;
+// 	values = 0;
+// 	while (line[i])
+// 	{
+// 		if (line[i] == '\'')
+// 		{
+// 			if (opened_quotes == -1)
+// 				opened_quotes = i;
+// 			else
+// 				closed_quotes = i;
+// 		}
+// 		if (opened_quotes != -1 && closed_quotes == 0)
+// 		{
+// 			if (line[i] == character)
+// 			{
+// 				positions[values] = i;
+// 				values++;
+// 				printf("positions[%d]: [%d]\n", values, positions[values - 1]);
+// 			}
+// 		}
+// 		i++;
+// 	}
+// 	(*shell)->pipelist->quote_position = positions;
+// 	return ;
+// }
 
-int	counting_inside_quotes(t_shell **shell, char *line, char	character)
-{
-	int	i;
-	int	value;
-	int	opened_quotes;
-	int	closed_quotes;
+// int	counting_inside_quotes(t_shell **shell, char *line, char	character)
+// {
+// 	int	i;
+// 	int	value;
+// 	int	opened_quotes;
+// 	int	closed_quotes;
 
-	i = 0;
-	value = 0;
-	opened_quotes = -1;
-	closed_quotes = 0;
-	while (line[i])
-	{
-		if (line[i] == '\'')
-		{
-			if (opened_quotes == -1)
-				opened_quotes = i;
-			else
-				closed_quotes = i;
-		}
-		if (opened_quotes != -1 && closed_quotes == 0)
-		{
-			if (line[i] == character)
-				value++;
-		}
-		i++;
-	}
-	positions_and_values(shell, value, line, character);
-	return (value);
-}
+// 	i = 0;
+// 	value = 0;
+// 	opened_quotes = -1;
+// 	closed_quotes = 0;
+// 	while (line[i])
+// 	{
+// 		if (line[i] == '\'')
+// 		{
+// 			if (opened_quotes == -1)
+// 				opened_quotes = i;
+// 			else
+// 				closed_quotes = i;
+// 		}
+// 		if (opened_quotes != -1 && closed_quotes == 0)
+// 		{
+// 			if (line[i] == character)
+// 				value++;
+// 		}
+// 		i++;
+// 	}
+// 	positions_and_values(shell, value, line, character);
+// 	return (value);
+// }
 
-int	inside_quotes(char	*str,char inside)
-{
-	int	i;
-	int	index_inside;
-	int closed_quotes;
-	int opened_quotes;
+// int	inside_quotes(char	*str,char inside)
+// {
+// 	int	i;
+// 	int	index_inside;
+// 	int closed_quotes;
+// 	int opened_quotes;
 
-	i = 0;
-	index_inside = 0;
-	closed_quotes = 0;
-	opened_quotes = 0;
-	while (str[i])
-	{
-		if (str[i] == inside)
-			index_inside = i;
-		if (str[i] == '\'')
-		{
-			if (opened_quotes == 0)
-				opened_quotes = i;
-			else
-				closed_quotes = i;
-		}
-		if (opened_quotes != 0 && closed_quotes != 0)
-		{
-			if ((index_inside >= opened_quotes) && (index_inside <= closed_quotes))
-				return (1);
-			else
-				return (0);
-		}
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	index_inside = 0;
+// 	closed_quotes = 0;
+// 	opened_quotes = 0;
+// 	while (str[i])
+// 	{
+// 		if (str[i] == inside)
+// 			index_inside = i;
+// 		if (str[i] == '\'')
+// 		{
+// 			if (opened_quotes == 0)
+// 				opened_quotes = i;
+// 			else
+// 				closed_quotes = i;
+// 		}
+// 		if (opened_quotes != 0 && closed_quotes != 0)
+// 		{
+// 			if ((index_inside >= opened_quotes) && (index_inside <= closed_quotes))
+// 				return (1);
+// 			else
+// 				return (0);
+// 		}
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 char	*change_enviroment(t_shell **shell, char *line)
 {
@@ -238,7 +238,7 @@ char	*change_enviroment(t_shell **shell, char *line)
 	t_env	*temp_node;
 	int		i;
 	int		k;
-	int		quotes_in;
+	// int		quotes_in;
 
 	i = 0;
 	temp_line = line;
@@ -249,15 +249,6 @@ char	*change_enviroment(t_shell **shell, char *line)
 		{
 			if (temp_line[i] == '$')
 			{
-				if (inside_quotes(temp_line, '$'))
-				{
-					if (quotes_in == 0)
-					{
-						quotes_in = counting_inside_quotes(shell, temp_line, '$');
-						temp_line[i] = '#';
-					}
-				}
-				// replace_word(line, "$?", ft_itoa((*shell)->exit_code));
 				k = i + 1;
 				while (temp_line[k] && temp_line[k] != ' '
 					&& temp_line[k] != '$' && temp_line[k] != '\'' && temp_line[k] != '\"')

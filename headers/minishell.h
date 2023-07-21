@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:52:02 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/20 10:56:47 by root             ###   ########.fr       */
+/*   Updated: 2023/07/21 18:12:45 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ extern int			g_signal;
 typedef struct s_cmd
 {
 	char			quote;
+	int				flag;
 	char			*arg;
 	struct s_cmd	*next;
 }					t_cmd;

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:28:00 by root              #+#    #+#             */
-/*   Updated: 2023/07/20 13:19:46 by root             ###   ########.fr       */
+/*   Updated: 2023/07/21 16:51:35 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_block	*new_block_on_pipe_list(t_shell **shell, t_block *block_current)
 void	pipe_list_build(t_shell **shell, char *line)
 {
 	t_block	*current;
+	t_cmd	*actual_cmd;
 
 	current = NULL;
 	while (line && *line)
@@ -44,13 +45,19 @@ void	pipe_list_build(t_shell **shell, char *line)
 		}
 		line = is_spaces(line, SPACES);
 		// line = is_enviroment_definition(shell, line);
-		replace_word(line, "$?", ft_itoa((*shell)->exit_code));
-		line = change_enviroment(shell, line);
+		// replace_word(line, "$?", ft_itoa((*shell)->exit_code));
+		// line = change_enviroment(shell, line);
 		printf("line[%s]\n", line);
 		line = is_special(shell, current, line, SPECIALS);
 		line = is_file_io(shell, current, line);
 		(*shell)->line = line;
 		line = is_command(shell, current, line);
+		actual_cmd = current->current_command;
+		if (actual_cmd->quote != '\'')
+		{
+			replace_word(actual_cmd->arg, "$?", ft_itoa((*shell)->exit_code));
+			actual_cmd->arg = change_enviroment(shell, actual_cmd->arg);
+		}
 		if ((line && !*line) || !current->set)
 			args_matrix(current);
 		if (g_signal)
