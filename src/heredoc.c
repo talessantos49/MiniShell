@@ -49,10 +49,10 @@ void	here_doc_exec(t_block *current, char *delimiter)
 	int		child;
 
 	heredoc_name = current->heredoc_name;
-	current->fd[0] = open(heredoc_name, O_CREAT | O_RDWR, 0644);
 	child = fork();
 	if (!child)
 	{
+		current->fd[0] = open(heredoc_name, O_CREAT | O_RDWR, 0644);
 		signal_listener(signal_set, signal_set);
 		while (1)
 		{
@@ -66,9 +66,9 @@ void	here_doc_exec(t_block *current, char *delimiter)
 		close(current->fd[0]);
 		if (signal_handle(delimiter))
 			return ;
-		current->fd[0] = open(heredoc_name, O_RDONLY);
 	}
 	waitpid(child, NULL, 0);
+	current->fd[0] = open(heredoc_name, O_RDONLY);
 }
 
 char	*here_doc_setup(t_shell **shell, t_block *current, char *line)

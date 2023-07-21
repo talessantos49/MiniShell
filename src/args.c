@@ -67,6 +67,7 @@ void	apart_args(t_shell **shell, char c, void (*function)(t_shell **shell))
 void	args_matrix(t_block *current)
 {
 	t_cmd	*current_cmd;
+	char	*arg_tmp;
 	int		index;
 	int		is_cmd;
 
@@ -81,13 +82,13 @@ void	args_matrix(t_block *current)
 		is_cmd += (!strchr_mod(current_cmd->arg, '='));
 		if (is_cmd)
 		{
-			if (is_cmd == 1)
-				quote_clean(current, current_cmd->arg, current_cmd->quote);
-			current->args[index] = current_cmd->arg;
+			arg_tmp = ft_strtrim(current_cmd->arg, &current->commands->quote);
+			if (!index)
+				current->cmd = arg_tmp;
+			current->args[index] = arg_tmp;
 			index += 1;
 		}
-		else
-			
+		else	
 		current_cmd = current_cmd->next;
 	}
 	current->args[index + 1] = NULL;

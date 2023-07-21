@@ -21,15 +21,11 @@ char	*is_no_word(t_shell **shell, t_block *current, char *line)
 		line_tmp = line;
 		if (line_tmp != line)
 			return (line_tmp);
-		if (is_quote(current, *line))
+		if (is_quote(current, *line) && ++line)
 		{
-			while (*++line != current->quote)
-			{
-				if (!*line)
-					return (quote_unclosed(current, line_tmp));
-			}
-			line++;
-			break ;
+			while (*line != current->quote && *line)
+				line++;
+			break;
 		}
 		else
 			line++;

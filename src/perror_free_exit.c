@@ -64,7 +64,6 @@ void	free_pipe_list(t_shell **shell, t_block *current)
 		next = current->next;
 		safe_free((void **)&current);
 		current = next;
-		(*shell)->pid = 0;
 	}
 }
 

@@ -12,6 +12,17 @@
 
 #include "../headers/minishell.h"
 
+void	wait_children(t_shell **shell, t_block *current)
+{
+	while (current)
+	{
+		waitpid(current->pid, &(*shell)->status, 0);
+		if (WIFEXITED((*shell)->status))
+			(*shell)->exit_code = WEXITSTATUS((*shell)->status);
+		current = current->next;
+	}
+}
+
 void	close_all_pipes(t_block *current)
 {
 	while (current && current->pipe[0])
@@ -73,7 +84,7 @@ int	command_validate(t_shell **shell, t_block *current)
 		cmd_tmp = ft_strjoin((*shell)->paths_mtx[i], "/");
 		cmd_tmp2 = ft_strjoin(cmd_tmp, current->cmd);
 		safe_free((void **)&cmd_tmp);
-		if (!(access(cmd_tmp2, X_OK)))
+		if (*current->cmd && !(access(cmd_tmp2, X_OK)))
 		{
 			safe_free((void **)&current->cmd);
 			current->cmd = cmd_tmp2;
@@ -103,15 +114,13 @@ void	execution(t_shell **shell, t_block *current)
 		signal_listener(NULL, SIG_IGN);
 		if (!((*shell)->pipelist == current && current->pipe[0] == 0)
 			|| !current->built_in)
-			(*shell)->pid = fork();
-		if (!(*shell)->pid)
+			current->pid = fork();
+		if (!current->pid)
 			child(shell, current);
-		if (current->built_in || (*shell)->pipelist == current)
-		{
-			waitpid((*shell)->pid, NULL, 0);
-			if (WIFEXITED((*shell)->status))
-				(*shell)->exit_code = WEXITSTATUS((*shell)->status);
-		}
+		// waitpid(current->pid, &(*shell)->status, 0);
+		// if (WIFEXITED((*shell)->status))
+		// 	(*shell)->exit_code = WEXITSTATUS((*shell)->status);
 		current = current->next;
 	}
+	waitpid(-1, NULL, 0);
 }

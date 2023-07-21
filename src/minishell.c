@@ -62,31 +62,6 @@ int	find(char *string1, char c)
 	return (0);
 }
 
-char	*make_text(void)
-{
-	char	*text;
-	char	buf[256];
-	char	*path;
-	char	*temp1;
-	char	*temp2;
-
-	temp1 = ft_strjoin(getenv("LOGNAME"), "@");
-	temp2 = ft_strjoin(temp1, getenv("USER"));
-	free(temp1);
-	temp1 = ft_strjoin("\033[1;33m", temp2);
-	free(temp2);
-	temp2 = ft_strjoin(temp1, "\033[1;0m:\033[1;35m~");
-	free(temp1);
-	path = getcwd(buf, 256);
-	path = ft_substr(path, ft_strlen(getenv("HOME")), ft_strlen(path));
-	temp1 = ft_strjoin(temp2, path);
-	free(path);
-	free(temp2);
-	text = ft_strjoin(temp1, "\001\033[1;0m\002$\001\033[0m\002 ");
-	free(temp1);
-	return (text);
-}
-
 void	minishell(t_shell **shell)
 {
 	char	*line;
@@ -94,7 +69,7 @@ void	minishell(t_shell **shell)
 	signal_listener(SIG_IGN, handle_sigint);
 	while (1)
 	{
-		line = readline(make_text());
+		line = readline("minishell $> ");
 		(*shell)->exit_code = 0;
 		if (line && *line)
 		{

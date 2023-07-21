@@ -80,9 +80,10 @@ typedef struct s_block
 	int				pipe[2];
 	int				set;
 	int				signal;
+	pid_t			pid;
+	struct s_block	*next;
 	t_cmd			*commands;
 	t_cmd			*current_command;
-	struct s_block	*next;
 	void			(*built_in)(void *shell);
 }					t_block;
 
@@ -97,16 +98,15 @@ typedef struct s_shell
 	char		*line;
 	char		*line1;
 	char		*heredoc_name;
-	int			exit_code;
 	int			count;
 	int			env_n;
 	int			paths_n;
 	int			pipelist_n;
 	int			status;
 	int			std_io[2];
-	pid_t		pid;
 	t_block		*pipelist;
 	t_env		*env;
+	u_int8_t	exit_code;
 }				t_shell;
 
 // base
@@ -116,7 +116,6 @@ void	execution(t_shell **shell, t_block *current);
 void    free_pipe_list(t_shell **shell, t_block *current);
 void	perror_free(char *type, char *name);
 void    safe_free(void **ptr);
-
 
 // Split
 char	**split_commands(t_shell **shell, char *s, char c);

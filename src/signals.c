@@ -51,3 +51,4 @@ void	signal_handled_exec(t_shell **shell)
 	if (shell)
 		shell = NULL;
 }
+
