@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:28:00 by root              #+#    #+#             */
-/*   Updated: 2023/07/21 16:51:35 by root             ###   ########.fr       */
+/*   Updated: 2023/07/21 20:22:28 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,21 @@ void	pipe_list_build(t_shell **shell, char *line)
 		(*shell)->line = line;
 		line = is_command(shell, current, line);
 		actual_cmd = current->current_command;
-		if (actual_cmd->quote != '\'')
+		// if (actual_cmd->quote != '\'')
+		// if (actual_cmd->quote != '\'')
+		// {
+		// 	replace_word(actual_cmd->arg, "$?", ft_itoa((*shell)->exit_code));
+		// 	actual_cmd->arg = change_enviroment(shell, actual_cmd->arg);
+		// }
+		if (actual_cmd->quote == '\'')
+			actual_cmd->arg = ft_strip(actual_cmd->arg, '\'');
+		else if (actual_cmd->quote == '\"')
+		{
+			replace_word(actual_cmd->arg, "$?", ft_itoa((*shell)->exit_code));
+			actual_cmd->arg = change_enviroment(shell, actual_cmd->arg);
+			actual_cmd->arg = ft_strip(actual_cmd->arg, '\"');
+		}
+		else
 		{
 			replace_word(actual_cmd->arg, "$?", ft_itoa((*shell)->exit_code));
 			actual_cmd->arg = change_enviroment(shell, actual_cmd->arg);

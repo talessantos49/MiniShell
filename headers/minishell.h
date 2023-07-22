@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:52:02 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/21 18:12:45 by root             ###   ########.fr       */
+/*   Updated: 2023/07/22 13:53:55 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct s_shell
 	char		*line;
 	char		*line1;
 	char		*heredoc_name;
+	char		*actual_path;
 	int			exit_code;
 	int			count;
 	int			env_n;
@@ -111,7 +112,8 @@ typedef struct s_shell
 }				t_shell;
 
 // base
-char	*make_text(void);
+// char	*make_text(void);
+char	*make_text(t_shell **shell);
 void	minishell(t_shell **shell);
 void	execution(t_shell **shell, t_block *current);
 void    free_pipe_list(t_shell **shell, t_block *current);
@@ -134,7 +136,8 @@ void	c_echo(t_shell **shell);
 void	c_env(t_shell **shell);
 void	c_exit(t_shell **shell);
 void	c_export(t_shell **shell);
-void	c_pwd(t_shell **shell);
+// void	c_pwd(t_shell **shell);
+void	c_pwd(void);
 void	c_unset(t_shell **shell);
 void	c_clear(t_shell **shell);
 void	*is_built_in(char *command);
@@ -197,6 +200,7 @@ int	is_var(t_shell **shell, char *var);
 void remove_variable(t_env **list, char *var);
 char	*ft_strip(char *line, char striped_char);
 void c_var_definition(t_shell **shell);
+void	change_var(t_shell **shell, char *var, char *msg);
 
 
 #endif
