@@ -6,16 +6,13 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:49:42 by root              #+#    #+#             */
-/*   Updated: 2023/07/15 19:49:43 by root             ###   ########.fr       */
+/*   Updated: 2023/07/22 16:30:12 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-void	c_clear(t_shell **shell)
+void	c_clear(void)
 {
-	shell = (shell);
-	if (!is_flag_null(shell, ""))
-		return ;
 	printf("\033[2J\033[1;1H");
 }

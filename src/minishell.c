@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 18:02:28 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/22 15:29:26 by root             ###   ########.fr       */
+/*   Updated: 2023/07/22 15:58:06 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ char	*make_text(t_shell **shell)
 	free(temp2);
 	temp2 = ft_strjoin(temp1, "\033[1;0m:\033[1;35m~");
 	free(temp1);
-	if ((*shell)->actual_path == NULL || (!(strcmp_mod((*shell)->actual_path, "HOME") == 0)))
+	if ((*shell)->actual_path == NULL
+		|| (!(strcmp_mod((*shell)->actual_path, "HOME") == 0)))
 		path = getcwd(buf, 1024);
 	else
 		path = (*shell)->actual_path;

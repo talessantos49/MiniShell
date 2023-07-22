@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:52:02 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/22 13:53:55 by root             ###   ########.fr       */
+/*   Updated: 2023/07/22 16:30:16 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void	c_export(t_shell **shell);
 // void	c_pwd(t_shell **shell);
 void	c_pwd(void);
 void	c_unset(t_shell **shell);
-void	c_clear(t_shell **shell);
+void	c_clear(void);
 void	*is_built_in(char *command);
 void    restore_std_io(int *std_io);
 char	*strchr_rev(const char *str, int c);
@@ -201,6 +201,5 @@ void remove_variable(t_env **list, char *var);
 char	*ft_strip(char *line, char striped_char);
 void c_var_definition(t_shell **shell);
 void	change_var(t_shell **shell, char *var, char *msg);
-
 
 #endif

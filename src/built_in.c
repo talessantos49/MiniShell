@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:13:26 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/19 16:24:34 by root             ###   ########.fr       */
+/*   Updated: 2023/07/22 16:25:45 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	*is_built_in(char *command)
 		return (c_pwd);
 	if (!strcmp_mod(command, "unset"))
 		return (c_unset);
-	// if (!strcmp_mod(command, "="))
 	if (find(command, '='))
 		return (c_var_definition);
 	return (NULL);

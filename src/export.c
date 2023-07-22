@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:02:11 by root              #+#    #+#             */
-/*   Updated: 2023/07/17 11:18:34 by root             ###   ########.fr       */
+/*   Updated: 2023/07/22 16:58:38 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,3 +49,5 @@ void	add_export(t_shell **shell)
 	if (!is_args(shell))
 		return ;
 }
+/*/////Apenas apresentar com a string na
+frente "declare -x" e ordenado com as variaveis de ambiente/*///
