@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 16:31:09 by root              #+#    #+#             */
-/*   Updated: 2023/07/21 17:54:55 by root             ###   ########.fr       */
+/*   Updated: 2023/07/22 22:43:38 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,8 @@ void	is_enviroment_definition(t_shell **shell, char *line)
 			new_arg->var = str_temp;
 			new_arg->msg = ft_substr(line_temp, i + 1, ft_strlen(line_temp) - i);
 			new_arg->len_msg = ft_strlen(new_arg->msg);
-			new_arg->type = 1;
+			new_arg->next = NULL;
+			(*shell)->env_n++;
 			add_node(&(*shell)->env, new_arg);
 		}
 	}

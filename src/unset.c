@@ -6,42 +6,47 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:29:34 by root              #+#    #+#             */
-/*   Updated: 2023/07/19 09:18:55 by root             ###   ########.fr       */
+/*   Updated: 2023/07/22 22:30:46 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-void remove_variable(t_env **list, char *var)
+void remove_variable(t_shell **shell, t_env **list, char *var)
 {
-	t_env	*temp;
+	t_env	*temp_node;
 
-	temp = *list;
-	if (temp == NULL)
+	temp_node = *list;
+	if (temp_node == NULL)
 		return ;
-	while (temp != NULL)
+	while (temp_node != NULL)
 	{
-		if (!strcmp_mod(temp->var, var))
+		if (!strcmp_mod(temp_node->var, var))
 		{
-			if (temp->prev == NULL)
+			printf("2 - [%s]\n", temp_node->var);
+			if (temp_node->prev == NULL)
 			{
-				*list = temp->next;
-				if (temp->next)
-					temp->next->prev = NULL;
+				*list = temp_node->next;
+				if (temp_node->next)
+					temp_node->next->prev = NULL;
 			}
-			else if (temp->next == NULL)
-				temp->prev->next = NULL;
+			else if (temp_node->next == NULL)
+				temp_node->prev->next = NULL;
 			else
 			{
-				temp->prev->next = temp->next;
-				temp->next->prev = temp->prev;
+				temp_node->prev->next = temp_node->next;
+				temp_node->next->prev = temp_node->prev;
 			}
-			free(temp->var);
-			free(temp->msg);
-			free(temp);
+			printf("var - [%s]\n", temp_node->var);
+			printf("var->next - [%s]\n", temp_node->next->var);
+			printf("var->prev - [%s]\n", temp_node->prev->var);
+			free(temp_node->var);
+			free(temp_node->msg);
+			free(temp_node);
+			(*shell)->env_n--;
 			return ;
 		}
-		temp = temp->next;
+		temp_node = temp_node->next;
 	}
 }
 
@@ -54,17 +59,22 @@ void remove_variable(t_env **list, char *var)
 // 	}
 // }
 
-void	exe_unset(t_shell **shell)
-{
-	if ((*shell)->content)
-	{
-		return ;
-	}
-}
+// void	exe_unset(t_shell **shell)
+// {
+// 	if ((*shell)->content)
+// 	{
+// 		return ;
+// 	}
+// }
 
 void	c_unset(t_shell **shell)
 {
 	if (is_var(shell, (*shell)->pipelist->commands->next->arg))
-		remove_variable(&(*shell)->env, (*shell)->pipelist->commands->next->arg);
+	{
+			if ((*shell)->pipelist->commands->next->arg)
+			{
+			remove_variable(shell,&(*shell)->env, (*shell)->pipelist->commands->next->arg);
+			}
+	}
 	(*shell)->exit_code = 0;
 }

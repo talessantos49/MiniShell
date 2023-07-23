@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:52:02 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/22 16:30:16 by root             ###   ########.fr       */
+/*   Updated: 2023/07/22 22:43:22 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct s_env
 {
 	char			*var;
 	char			*msg;
-	int				type;
+	// int				type;
 	int				len_var;
 	int				len_msg;
 	struct s_env	*prev;
@@ -197,7 +197,7 @@ void args_matrix(t_block *current);
 void pipe_list_build(t_shell **shell, char *line);
 void needs_env_update(t_shell **shell, t_env *current, int env_n);
 int	is_var(t_shell **shell, char *var);
-void remove_variable(t_env **list, char *var);
+void remove_variable(t_shell **shell, t_env **list, char *var);
 char	*ft_strip(char *line, char striped_char);
 void c_var_definition(t_shell **shell);
 void	change_var(t_shell **shell, char *var, char *msg);
