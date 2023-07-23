@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:28:00 by root              #+#    #+#             */
-/*   Updated: 2023/07/21 20:22:28 by root             ###   ########.fr       */
+/*   Updated: 2023/07/23 11:43:47 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	pipe_list_build(t_shell **shell, char *line)
 		// line = is_enviroment_definition(shell, line);
 		// replace_word(line, "$?", ft_itoa((*shell)->exit_code));
 		// line = change_enviroment(shell, line);
-		printf("line[%s]\n", line);
+		// printf("line[%s]\n", line);
 		line = is_special(shell, current, line, SPECIALS);
 		line = is_file_io(shell, current, line);
 		(*shell)->line = line;
