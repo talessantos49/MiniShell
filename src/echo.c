@@ -5,7 +5,7 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/22 15:14:03 by macarval          #+#    #+#             */
+/*   Created: 2023/02/22 15:14:03 by root          #+#    #+#             */
 /*   Updated: 2023/07/21 18:30:57 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -33,33 +33,16 @@ char	*print_args_echo(t_cmd *list, int flag_int)
 		else if (temp->next != NULL)
 		{
 			flag_int = 0;
-			// if (temp->arg[0] == '\'' || temp->arg[0] == '\"')
-			// {
-				// temp->arg = ft_strip(temp->arg, '\'');
-				// temp->arg = ft_strip(temp->arg, '\"');
-			// 	temp_str = ft_strjoin(temp_str, temp->arg);
-			// }
-			// else
-			// {
-				temp_str = ft_strjoin(temp_str, temp->arg);
-				temp_str = ft_strjoin(temp_str, " ");
-			// }
+			temp_str = ft_strjoin(temp_str, temp->arg);
+			temp_str = ft_strjoin(temp_str, " ");
 			temp = temp->next;
 		}
 		else
 		{
-		// 	temp->arg = ft_strip(temp->arg, '\'');
-		// 	temp->arg = ft_strip(temp->arg, '\"');
 			temp_str = ft_strjoin(temp_str, temp->arg);
-			// temp_str = ft_strtrim(temp_str, "\"");
-			// temp_str = ft_strtrim(temp_str, "\'");
-			// printf("%s", temp->arg);
 			temp = temp->next;
 		}
 	}
-	// temp_str = ft_strip(temp_str, '\'');
-	// temp_str = ft_strip(temp_str, '\"');
-	// printf("%s", temp_str);
 	return (temp_str);
 }
 
@@ -127,16 +110,6 @@ void	c_echo(t_shell **shell)
 	printf("%s", printable);
 	if (flag == 0 || (*shell)->pipelist->commands->next == NULL)
 		printf("\n");
+	free(printable);
 	(*shell)->exit_code = 0;
-	// free (flag);
-	// if ((*shell)->line == NULL)
-	// 	return ;
-	// flag = flag_echo(shell);
-	// printable = print_args_echo((*shell)->pipelist->commands);
-	// printf("%s", printable);
-	// if (flag == NULL || (*shell)->pipelist->commands->next == NULL
-	// 	|| strcmp_mod(flag, "-n"))
-	// 	printf("\n");
-	// (*shell)->exit_code = 0;
-	// free (flag);
 }

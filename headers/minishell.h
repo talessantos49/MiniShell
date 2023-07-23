@@ -5,7 +5,7 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/20 15:52:02 by macarval          #+#    #+#             */
+/*   Created: 2023/02/20 15:52:02 by rootz          #+#    #+#             */
 /*   Updated: 2023/07/22 22:43:22 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -61,7 +61,7 @@ typedef struct s_env
 {
 	char			*var;
 	char			*msg;
-	// int				type;
+	int				type;
 	int				len_var;
 	int				len_msg;
 	struct s_env	*prev;

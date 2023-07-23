@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:57:08 by root              #+#    #+#             */
-/*   Updated: 2023/07/22 13:05:43 by root             ###   ########.fr       */
+/*   Updated: 2023/07/23 13:31:00 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,10 @@ int	command_validate(t_shell **shell, t_block *current)
 	while (++i < (*shell)->paths_n)
 	{
 		cmd_tmp = ft_strjoin((*shell)->paths_mtx[i], "/");
-		cmd_tmp2 = ft_strjoin(cmd_tmp, current->cmd);
+		if (current->cmd != NULL)
+			cmd_tmp2 = ft_strjoin(cmd_tmp, current->cmd);
+		else
+			cmd_tmp2 = ft_strdup(cmd_tmp);
 		safe_free((void **)&cmd_tmp);
 		if (!(access(cmd_tmp2, X_OK)))
 		{

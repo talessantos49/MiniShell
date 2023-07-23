@@ -1,19 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_bonus.c                                  :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/20 18:02:31 by macarval          #+#    #+#             */
-/*   Updated: 2023/02/21 01:22:05 by macarval         ###   ########.fr       */
+/*   Created: 2023/07/23 20:18:38 by root              #+#    #+#             */
+/*   Updated: 2023/07/23 20:18:50 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell_bonus.h"
+#include "../headers/minishell.h"
 
-int	main(void)
-{
-	printf("Minishell Bônus\n");
-	return (0);
-}

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:28:00 by root              #+#    #+#             */
-/*   Updated: 2023/07/23 11:43:47 by root             ###   ########.fr       */
+/*   Updated: 2023/07/23 20:19:53 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,14 @@ void	pipe_list_build(t_shell **shell, char *line)
 		if (!current || !current->set)
 		{
 			current = new_block_on_pipe_list(shell, current);
-			(*shell)->pipelist->quote_position = (int *)malloc(sizeof(int));
 			heredoc_name_setup(shell, current);
 		}
 		line = is_spaces(line, SPACES);
-		// line = is_enviroment_definition(shell, line);
-		// replace_word(line, "$?", ft_itoa((*shell)->exit_code));
-		// line = change_enviroment(shell, line);
-		// printf("line[%s]\n", line);
 		line = is_special(shell, current, line, SPECIALS);
 		line = is_file_io(shell, current, line);
 		(*shell)->line = line;
 		line = is_command(shell, current, line);
 		actual_cmd = current->current_command;
-		// if (actual_cmd->quote != '\'')
-		// if (actual_cmd->quote != '\'')
-		// {
-		// 	replace_word(actual_cmd->arg, "$?", ft_itoa((*shell)->exit_code));
-		// 	actual_cmd->arg = change_enviroment(shell, actual_cmd->arg);
-		// }
 		if (actual_cmd->quote == '\'')
 			actual_cmd->arg = ft_strip(actual_cmd->arg, '\'');
 		else if (actual_cmd->quote == '\"')

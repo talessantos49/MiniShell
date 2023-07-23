@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:49:18 by root              #+#    #+#             */
-/*   Updated: 2023/07/22 22:44:22 by root             ###   ########.fr       */
+/*   Updated: 2023/07/23 19:56:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	c_env(t_shell **shell)
 	}
 }
 
-// t_env	*insert_front(t_env *new, char *var, char *msg, int type)
-t_env	*insert_front(t_env *new, char *var, char *msg)
+t_env	*insert_front(t_env *new, char *var, char *msg, int type)
+// t_env	*insert_front(t_env *new, char *var, char *msg)
 {
 	t_env	*node;
 
@@ -48,7 +48,7 @@ t_env	*insert_front(t_env *new, char *var, char *msg)
 		return (0);
 	node->var = NULL;
 	node->msg = NULL;
-	// node->type = type;
+	node->type = type;
 	if (var)
 		node->var = ft_strdup(var);
 	if (msg)
@@ -108,8 +108,8 @@ t_env	*make_list(t_shell **shell, char **envp)
 	{
 		node = NULL;
 		node = insert_front(node, strchr_rev(*envp, '='), \
-		// strchr_mod(*envp, '='), ENVP);
-		strchr_mod(*envp, '='));
+		strchr_mod(*envp, '='), ENVP);
+		// strchr_mod(*envp, '='));
 		insert_last(&env, node);
 		envp++;
 		(*shell)->env_n++;

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:02:11 by root              #+#    #+#             */
-/*   Updated: 2023/07/23 11:21:04 by root             ###   ########.fr       */
+/*   Updated: 2023/07/23 20:11:14 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,35 @@
 
 void	print_export(t_shell **shell)
 {
-	while (*shell != NULL)
+	t_env	*temp;
+
+	temp = (*shell)->env;
+	while (temp != NULL)
 	{
-		/*
-		// Colocar em ordem alfabética
-		*/
-		// if ((*shell)->env_in->type != LOCAL)
-		// {
-		// 	printf("declare -x %s", (*shell)->env_in->var);
-		// 	if ((*shell)->env_in->msg)
-		// 		printf("=\"%s\"", (*shell)->env_in->msg);
-		// 	printf("\n");
-		// }
-		// (*shell)->env_in = (*shell)->env_in->next;
+		if (temp->type == ENVP)
+		{
+			printf("declare -x %s", temp->var);
+			if (temp->msg)
+				printf("=\"%s\"", temp->msg);
+			printf("\n");
+		}
+		temp = temp->next;
 	}
 }
 
 void	c_export(t_shell **shell)
 {
-	shell = (shell);
-	if (!strcmp_mod((*shell)->command, "export"))
-	{
-		if (!is_flag_null(shell, ""))
-			return ;
-		if (!(*shell)->content)
-			print_export(shell);
-		else
-			apart_args(shell, ' ', add_export);
-	}
+	t_cmd *temp_node;
+
+	temp_node = (*shell)->pipelist->commands;
+	if (temp_node->next == NULL)
+		print_export(shell);
 }
 
-void	add_export(t_shell **shell)
-{
-	if (!is_args(shell))
-		return ;
-}
+// void	add_export(t_shell **shell)
+// {
+// 	if (!is_args(shell))
+// 		return ;
+// }
 /*/////Apenas apresentar com a string na
 frente "declare -x" e ordenado com as variaveis de ambiente/*///

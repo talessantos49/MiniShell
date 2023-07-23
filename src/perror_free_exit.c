@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:24:21 by root              #+#    #+#             */
-/*   Updated: 2023/07/19 08:50:24 by root             ###   ########.fr       */
+/*   Updated: 2023/07/23 12:49:31 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 
 void	restore_std_io(int *std_io)
 {
-	dup2(std_io[0], STDIN_FILENO);
-	close(std_io[0]);
-	dup2(std_io[1], STDOUT_FILENO);
-	close(std_io[1]);
+	dup2(std_io[0], STDOUT_FILENO);
+	// close(std_io[0]);
+	dup2(std_io[1], STDIN_FILENO);
+
+	// dup2(std_io[0], STDIN_FILENO);
+	// close(std_io[0]);
+	// dup2(std_io[1], STDOUT_FILENO);
+	// close(std_io[1]);
 }
 
 void	safe_free(void **ptr)

@@ -6,7 +6,7 @@
 #    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 15:52:33 by macarval          #+#    #+#              #
-#    Updated: 2023/07/15 22:31:40 by root             ###   ########.fr        #
+#    Updated: 2023/07/23 13:46:40 by root             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,8 +102,11 @@ re:				fclean all
 #--trace-children=yes --track-fds=yes \
 #--log-file=valgrind-out.txt
 
-VALGRIND 		= @valgrind --leak-check=full --show-leak-kinds=all \
---track-origins=yes --trace-children=yes --log-file=valgrind-out.txt -s
+# VALGRIND 		= @valgrind --leak-check=full --show-leak-kinds=all \
+# --track-origins=yes --trace-children=yes --log-file=valgrind-out.txt -s
+
+
+VALGRIND 		= @valgrind --leak-check=full --show-leak-kinds=all --suppressions=./readline.supp --track-origins=yes --track-fds=yes --log-file=valgrind-out.txt -s
 
 valgrind:
 	$(VALGRIND) ./minishell

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 18:02:28 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/22 22:27:42 by root             ###   ########.fr       */
+/*   Updated: 2023/07/23 13:49:47 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,12 +119,16 @@ char	*make_text(t_shell **shell)
 void	minishell(t_shell **shell)
 {
 	char	*line;
+	char	*prompt_text;
 
+	prompt_text = make_text(shell);
 	signal_listener(SIG_IGN, handle_sigint);
 	(*shell)->actual_path = ft_strdup(getenv("HOME"));
 	while (1)
 	{
-		line = readline(make_text(shell));
+		free (prompt_text);
+		prompt_text = make_text(shell);
+		line = readline(prompt_text);
 		(*shell)->exit_code = 0;
 		if (line && *line)
 		{

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 16:31:09 by root              #+#    #+#             */
-/*   Updated: 2023/07/22 22:43:38 by root             ###   ########.fr       */
+/*   Updated: 2023/07/23 13:17:58 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,7 +284,7 @@ char	*change_enviroment(t_shell **shell, char *line)
 	return (temp_line);
 }
 
-void	replace_word(char *sentence, const char *word_replace,
+void	replace_word(char *string, const char *word_replace,
 			const char *replacement)
 {
 	char	*found_word;
@@ -294,24 +294,24 @@ void	replace_word(char *sentence, const char *word_replace,
 	size_t	new_sentence_len;
 	int		offset;
 
-	found_word = strstr(sentence, word_replace);
+	found_word = strstr(string, word_replace);
 	if (found_word != NULL)
 	{
 		word_replace_len = ft_strlen(word_replace);
 		replacement_len = ft_strlen(replacement);
 		offset = replacement_len - word_replace_len;
-		new_sentence_len = ft_strlen(sentence) + offset + 1;
+		new_sentence_len = ft_strlen(string) + offset + 1;
 		new_sentence = malloc(new_sentence_len);
 		if (new_sentence == NULL)
 		{
 			printf("Erro ao alocar memória\n");
 			return ;
 		}
-		strncpy(new_sentence, sentence, found_word - sentence);
-		new_sentence[found_word - sentence] = '\0';
+		strncpy(new_sentence, string, found_word - string);
+		new_sentence[found_word - string] = '\0';
 		strcat(new_sentence, replacement);
 		strcat(new_sentence, found_word + word_replace_len);
-		strcpy(sentence, new_sentence);
+		strcpy(string, new_sentence);
 		free(new_sentence);
 	}
 }
