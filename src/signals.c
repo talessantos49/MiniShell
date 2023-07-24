@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:00:04 by root              #+#    #+#             */
-/*   Updated: 2023/07/15 20:29:07 by root             ###   ########.fr       */
+/*   Updated: 2023/07/24 13:56:26 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	handle_sigquit(t_shell **shell)
 {
 	ft_putstr_fd("exit\n", 1);
 	rl_clear_history();
-	exit((*shell)->exit_code);
+	free_nodes(shell);
+	// exit((*shell)->exit_code);
 }
 
 void	handle_sigint(int signal)

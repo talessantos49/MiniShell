@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 18:02:28 by root              #+#    #+#             */
-/*   Updated: 2023/07/24 03:16:31 by root             ###   ########.fr       */
+/*   Updated: 2023/07/24 13:56:07 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,15 +121,13 @@ void	minishell(t_shell **shell)
 	char	*line;
 	char	*prompt_text;
 
-	prompt_text = make_text(shell);
 	signal_listener(SIG_IGN, handle_sigint);
-	(*shell)->actual_path = ft_strdup(getenv("HOME"));
+	(*shell)->actual_path = getenv("HOME");
 	while (1)
 	{
-		free (prompt_text);
 		prompt_text = make_text(shell);
 		line = readline(prompt_text);
-		(*shell)->exit_code = 0;
+		free (prompt_text);
 		if (line && *line)
 		{
 			needs_env_update(shell, (*shell)->env, (*shell)->env_n);
@@ -139,7 +137,9 @@ void	minishell(t_shell **shell)
 			free_pipe_list(shell, (*shell)->pipelist);
 		}
 		else if (line == NULL)
+		{
 			handle_sigquit(shell);
+			break ;
+		}
 	}
-	free (prompt_text);
 }

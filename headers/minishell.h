@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:52:02 by root              #+#    #+#             */
-/*   Updated: 2023/07/24 03:30:31 by root             ###   ########.fr       */
+/*   Updated: 2023/07/24 13:50:50 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,5 +187,9 @@ void	c_var_definition(t_shell **shell);
 void	change_var(t_shell **shell, char *var, char *msg);
 char	*print_args_echo(t_cmd *list, int flag_int, char *cmd, char *flag);
 void	init_shell(t_shell **shell);
+t_env	*make_list(t_shell **shell, char **envp);
+void	free_env_mtx(char **env, int env_n, char **paths, int paths_n);
+void	free_nodes(t_shell **shell);
+
 
 #endif

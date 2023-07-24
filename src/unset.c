@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:29:34 by root              #+#    #+#             */
-/*   Updated: 2023/07/24 02:40:11 by root             ###   ########.fr       */
+/*   Updated: 2023/07/24 12:01:40 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	remove_variable(t_shell **shell, t_env **list, char *var)
 				temp_node->prev->next = temp_node->next;
 				temp_node->next->prev = temp_node->prev;
 			}
+			free(temp_node);
 			(*shell)->env_n--;
 			return ;
 		}

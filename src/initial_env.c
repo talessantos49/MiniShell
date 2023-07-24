@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:49:18 by root              #+#    #+#             */
-/*   Updated: 2023/07/24 02:13:27 by root             ###   ########.fr       */
+/*   Updated: 2023/07/24 12:20:02 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	c_env(t_shell **shell)
 	}
 }
 
-t_env	*insert_front(t_env *new, char *var, char *msg, int type)
+t_env	*create_node(t_env *new, char *var, char *msg, int type)
 {
 	t_env	*node;
 
@@ -46,9 +46,9 @@ t_env	*insert_front(t_env *new, char *var, char *msg, int type)
 	node->msg = NULL;
 	node->type = type;
 	if (var)
-		node->var = ft_strdup(var);
+		node->var = var;
 	if (msg)
-		node->msg = ft_strdup(msg);
+		node->msg = msg;
 	node->prev = NULL;
 	node->next = new;
 	if (new != NULL)
@@ -103,7 +103,7 @@ t_env	*make_list(t_shell **shell, char **envp)
 	while (*envp)
 	{
 		node = NULL;
-		node = insert_front(node, strchr_rev(*envp, '='), \
+		node = create_node(node, strchr_rev(*envp, '='), \
 		strchr_mod(*envp, '='), ENVP);
 		insert_last(&env, node);
 		envp++;

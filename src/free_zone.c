@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:24:21 by root              #+#    #+#             */
-/*   Updated: 2023/07/24 02:15:19 by root             ###   ########.fr       */
+/*   Updated: 2023/07/24 13:50:08 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,19 @@ void	free_pipe_list(t_shell **shell, t_block *current)
 		safe_free((void **)&current);
 		current = next;
 		(*shell)->pid = 0;
+	}
+}
+
+void	free_nodes(t_shell **shell)
+{
+	t_env	*aux;
+
+	aux = NULL;
+	while ((*shell)->env_n)
+	{
+		aux = (*shell)->env;
+		(*shell)->env = (*shell)->env->next;
+		free(aux);
+		(*shell)->env_n--;
 	}
 }
