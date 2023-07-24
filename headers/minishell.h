@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:52:02 by root              #+#    #+#             */
-/*   Updated: 2023/07/24 03:17:10 by root             ###   ########.fr       */
+/*   Updated: 2023/07/24 03:30:31 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ end-of-file (wanted `"
 # define ERRORFLAG2 "%s: invalid option -- '%c'\n"
 
 extern int			g_signal;
+
 typedef struct s_cmd
 {
 	char			quote;
@@ -111,17 +112,13 @@ typedef struct s_shell
 char	*make_text(t_shell **shell);
 void	minishell(t_shell **shell);
 void	execution(t_shell **shell, t_block *current);
-void    free_pipe_list(t_shell **shell, t_block *current);
+void	free_pipe_list(t_shell **shell, t_block *current);
 void	perror_free(char *type, char *name);
-void    safe_free(void **ptr);
-
-
+void	safe_free(void **ptr);
 // Split
 char	**split_commands(t_shell **shell, char *s, char c);
-
 // Pipe_List
-t_block *new_block_on_pipe_list(t_shell **shell, t_block *block_current);
-
+t_block	*new_block_on_pipe_list(t_shell **shell, t_block *block_current);
 // Built-in's
 int		find(char *string1, char c);
 int		strcmp_mod(const char *s1, const char *s2);
@@ -136,49 +133,40 @@ void	c_pwd(void);
 void	c_unset(t_shell **shell);
 void	c_clear(void);
 void	*is_built_in(char *command);
-void    restore_std_io(int *std_io);
+void	restore_std_io(int *std_io);
 char	*strchr_rev(const char *str, int c);
 int		strcmp_mod(const char *s1, const char *s2);
 char	*strchr_mod(const char *str, int c);
 char	*strchr_rev(const char *str, int c);
 int		ft_isalnum_mod(int c);
 void	apart_args(t_shell **shell, char c, void (*function)());
-void	add_export();
-int		is_args();
-void	exe_unset();
 int		builtin_setup(t_shell **shell, char **args);
-void    error(char *msg, t_shell **shell, int free_type, int exit_code);
+void	error(char *msg, t_shell **shell, int free_type, int exit_code);
 void	heredoc_name_setup(t_shell **shell, t_block *current);
 // void	here_doc_exec(t_block *current, char *delimiter, int mode);
 void	here_doc_exec(t_block *current, char *delimiter);
 char	*here_doc_setup(t_shell **shell, t_block *current, char *line);
 t_env	*make_list(t_shell **shell, char **envp);
-
 void	handle_sigquit(t_shell **shell);
 void	handle_sigint(int signal);
-
 void	signal_listener(__sighandler_t handle_quit, __sighandler_t handle_int);
 void	signals_line(t_shell **shell);
 void	signal_set(int signal);
-
 char	*is_spaces(char *line, char *spaces);
 char	*is_no_word(t_shell **shell, t_block *current, char *line);
-void    free_shell(t_shell **shell);
+void	free_shell(t_shell **shell);
 // args
-
 int		is_flag_null(t_shell **shell, char *pattern);
 void	print_flag_error(char *command, char *flag, int flag_len, int cmd_len);
-// char	*is_enviroment_definition(t_shell **shell, char *line);
 void	is_enviroment_definition(t_shell **shell, char *line, int i, int k);
 void	add_node(t_env **list, t_env *node);
 char	*change_enviroment(t_shell **shell, char *line, int i, int k);
 t_env	*node_atribuition(char *var, char *msg);
-void	replace_word(char *string, const char *wordToReplace, const char *replacement, int offset);
+void	replace_word(char *string, const char *wordToReplace,
+			const char *replacement, int offset);
 t_env	*find_arg(t_shell **shell, char *var);
-
 void	signal_handled_exec(t_shell **shell);
 //ordenated later;
-
 void	quote_clean(t_block *current, char *command, char quote);
 char	*quote_unclosed(t_block *current, char *input);
 int		is_quote(t_block *current, char line);
@@ -186,19 +174,18 @@ void	new_command(t_block *current);
 char	*is_command(t_shell **shell, t_block *current, char *line);
 char	*is_file_io(t_shell **shell, t_block *current, char *line);
 char	*is_special(t_shell **shell,
-	t_block *current, char *line, char *specials);
-void manage_file_descriptors(t_block *current, char *file_name);
-char *special_cases(t_shell **shell, t_block *current, char *line);
-void args_matrix(t_block *current);
-void pipe_list_build(t_shell **shell, char *line);
-void needs_env_update(t_shell **shell, t_env *current, int env_n);
-int	is_var(t_shell **shell, char *var);
-void remove_variable(t_shell **shell, t_env **list, char *var);
+			t_block *current, char *line, char *specials);
+void	manage_file_descriptors(t_block *current, char *file_name);
+char	*special_cases(t_shell **shell, t_block *current, char *line);
+void	args_matrix(t_block *current);
+void	pipe_list_build(t_shell **shell, char *line);
+void	needs_env_update(t_shell **shell, t_env *current, int env_n);
+int		is_var(t_shell **shell, char *var);
+void	remove_variable(t_shell **shell, t_env **list, char *var);
 char	*ft_strip(char *line, char striped_char);
-void c_var_definition(t_shell **shell);
+void	c_var_definition(t_shell **shell);
 void	change_var(t_shell **shell, char *var, char *msg);
 char	*print_args_echo(t_cmd *list, int flag_int, char *cmd, char *flag);
-void	init_shell (t_shell **shell);
-
+void	init_shell(t_shell **shell);
 
 #endif
