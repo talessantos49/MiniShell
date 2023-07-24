@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:49:18 by root              #+#    #+#             */
-/*   Updated: 2023/07/23 19:56:03 by root             ###   ########.fr       */
+/*   Updated: 2023/07/24 02:13:27 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,8 @@ void	c_env(t_shell **shell)
 
 	shell = (shell);
 	temp = (*shell)->env;
-	if (!is_flag_null(shell, ""))
-		return ;
 	while (temp != NULL)
 	{
-		// if (temp->type != LOCAL && temp->msg)
 		if (temp->msg)
 		{
 			var_len = ft_strlen(temp->var);
@@ -39,7 +36,6 @@ void	c_env(t_shell **shell)
 }
 
 t_env	*insert_front(t_env *new, char *var, char *msg, int type)
-// t_env	*insert_front(t_env *new, char *var, char *msg)
 {
 	t_env	*node;
 
@@ -109,7 +105,6 @@ t_env	*make_list(t_shell **shell, char **envp)
 		node = NULL;
 		node = insert_front(node, strchr_rev(*envp, '='), \
 		strchr_mod(*envp, '='), ENVP);
-		// strchr_mod(*envp, '='));
 		insert_last(&env, node);
 		envp++;
 		(*shell)->env_n++;

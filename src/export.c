@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:02:11 by root              #+#    #+#             */
-/*   Updated: 2023/07/23 20:11:14 by root             ###   ########.fr       */
+/*   Updated: 2023/07/24 02:12:24 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,9 @@ void	print_export(t_shell **shell)
 
 void	c_export(t_shell **shell)
 {
-	t_cmd *temp_node;
+	t_cmd	*temp_node;
 
 	temp_node = (*shell)->pipelist->commands;
 	if (temp_node->next == NULL)
 		print_export(shell);
 }
-
-// void	add_export(t_shell **shell)
-// {
-// 	if (!is_args(shell))
-// 		return ;
-// }
-/*/////Apenas apresentar com a string na
-frente "declare -x" e ordenado com as variaveis de ambiente/*///

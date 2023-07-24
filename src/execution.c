@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:57:08 by root              #+#    #+#             */
-/*   Updated: 2023/07/23 13:31:00 by root             ###   ########.fr       */
+/*   Updated: 2023/07/24 02:11:04 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	pipeline_manager(t_shell **shell, t_block *current)
 void	child(t_shell **shell, t_block *current)
 {
 	signal_handled_exec(shell);
-	// signal_handled(shell);
 	pipeline_manager(shell, current);
 	if (current->built_in)
 	{

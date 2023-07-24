@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 18:02:28 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/23 13:49:47 by root             ###   ########.fr       */
+/*   Updated: 2023/07/23 23:34:35 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,4 +141,5 @@ void	minishell(t_shell **shell)
 		else if (line == NULL)
 			handle_sigquit(shell);
 	}
+	free (prompt_text);
 }

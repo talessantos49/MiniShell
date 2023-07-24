@@ -94,7 +94,6 @@ typedef struct s_shell
 	char		*cmd;
 	char		*command;
 	char		*content;
-	char		*flag;
 	char		*line;
 	char		*line1;
 	char		*heredoc_name;
@@ -174,10 +173,11 @@ void    free_shell(t_shell **shell);
 int		is_flag_null(t_shell **shell, char *pattern);
 void	print_flag_error(char *command, char *flag, int flag_len, int cmd_len);
 // char	*is_enviroment_definition(t_shell **shell, char *line);
-void	is_enviroment_definition(t_shell **shell, char *line);
+void	is_enviroment_definition(t_shell **shell, char *line, int i, int k);
 void	add_node(t_env **list, t_env *node);
-char	*change_enviroment(t_shell **shell, char *line);
-void	replace_word(char *sentence, const char *wordToReplace, const char *replacement);
+char	*change_enviroment(t_shell **shell, char *line, int i, int k);
+t_env	*node_atribuition(char *var, char *msg);
+void	replace_word(char *string, const char *wordToReplace, const char *replacement, int offset);
 t_env	*find_arg(t_shell **shell, char *var);
 
 void	signal_handled_exec(t_shell **shell);
@@ -201,5 +201,7 @@ void remove_variable(t_shell **shell, t_env **list, char *var);
 char	*ft_strip(char *line, char striped_char);
 void c_var_definition(t_shell **shell);
 void	change_var(t_shell **shell, char *var, char *msg);
+char	*print_args_echo(t_cmd *list, int flag_int, char *cmd, char *flag);
+
 
 #endif
