@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/20 15:52:02 by rootz          #+#    #+#             */
-/*   Updated: 2023/07/22 22:43:22 by root             ###   ########.fr       */
+/*   Created: 2023/02/20 15:52:02 by root              #+#    #+#             */
+/*   Updated: 2023/07/24 03:17:10 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,7 @@ typedef struct s_shell
 {
 	char		**env_mtx;
 	char		**paths_mtx;
-	char		*cmd;
-	char		*command;
-	char		*content;
 	char		*line;
-	char		*line1;
 	char		*heredoc_name;
 	char		*actual_path;
 	int			exit_code;
@@ -202,6 +198,7 @@ char	*ft_strip(char *line, char striped_char);
 void c_var_definition(t_shell **shell);
 void	change_var(t_shell **shell, char *var, char *msg);
 char	*print_args_echo(t_cmd *list, int flag_int, char *cmd, char *flag);
+void	init_shell (t_shell **shell);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:19:45 by root              #+#    #+#             */
-/*   Updated: 2023/07/15 20:20:07 by root             ###   ########.fr       */
+/*   Updated: 2023/07/24 03:03:40 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	main(int argc, char **argv, char **envp)
 		exit(1);
 	}
 	shell = (t_shell *)ft_calloc(1, sizeof(t_shell));
+	init_shell(&shell);
 	shell->env = make_list(&shell, envp);
 	shell->std_io[0] = dup(0);
 	shell->std_io[1] = dup(1);
