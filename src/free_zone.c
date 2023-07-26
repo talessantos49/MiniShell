@@ -6,19 +6,11 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:24:21 by root              #+#    #+#             */
-/*   Updated: 2023/07/24 13:50:08 by root             ###   ########.fr       */
+/*   Updated: 2023/07/26 12:22:31 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
-
-void	restore_std_io(int *std_io)
-{
-	dup2(std_io[0], STDIN_FILENO);
-	close(std_io[0]);
-	dup2(std_io[1], STDOUT_FILENO);
-	close(std_io[1]);
-}
 
 void	safe_free(void **ptr)
 {
@@ -80,4 +72,14 @@ void	free_nodes(t_shell **shell)
 		free(aux);
 		(*shell)->env_n--;
 	}
+}
+
+void	exit_free(t_shell **shell)
+{
+	free_nodes(shell);
+	free_pipe_list(shell, (*shell)->pipelist);
+	// free(shell);
+	free_env_mtx((*shell)->env_mtx,
+		(*shell)->env_n, (*shell)->paths_mtx, (*shell)->paths_n);
+	exit((*shell)->exit_code);
 }

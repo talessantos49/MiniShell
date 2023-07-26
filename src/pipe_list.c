@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:28:00 by root              #+#    #+#             */
-/*   Updated: 2023/07/24 02:32:55 by root             ###   ########.fr       */
+/*   Updated: 2023/07/25 08:21:33 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,23 @@ void	cmd_quotes(t_shell **shell, t_block *current)
 	t_cmd	*actual_cmd;
 
 	actual_cmd = current->current_command;
-	if (actual_cmd->quote == '\'')
-		actual_cmd->arg = ft_strip(actual_cmd->arg, '\'');
-	else if (actual_cmd->quote == '\"')
+	if (actual_cmd)
 	{
-		replace_word(actual_cmd->arg, "$?",
-			ft_itoa((*shell)->exit_code), 0);
-		actual_cmd->arg = change_enviroment(shell, actual_cmd->arg, -1, 0);
-		actual_cmd->arg = ft_strip(actual_cmd->arg, '\"');
-	}
-	else
-	{
-		replace_word(actual_cmd->arg, "$?",
-			ft_itoa((*shell)->exit_code), 0);
-		actual_cmd->arg = change_enviroment(shell, actual_cmd->arg, -1, 0);
+		if (actual_cmd->quote == '\'')
+			actual_cmd->arg = ft_strip(actual_cmd->arg, '\'');
+		else if (actual_cmd->quote == '\"')
+		{
+			replace_word(actual_cmd->arg, "$?",
+				ft_itoa((*shell)->exit_code), 0);
+			actual_cmd->arg = change_enviroment(shell, actual_cmd->arg, -1, 0);
+			actual_cmd->arg = ft_strip(actual_cmd->arg, '\"');
+		}
+		else
+		{
+			replace_word(actual_cmd->arg, "$?",
+				ft_itoa((*shell)->exit_code), 0);
+			actual_cmd->arg = change_enviroment(shell, actual_cmd->arg, -1, 0);
+		}
 	}
 }
 
@@ -80,4 +83,12 @@ void	pipe_list_build(t_shell **shell, char *line)
 		if (g_signal)
 			break ;
 	}
+}
+
+void	restore_std_io(int *std_io)
+{
+	dup2(std_io[0], STDIN_FILENO);
+	close(std_io[0]);
+	dup2(std_io[1], STDOUT_FILENO);
+	close(std_io[1]);
 }

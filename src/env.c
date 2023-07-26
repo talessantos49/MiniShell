@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 21:09:59 by root              #+#    #+#             */
-/*   Updated: 2023/07/23 22:46:39 by root             ###   ########.fr       */
+/*   Updated: 2023/07/25 14:43:44 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	env_mtx_update(t_shell **shell, t_env *current, int env_n)
 		if (!strcmp_mod("PATH", current->var))
 			(*shell)->paths_mtx = split_commands(shell, current->msg, ':');
 		(*shell)->paths_n = (*shell)->count;
-		var_len = strlen(current->var);
-		msg_len = strlen(current->msg);
+		var_len = ft_strlen(current->var);
+		msg_len = ft_strlen(current->msg);
 		*env_mtx = (char *)ft_calloc(var_len + msg_len + 2, sizeof(char));
 		ft_strlcpy(*env_mtx, current->var, var_len + 1);
 		ft_strlcpy(*env_mtx + var_len, "=", 2);
