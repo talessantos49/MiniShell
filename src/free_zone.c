@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:24:21 by root              #+#    #+#             */
-/*   Updated: 2023/07/26 12:22:31 by root             ###   ########.fr       */
+/*   Updated: 2023/07/26 20:25:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,29 @@ void	free_nodes(t_shell **shell)
 	{
 		aux = (*shell)->env;
 		(*shell)->env = (*shell)->env->next;
+		free(aux->var);
 		free(aux);
 		(*shell)->env_n--;
+	}
+}
+
+void	free_current(t_shell **shell)
+{
+	t_block	*aux;
+
+	aux = (*shell)->pipelist;
+	while (aux)
+	{
+		(*shell)->pipelist
+			= (*shell)->pipelist->next;
+		free(aux->heredoc_name);
+		free(aux->current_var);
+		free(aux->args);
+		free(aux->cmd);
+		free(aux->current_command->arg);
+		free(aux->current_command);
+		free(aux);
+		aux = (*shell)->pipelist;
 	}
 }
 
@@ -78,7 +99,7 @@ void	exit_free(t_shell **shell)
 {
 	free_nodes(shell);
 	free_pipe_list(shell, (*shell)->pipelist);
-	// free(shell);
+	free_current(shell);
 	free_env_mtx((*shell)->env_mtx,
 		(*shell)->env_n, (*shell)->paths_mtx, (*shell)->paths_n);
 	exit((*shell)->exit_code);

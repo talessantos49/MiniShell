@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:49:18 by root              #+#    #+#             */
-/*   Updated: 2023/07/24 15:08:10 by root             ###   ########.fr       */
+/*   Updated: 2023/07/26 16:37:39 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ t_env	*create_node(t_env *new, char *var, char *msg, int type)
 	node->next = new;
 	if (new != NULL)
 		new->prev = node;
-	if (var)
-		free(var);
 	return (node);
 }
 

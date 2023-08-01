@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:28:00 by root              #+#    #+#             */
-/*   Updated: 2023/07/25 08:21:33 by root             ###   ########.fr       */
+/*   Updated: 2023/07/26 12:46:39 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ char	*black_box(t_shell **shell, t_block *current, char *line)
 void	cmd_quotes(t_shell **shell, t_block *current)
 {
 	t_cmd	*actual_cmd;
+	char	*tmp;
 
+	tmp = ft_itoa((*shell)->exit_code);
 	actual_cmd = current->current_command;
 	if (actual_cmd)
 	{
@@ -51,17 +53,18 @@ void	cmd_quotes(t_shell **shell, t_block *current)
 		else if (actual_cmd->quote == '\"')
 		{
 			replace_word(actual_cmd->arg, "$?",
-				ft_itoa((*shell)->exit_code), 0);
+				tmp, 0);
 			actual_cmd->arg = change_enviroment(shell, actual_cmd->arg, -1, 0);
 			actual_cmd->arg = ft_strip(actual_cmd->arg, '\"');
 		}
 		else
 		{
 			replace_word(actual_cmd->arg, "$?",
-				ft_itoa((*shell)->exit_code), 0);
+				tmp, 0);
 			actual_cmd->arg = change_enviroment(shell, actual_cmd->arg, -1, 0);
 		}
 	}
+	free(tmp);
 }
 
 void	pipe_list_build(t_shell **shell, char *line)
