@@ -16,29 +16,7 @@ char	*strchr_mod(const char *str, int c)
 		if ((char) c == '\0' && *str == '\0')
 			return ((char *)str);
 	}
-	return (0);
-}
-
-char	*strchr_rev(const char *str, int c)
-{
-	int			i;
-	const char	*temp;
-
-	i = 0;
-	temp = str;
-	if (str != NULL)
-	{
-		while (*str != '\0')
-		{
-			if (*str == (char) c)
-				return ((char *)ft_substr(temp, 0, i));
-			i++;
-			str++;
-		}
-		if ((char) c == '\0' && *str == '\0')
-			return ((char *)str);
-	}
-	return (0);
+	return (NULL);
 }
 
 int	strcmp_mod(const char *s1, const char *s2)
@@ -58,37 +36,33 @@ int	strcmp_mod(const char *s1, const char *s2)
 		}
 		i++;
 	}
-	return (0);
+	return (SUCCES);
 }
 
-int	ft_isalnum_mod(int c)
+char	*ft_strtrim(char const *s1, const char *set)
 {
-	int	r;
+	char	*rev;
+	char 	*s1_backup;
+	char	*set_reset;
+	char	*trim;
 
-	r = ((c >= 'a' && c <= 'z')
-			|| (c >= 'A' && c <= 'Z')
-			|| (c >= '0' && c <= '9') || (c == '_' ));
-	return (r);
-}
-
-char	*ft_strip(char *line, char striped_char)
-{
-	int		i;
-	int		k;
-	int		len_line;
-	int		len_total;
-	char	*temp;
-
-	len_line = ft_strlen(line) - 1;
-	i = 0;
-	k = len_line;
-	while (line[i] && line[i] == striped_char)
-		i++;
-	while (k >= 0 && line[k] == striped_char)
-		k--;
-	len_total = k - i + 1;
-	temp = ft_calloc(sizeof(char *), len_total);
-	temp = ft_substr(line, i, len_total);
-	temp[len_total] = '\0';
-	return (temp);
+	s1_backup = (char *)s1;
+	set_reset = (char *)set;
+	rev = (char *)s1 + ft_strlen(s1) - 1;
+	while (*set && *s1)
+	{
+		if (*s1 == *set || *rev == *set)
+		{
+			s1 += *s1 == *set;
+			rev -= *rev == *set;
+			set = set_reset;
+		}
+		else
+			set++;
+	}
+	if (s1 == s1_backup && rev == s1_backup + ft_strlen(s1) - 1)
+		return ((char *)s1);
+	trim = ft_calloc(((rev - s1) + 2) * (*s1 > 0) + (*s1 == 0), sizeof(char));
+	ft_strlcpy(trim, s1, ((rev - s1) + 2) * (*s1 > 0) + (*s1 == 0));
+	return (trim);
 }

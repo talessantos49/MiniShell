@@ -18,6 +18,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t	s_len;
 	size_t	index;
 
+	if (!len)
+		return (NULL);
 	index = 0;
 	s_len = ft_strlen(s);
 	if (start >= s_len)
@@ -27,5 +29,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	ptr = ft_calloc(len + 1, sizeof(char));
 	while (len-- && s[start])
 		ptr[index++] = s[start++];
+	ptr[index] = 0;
 	return (ptr);
 }

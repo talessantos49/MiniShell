@@ -14,10 +14,8 @@
 
 void	c_pwd(t_shell **shell)
 {
-	char	buf[256];
+	char	buf[BUF];
 
 	shell = (shell);
-	if (!is_flag_null(shell, ""))
-		exit(2);
-	printf("%s\n", getcwd(buf, 256));
+	printf("%s\n", getcwd(buf, BUF));
 }

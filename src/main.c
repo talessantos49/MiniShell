@@ -20,12 +20,10 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 1 || argv[1] != NULL)
 	{
-		printf("minishell: too many arguments\n");
-		exit(1);
+		ft_printfd(ERROR_ARG, STDERR_FILENO);
+		exit(EXIT_FAILURE);
 	}
 	shell = (t_shell *)ft_calloc(1, sizeof(t_shell));
-	shell->env = make_list(&shell, envp);
-	shell->std_io[0] = dup(0);
-	shell->std_io[1] = dup(1);
+	make_env(&shell, envp);
 	minishell(&shell);
 }

@@ -14,15 +14,13 @@
 
 void	c_exit(t_shell **shell)
 {
-	int	exit_code;
-
-	exit_code = 0;
-	if ((*shell)->flag)
+	if ((*shell)->pipelist->args[1])
 	{
-		write(2, "haha", 4);
-		exit_code = 2;
+		ft_printfd(ERROR_OPTION, STDERR_FILENO, NAME_EXIT);
+		(*shell)->exit_code = 2;
+		return ;
 	}
 	rl_clear_history();
-	free_pipe_list(shell, (*shell)->pipelist);
-	exit(exit_code);
+	free_shell(shell);
+	exit(EXIT_SUCCESS);
 }

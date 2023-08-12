@@ -12,73 +12,41 @@
 
 #include "../headers/minishell.h"
 
-void	print_args_echo(t_cmd *list)
+char	**flag_scan(t_block *current)
 {
-	t_cmd	*temp;
-	char	*cmd;
-	char	*flag;
+	char	**args;
+	int		has_flag_valid;	
 
-	flag = "-n";
-	cmd = "echo";
-	temp = list;
-	while (temp != NULL)
+	args = &current->args[1];
+	has_flag_valid = 0;
+	while(args && *args && \
+	(**args == *STR_VOID || !strcmp_mod(*args, STR_FLAG_ECHO)))
 	{
-		if (!strcmp_mod(temp->arg, cmd))
-			temp = temp->next;
-		else if (!strcmp_mod(temp->arg, flag))
-			temp = temp->next;
-		else if (temp->next != NULL)
-		{
-			printf("%s ", temp->arg);
-			temp = temp->next;
-		}
-		else
-		{
-			printf("%s", temp->arg);
-			temp = temp->next;
-		}
+		has_flag_valid += (!strcmp_mod(*args, STR_FLAG_ECHO));
+		args++;
 	}
-}
-
-char	*flag_echo(t_shell **shell)
-{
-	char	*temp_line;
-	char	*flag;
-	char	*test;
-
-	test = "-n";
-	if ((*shell)->pipelist->commands->next == NULL)
-	{
-		flag = ft_strdup("");
-		return (NULL);
-	}
-	temp_line = (*shell)->pipelist->commands->next->arg;
-	if ((*shell)->line == NULL)
-		return (NULL);
-	if (temp_line[0] == test[0] && temp_line[1] == test[1])
-	{
-		flag = ft_strdup("-n");
-		if (temp_line[0] == test[0] && temp_line[1] == test[1])
-			(*shell)->line = "";
-		else
-			(*shell)->line = temp_line;
-	}
+	if (has_flag_valid)
+		return (args);
 	else
-		flag = ft_strdup("");
-	return (flag);
-}
+		return (NULL);
+}	
 
 void	c_echo(t_shell **shell)
 {
-	char	*flag;
+	char	**args;
+	char	**flag;
 
-	if ((*shell)->line == NULL)
-		return ;
-	flag = flag_echo(shell);
-	print_args_echo((*shell)->pipelist->commands);
-	if (flag == NULL || (*shell)->pipelist->commands->next == NULL
-		|| strcmp_mod(flag, "-n"))
+	flag = flag_scan((*shell)->pipelist);
+	if (flag)
+		args = flag;
+	else
+		args = &(*shell)->pipelist->args[1];
+	while (args && *args)
+	{
+		printf("%s", *args++);
+		if (args && *args && **args)
+			printf(" ");
+	}
+	if (!flag)
 		printf("\n");
-	(*shell)->exit_code = 0;
-	free (flag);
 }

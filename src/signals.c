@@ -30,6 +30,7 @@ void	handle_sigquit(t_shell **shell)
 {
 	ft_putstr_fd("exit\n", 1);
 	rl_clear_history();
+	free_shell(shell);
 	exit((*shell)->exit_code);
 }
 
@@ -41,7 +42,7 @@ void	handle_sigint(int signal)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		g_signal = SIGINT;
+		g_signal = 130;
 	}
 }
 

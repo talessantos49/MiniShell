@@ -14,52 +14,36 @@
 
 void	manage_file_descriptors(t_block *current, char *file_name)
 {
-	if (current->set == 2 && current->fd[0])
+	if (current->set == INFILE && current->fd[0])
 		close(current->fd[0]);
-	else if (current->set >= 3 && current->fd[1])
+	else if ((current->set == OUTFILE_NEW || current->set == OUTFILE_APPEND) \
+	&& current->fd[1])
 		close(current->fd[1]);
-	if (current->set == 2)
-		current->fd[0] = open(file_name, O_RDONLY, 0644);
-	else if (current->set == 3)
-		current->fd[1] = open(file_name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	else if (current->set == 4)
-		current->fd[1] = open(file_name, O_CREAT | O_WRONLY | O_APPEND, 0644);
+	if (current->set == INFILE)
+		current->fd[0] = open(file_name, O_RDONLY, CHMOD);
+	else if (current->set == OUTFILE_NEW)
+		current->fd[1] = open(file_name, O_CREAT | O_WRONLY | O_TRUNC, CHMOD);
+	else if (current->set == OUTFILE_APPEND)
+		current->fd[1] = open(file_name, O_CREAT | O_WRONLY | O_APPEND, CHMOD);
 }
 
 char	*special_cases(t_shell **shell, t_block *current, char *line)
 {
-	if (*line == '<' && *++line)
+	if (*line == '<' && *line++)
 	{
-		current->set = 2;
-		if (*line == '<' && *++line)
+		current->set = INFILE;
+		if (*line == '<' && *line++)
 			return (here_doc_setup(shell, current, line));
 	}
-	else if (*line == '>' && *++line)
+	else if (*line == '>' && *line++)
 	{
-		current->set = 3;
-		if (*line == '>' && *++line)
-			current->set = 4;
+		current->set = OUTFILE_NEW;
+		if (*line == '>' && *line++)
+			current->set = OUTFILE_APPEND;
 	}
 	else if (*line == '|' && line++)
-	{
-		if (!pipe(current->pipe))
-			current->set = 0;
-	}
+			current->set = NEW_BLOCK;
 	return (line);
-}
-
-int	find(char *string1, char c)
-{
-	int		i;
-
-	i = ft_strlen(string1);
-	while (i >= 0)
-	{
-		if (string1[i] == c)
-			return (1);
-		i--;
-	}
-	return (0);
 }
 
 void	minishell(t_shell **shell)
@@ -67,13 +51,13 @@ void	minishell(t_shell **shell)
 	char	*line;
 
 	signal_listener(SIG_IGN, handle_sigint);
-	while (1)
+	while (TRUE)
 	{
-		line = readline("minishell $> ");
+		line = readline(COLOR_BHCYAN "MiniShell" COLOR_BHRED "$" \
+		COLOR_BHCYAN "> " COLOR_RESET);
 		(*shell)->exit_code = 0;
 		if (line && *line)
 		{
-			needs_env_update(shell, (*shell)->env, (*shell)->env_n);
 			add_history(line);
 			pipe_list_build(shell, line);
 			execution(shell, (*shell)->pipelist);

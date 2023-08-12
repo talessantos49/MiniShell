@@ -14,21 +14,19 @@
 
 void	*is_built_in(char *command)
 {
-	if (!strcmp_mod(command, "cd"))
+	if (!strcmp_mod(command, NAME_CD))
 		return (c_cd);
-	if (!strcmp_mod(command, "clear"))
-		return (c_clear);
-	if (!strcmp_mod(command, "echo"))
+	if (!strcmp_mod(command, NAME_ECHO))
 		return (c_echo);
-	if (!strcmp_mod(command, "env"))
+	if (!strcmp_mod(command, NAME_ENV))
 		return (c_env);
-	if (!strcmp_mod(command, "exit"))
+	if (!strcmp_mod(command, NAME_EXIT))
 		return (c_exit);
-	if (!strcmp_mod(command, "export"))
+	if (!strcmp_mod(command, NAME_EXPORT))
 		return (c_export);
-	if (!strcmp_mod(command, "pwd"))
+	if (!strcmp_mod(command, NAME_PWD))
 		return (c_pwd);
-	if (!strcmp_mod(command, "unset"))
+	if (!strcmp_mod(command, NAME_UNSET))
 		return (c_unset);
 	return (NULL);
 }

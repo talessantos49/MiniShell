@@ -12,43 +12,40 @@
 
 #include "../headers/minishell.h"
 
-void	update_var(t_shell **shell, char *name, char *value)
+int	print_oldpwd(char *new_path, int error)
 {
-	char	*env;
-
-	env = NULL;
-	if (env && shell && name)
-	{
-		free(env);
-		env = ft_strdup(value);
-	}
+	if (new_path)
+		ft_printf("%s\n", new_path);
+	else if (!new_path && ++error)
+		ft_printfd(ERROR_CD2, STDERR_FILENO);
+	return (error);	
 }
 
 void	c_cd(t_shell **shell)
 {
-	char	*var;
-	char	*oldpwd;
-	char	buf[256];
+	char	buf[BUF];
+	char	*new_path;
+	char	*old_path;
+	int		error;
 
-	shell = (shell);
-	var = NULL;
-	if (!is_flag_null(shell, ""))
-		return ;
-	if (!(*shell)->content && !(*shell)->flag)
-		(*shell)->content = getenv("HOME");
-	else if (!strcmp_mod((*shell)->flag, "-"))
+	error = 0;
+	old_path = getcwd(buf, BUF);
+	if ((*shell)->pipelist->args[1])
+		new_path = (*shell)->pipelist->args[1];
+	if ((*shell)->pipelist->commands_n > 2 && ++error)
+		ft_printfd(ERROR_CD1, STDERR_FILENO);
+	else if (!(*shell)->pipelist->args[1] || !*(*shell)->pipelist->args[1] \
+	|| strchr_mod((*shell)->pipelist->args[1], CHAR_TILDE))
+		new_path = (find_var(shell, "HOME", 4, 0))->value;
+	else if ((*shell)->pipelist->args[1][0] == CHAR_MINUS)
 	{
-		(*shell)->content = var;
-		printf("%s\n", (*shell)->content);
-	}
-	oldpwd = var;
-	if (chdir((*shell)->content) != 0)
-		printf("bash: cd: %s: No such file or directory\n", \
-		(*shell)->content);
-	else
-	{
-		rl_redisplay();
-		update_var(shell, "OLDPWD", oldpwd);
-		update_var(shell, "PWD", getcwd(buf, 256));
-	}
+		new_path = (find_var(shell, "OLDPWD", 6, 0))->value;
+		error = print_oldpwd(new_path, error);
+	}	
+	if (chdir(new_path) < 0 && ++error == 1)
+		ft_printfd(ERROR_CD3, STDERR_FILENO, new_path);
+	if (error)
+		return;
+	export_var(shell, "OLDPWD", old_path);
+	export_var(shell, "PWD", new_path);
 }

@@ -51,14 +51,11 @@ void	new_command(t_block *current)
 	if (!current->current_command)
 	{
 		current->current_command = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
-		current->current_command->quote = current->quote;
 		current->commands = current->current_command;
 	}
 	else if (current->commands)
 	{
 		current->current_command->next = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
-		current->current_command->next->quote = current->quote;
 		current->current_command = current->current_command->next;
 	}
-	current->quote = 0;
 }

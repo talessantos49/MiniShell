@@ -17,7 +17,7 @@ t_block	*new_block_on_pipe_list(t_shell **shell, t_block *block_current)
 	t_block	*pipe_block;
 
 	pipe_block = (t_block *)ft_calloc(1, sizeof(t_block));
-	pipe_block->set = 1;
+	pipe_block->set = COMMAND;
 	(*shell)->pipelist_n += 1;
 	if (block_current)
 	{
@@ -41,13 +41,14 @@ void	pipe_list_build(t_shell **shell, char *line)
 			current = new_block_on_pipe_list(shell, current);
 			heredoc_name_setup(shell, current);
 		}
-		line = is_spaces(line, SPACES);
-		line = is_special(shell, current, line, SPECIALS);
+		line = is_spaces(line, STR_SPACES);
+		line = is_special(shell, current, line, STR_SPECIALS);
 		line = is_file_io(shell, current, line);
+		line = is_spaces(line, STR_SPACES);
 		line = is_command(shell, current, line);
-		if ((line && !*line) || !current->set)
-			args_matrix(current);
-		if (g_signal)
-			break ;
+		if (!line || (*shell)->exit_code)
+			break;
+		if ((line && !*line) || current->set == 0)
+			execve_matrixes(shell, current);
 	}
 }

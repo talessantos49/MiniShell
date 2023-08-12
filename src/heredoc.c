@@ -12,63 +12,68 @@
 
 #include "../headers/minishell.h"
 
-static int	signal_handle(char *delimiter)
+void wait_heredoc_child(t_shell **shell, int pid)
 {
-	if (g_signal == SIGQUIT)
-	{
-		ft_putstr_fd(HDSIGQUIT1, STDERR_FILENO);
-		ft_putstr_fd(delimiter, STDERR_FILENO);
-		ft_putstr_fd(HDSIGQUIT2, STDERR_FILENO);
-	}
-	if (g_signal)
-		return (1);
-	return (0);
+	int status;
+
+	signal(SIGINT, SIG_IGN);
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+			(*shell)->exit_code = WEXITSTATUS(status);
+}
+
+void	heredoc_sigint(int signal)
+{
+	ft_putendl_fd("", 1);
+	rl_replace_line("", 0);
+	rl_done = 1;
+	close(rl_instream->_fileno);
+	if (signal)
+		exit(EXIT_FAILURE);
 }
 
 void	heredoc_name_setup(t_shell **shell, t_block *current)
 {
+	char	*name;
+	int		len;
+
 	if (!(*shell)->heredoc_name)
-		(*shell)->heredoc_name = ft_substr(HEREDOCNAME, 0, 6);
+		(*shell)->heredoc_name = ft_substr(STR_HEREDOC, 0, 4);
 	else if ((*shell)->heredoc_name)
 	{
-		if ((*shell)->heredoc_name[5] == '9')
-		{
-			(*shell)->heredoc_name[5] = '0';
-			(*shell)->heredoc_name[4] += 1;
-		}
-		(*shell)->heredoc_name[5] += 1;
+		name = (*shell)->heredoc_name;
+		len = ft_strlen(name);
+		(*shell)->heredoc_name = (char *)ft_calloc(len + 2, sizeof(char));
+		ft_strlcpy((*shell)->heredoc_name, name, len + 1);
+		(*shell)->heredoc_name[len] = 1; 
 	}
-	current->heredoc_name = ft_substr((*shell)->heredoc_name, 0, 6);
+	current->heredoc_name = (*shell)->heredoc_name;
 }
 
-void	here_doc_exec(t_block *current, char *delimiter)
+void	here_doc_exec(t_shell **shell, t_block *current, char *delimiter)
 {
-	char	*heredoc_name;
 	char	*user_input;
 	int		user_input_len;
 	int		child;
 
-	heredoc_name = current->heredoc_name;
 	child = fork();
 	if (!child)
 	{
-		current->fd[0] = open(heredoc_name, O_CREAT | O_RDWR, 0644);
-		signal_listener(signal_set, signal_set);
-		while (1)
+		current->fd[0] = open(current->heredoc_name, O_CREAT | O_RDWR, CHMOD);
+		signal_listener(SIG_IGN, heredoc_sigint);
+		while (TRUE)
 		{
 			user_input = readline("> ");
 			user_input_len = ft_strlen(user_input);
-			if (g_signal || !strcmp_mod(user_input, delimiter))
+			if (!user_input || !strcmp_mod(user_input, delimiter))
 				break ;
 			write(current->fd[0], user_input, user_input_len);
 			write(current->fd[0], "\n", 1);
 		}
 		close(current->fd[0]);
-		if (signal_handle(delimiter))
-			return ;
+		exit(0);
 	}
-	waitpid(child, NULL, 0);
-	current->fd[0] = open(heredoc_name, O_RDONLY);
+	wait_heredoc_child(shell, child);
 }
 
 char	*here_doc_setup(t_shell **shell, t_block *current, char *line)
@@ -77,13 +82,16 @@ char	*here_doc_setup(t_shell **shell, t_block *current, char *line)
 	int		line_diff;
 	char	*delimiter;
 
-	current->set = 3;
-	line = is_spaces(line, SPACES);
-	line_tmp = line;
-	line_tmp = is_no_word(shell, current, line_tmp);
-	current->set = 1;
+	line = is_spaces(line, STR_SPACES);
+	line_tmp = is_no_word(shell, current, line);
+	if (!line_tmp)
+		return (NULL);
 	line_diff = line_tmp - line;
 	delimiter = ft_substr(line, 0, line_diff);
-	here_doc_exec(current, delimiter);
+	if (current->quotes_list && current->quotes_list->quote)
+		delimiter = quotes_clean(current, &delimiter, ft_strlen(delimiter));
+	here_doc_exec(shell, current, delimiter);
+	current->set = COMMAND;
+	current->fd[0] = open(current->heredoc_name, O_RDONLY);
 	return (line + line_diff);
 }
