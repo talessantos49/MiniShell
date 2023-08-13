@@ -2,71 +2,71 @@
 # define PROTOTYPES_H
 
 /*----------------------------------------------------------------------------*/
-/*								 builtins.c                                   */
+/*                           builtins.c                                       */
 /*----------------------------------------------------------------------------*/
 void	*is_built_in(char *command);
 
 /*----------------------------------------------------------------------------*/
-/*								 cd.c                                         */
+/*                           cd.c                                             */
 /*----------------------------------------------------------------------------*/
 void	c_cd(t_shell **shell);
 
 /*----------------------------------------------------------------------------*/
-/*								 echo.c                                       */
+/*                           echo.c                                           */
 /*----------------------------------------------------------------------------*/
 void	c_echo(t_shell **shell);
 
 /*----------------------------------------------------------------------------*/
-/*								 env.c                                        */
+/*                           env.c                                            */
 /*----------------------------------------------------------------------------*/
 void	c_env(t_shell **shell);
 void	make_env(t_shell **shell, char **envp);
 void	print_env(t_shell **shell, int is_export);
 t_env	*find_var(t_shell **shell, char *key, int key_len, int is_unset);
 /*----------------------------------------------------------------------------*/
-/*								 execution.c                                  */
+/*                           execution.c                                      */
 /*----------------------------------------------------------------------------*/
 void	execution(t_shell **shell, t_block *current);
 
 /*----------------------------------------------------------------------------*/
-/*								 execve_matrixes.c                            */
+/*                           execve_matrixes.c                                */
 /*----------------------------------------------------------------------------*/
 void	execve_matrixes(t_shell **shell, t_block *current);
 void	free_execve_env_matrix(t_shell **shell);
 
 /*----------------------------------------------------------------------------*/
-/*								 exit.c                                       */
+/*                           exit.c                                           */
 /*----------------------------------------------------------------------------*/
 void	c_exit(t_shell **shell);
 
 /*----------------------------------------------------------------------------*/
-/*								 export.c                                     */
+/*                           export.c                                         */
 /*----------------------------------------------------------------------------*/
 void	c_export(t_shell **shell);
 void	export_new_var(t_shell **shell, char *key, char *value);
 void	export_var(t_shell **shell, char *key, char *value);
 
 /*----------------------------------------------------------------------------*/
-/*								 heredoc.c                                    */
+/*                           heredoc.c                                        */
 /*----------------------------------------------------------------------------*/
 char	*here_doc_setup(t_shell **shell, t_block *current, char *line);
 void	here_doc_exec(t_shell **shell, t_block *current, char *delimiter);
 void	heredoc_name_setup(t_shell **shell, t_block *current);
 
 /*----------------------------------------------------------------------------*/
-/*								 minishell.c                                  */
+/*                           minishell.c                                      */
 /*----------------------------------------------------------------------------*/
 void	minishell(t_shell **shell);
 
 /*----------------------------------------------------------------------------*/
-/*								 perror_free_exit.c                           */
+/*                           perror_free_exit.c                               */
 /*----------------------------------------------------------------------------*/
 void	free_pipe_list(t_shell **shell, t_block *current);
 void    free_shell(t_shell **shell);
 void	safe_free(void *pointer);
 
 /*----------------------------------------------------------------------------*/
-/*								 pipe_list.c                                  */
+/*                           pipe_list.c                                      */
 /*----------------------------------------------------------------------------*/
 char 	*special_cases(t_shell **shell, t_block *current, char *line);
 void 	pipe_list_build(t_shell **shell, char *line);
@@ -75,18 +75,18 @@ void	new_command(t_block *current);
 t_block	*new_block_on_pipe_list(t_shell **shell, t_block *block_current);
 
 /*----------------------------------------------------------------------------*/
-/*								 pwd_list.c                                   */
+/*                           pwd_list.c                                       */
 /*----------------------------------------------------------------------------*/
 void	c_pwd(t_shell **shell);
 
 /*----------------------------------------------------------------------------*/
-/*								 quotes.c                                     */
+/*                           quotes.c                                         */
 /*----------------------------------------------------------------------------*/
 char	*is_quote(t_block *current, char *line);
 char	*quotes_clean(t_block *current, char **arg, char *a_free, int arg_len);
 
 /*----------------------------------------------------------------------------*/
-/*								 signals.c                                    */
+/*                           signals.c                                        */
 /*----------------------------------------------------------------------------*/
 void	handle_sigint(int signal);
 void	handle_sigquit(t_shell **shell);
@@ -94,23 +94,23 @@ void	signal_handled_exec(t_shell **shell);
 void	signal_listener(__sighandler_t handle_quit, __sighandler_t handle_int);
 
 /*----------------------------------------------------------------------------*/
-/*								 split_commands.c                             */
+/*                           split_commands.c                                 */
 /*----------------------------------------------------------------------------*/
 char	**split_commands(t_shell **shell, char *s, char c);
 
 /*----------------------------------------------------------------------------*/
-/*								 unset.c                                      */
+/*                           unset.c                                          */
 /*----------------------------------------------------------------------------*/
 void	c_unset(t_shell **shell);
 
 /*----------------------------------------------------------------------------*/
-/*								 utils.c                                      */
+/*                           utils.c                                          */
 /*----------------------------------------------------------------------------*/
 char	*strchr_mod(const char *str, int c);
 int		strcmp_mod(const char *s1, const char *s2);
 
 /*----------------------------------------------------------------------------*/
-/*								 validations_input.c                          */
+/*                           validations_input.c                              */
 /*----------------------------------------------------------------------------*/
 char	*is_command(t_shell **shell, t_block *current, char *line);
 char	*is_file_io(t_shell **shell, t_block *current, char *line);
@@ -119,7 +119,7 @@ char	*is_special(t_shell **shell, t_block *current, char *line, char *spcls);
 void	is_var(t_shell **shell, t_block *current, char *arg, int arg_len);
 
 /*----------------------------------------------------------------------------*/
-/*								 validations_input2.c                         */
+/*                           validations_input2.c                             */
 /*----------------------------------------------------------------------------*/
 char	*is_no_word(t_shell **shell, t_block *current, char *line);
 int		is_env_bultins(void *builtin, t_block *arg);

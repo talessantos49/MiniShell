@@ -29,7 +29,7 @@ void	heredoc_sigint(int signal)
 	rl_done = 1;
 	close(rl_instream->_fileno);
 	if (signal)
-		exit(EXIT_FAILURE);
+		exit (EXIT_FAILURE);
 }
 
 void	heredoc_name_setup(t_shell **shell, t_block *current)
