@@ -32,6 +32,6 @@
 # include "structs.h"
 # include "prototypes.h"
 
-extern int			g_signal;
+extern int  g_signal;
 
 #endif
