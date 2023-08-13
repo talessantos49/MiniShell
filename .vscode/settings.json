@@ -5,6 +5,10 @@
         "type_traits": "c",
         "libft.h": "c",
         "types.h": "c",
-        "history.h": "c"
+        "history.h": "c",
+        "readline.h": "c",
+        "enums.h": "c",
+        "stdlib.h": "c",
+        "prototypes.h": "c"
     }
 }

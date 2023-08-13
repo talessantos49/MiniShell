@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../inc/minishell.h"
 
 void	c_unset(t_shell **shell)
 {

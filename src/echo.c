@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../inc/minishell.h"
 
-char	**flag_scan(t_block *current)
+static char	**flag_scan(t_block *current)
 {
 	char	**args;
 	int		has_flag_valid;	

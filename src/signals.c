@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../inc/minishell.h"
 
-void	signal_set(int signal)
+static void	signal_set(int signal)
 {
 	g_signal = signal;
 }

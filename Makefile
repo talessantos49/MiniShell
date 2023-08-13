@@ -14,36 +14,36 @@ NAME			= minishell
 
 FILE_PATH		= ./src
 OBJS_PATH		= ./obj
-LIBFT_PATH		= ./libs/libft
+LIBFT_PATH		= ./lib/libft
 
-HEADERS			= headers/minishell.h
+HEADERS			= inc/minishell.h
 
 LIBFT			= $(LIBFT_PATH)/libft.a
 
 FILES			= main.c \
 				minishell.c \
-				pipe_list.c \
-				execution.c \
-				split_commands.c \
-				built_in.c \
+				builtins.c \
+				cd.c \
 				echo.c \
-				exit.c \
 				env.c \
+				execution.c \
+				execve_matrixes.c \
+				exit.c \
 				export.c \
+				heredoc.c \
+				perror_free_exit.c \
+				pipe_list.c \
 				pwd.c \
+				quotes.c \
+				signals.c \
+				split_commands.c \
 				unset.c \
 				utils.c \
-				cd.c \
-				heredoc.c \
-				signals.c \
-				perror_free_exit.c \
-				quotes.c \
 				validations_input.c \
-				execve_matrixes.c
+				validations_input2.c
 
-
-IFLAGS			= -I./libs/libft
-LFLAGS			= -L./libs/libft -lreadline -lft
+IFLAGS			= -I./lib/libft
+LFLAGS			= -L./lib/libft -lreadline -lft
 CFLAGS			= -Wall -Wextra -Werror -g
 
 CC				= gcc
@@ -62,9 +62,6 @@ $(OBJS_PATH):
 
 $(OBJS_PATH)/%.o: $(FILE_PATH)/%.c $(HEADERS)
 				@$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
-
-$(OBJS_PATH)/%.o: $(FILE_PATH_BONUS)/%.c $(HEADERS_BONUS)
-				@$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 			
 $(LIBFT):
 				@make -C $(LIBFT_PATH)
@@ -80,7 +77,7 @@ fclean:			clean
 
 re:				fclean all
 
-.PHONY: 		all bonus clean fclean re
+.PHONY: 		all clean fclean re
 
 
 #VALGRIND		= @valgrind --leak-check=full --show-leak-kinds=all \
@@ -89,8 +86,7 @@ re:				fclean all
 #--log-file=valgrind-out.txt
 
 VALGRIND 		= @valgrind --leak-check=full --show-leak-kinds=all \
---track-origins=yes --trace-children=yes \
-#--log-file=valgrind-out.txt -s
+--track-origins=yes --trace-children=yes --suppressions=readline.supp --log-file=valgrind-out.txt -s
 
 valgrind:
 	$(VALGRIND) ./minishell

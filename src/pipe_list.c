@@ -10,7 +10,37 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../inc/minishell.h"
+
+void	manage_file_descriptors(t_block *current, char *file_name)
+{
+	if (current->set == INFILE && current->fd[0])
+		close(current->fd[0]);
+	else if ((current->set == OUTFILE_NEW || current->set == OUTFILE_APPEND) \
+	&& current->fd[1])
+		close(current->fd[1]);
+	if (current->set == INFILE)
+		current->fd[0] = open(file_name, O_RDONLY, CHMOD);
+	else if (current->set == OUTFILE_NEW)
+		current->fd[1] = open(file_name, O_CREAT | O_WRONLY | O_TRUNC, CHMOD);
+	else if (current->set == OUTFILE_APPEND)
+		current->fd[1] = open(file_name, O_CREAT | O_WRONLY | O_APPEND, CHMOD);
+}
+
+void	new_command(t_block *current)
+{
+	current->commands_n += 1;
+	if (!current->current_command)
+	{
+		current->current_command = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
+		current->commands = current->current_command;
+	}
+	else if (current->commands)
+	{
+		current->current_command->next = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
+		current->current_command = current->current_command->next;
+	}
+}
 
 t_block	*new_block_on_pipe_list(t_shell **shell, t_block *block_current)
 {
@@ -27,6 +57,25 @@ t_block	*new_block_on_pipe_list(t_shell **shell, t_block *block_current)
 	else if (!block_current)
 		(*shell)->pipelist = pipe_block;
 	return (pipe_block);
+}
+
+char	*special_cases(t_shell **shell, t_block *current, char *line)
+{
+	if (*line == '<' && *line++)
+	{
+		current->set = INFILE;
+		if (*line == '<' && *line++)
+			return (here_doc_setup(shell, current, line));
+	}
+	else if (*line == '>' && *line++)
+	{
+		current->set = OUTFILE_NEW;
+		if (*line == '>' && *line++)
+			current->set = OUTFILE_APPEND;
+	}
+	else if (*line == '|' && line++)
+			current->set = NEW_BLOCK;
+	return (line);
 }
 
 void	pipe_list_build(t_shell **shell, char *line)

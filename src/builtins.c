@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../inc/minishell.h"
 
 void	*is_built_in(char *command)
 {

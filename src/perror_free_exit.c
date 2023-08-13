@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../inc/minishell.h"
 
 void	safe_free(void *pointer)
 {
@@ -25,17 +25,18 @@ void free_quote_list(t_block *current)
 	t_quote *next_quote_pair;
 
 	current_quote_pair = current->quotes_list;
-	if (current_quote_pair)
+	if (current->quotes_list)
 		next_quote_pair = current->quotes_list->next;
 	while (current_quote_pair)
 	{
 		safe_free(&current_quote_pair);
 		current_quote_pair = next_quote_pair;
-		next_quote_pair = current_quote_pair->next;
+		if (current_quote_pair)
+			next_quote_pair = current_quote_pair->next;
 	}
 }
 
-void	free_env(t_shell **shell)
+static void	free_env(t_shell **shell)
 {
 	t_env	*current_env;
 	t_env	*next_env;
@@ -49,14 +50,15 @@ void	free_env(t_shell **shell)
 		count++;
 		if (current_env->is_exported >= 1)
 		{
-			if (current_env->is_exported == 2)
-				safe_free(current_env->key);
+			// if (current_env->is_exported == 2)
+			// 	safe_free(current_env->key);
 			if (current_env->value)	
-				safe_free(current_env->value);	
+				safe_free(&current_env->value);	
 		}
 		safe_free(&current_env);
 		current_env = next_env;
-		next_env = current_env->next;
+		if (current_env)
+			next_env = current_env->next;
 	}
 }
 
@@ -64,7 +66,7 @@ void	free_shell(t_shell **shell)
 {
 	free_execve_env_matrix(shell);
 	free_pipe_list(shell, (*shell)->pipelist);
-	// free_env(shell);
+	free_env(shell);
 	safe_free(shell);
 }
 
@@ -74,7 +76,8 @@ void	free_pipe_list(t_shell **shell, t_block *current)
 	t_cmd	*current_cmd;
 	t_cmd	*next_cmd;
 
-	current_cmd = current->commands;
+	if (current)
+		current_cmd = current->commands;
 	if (current_cmd && current->cmd != current_cmd->arg)
 		safe_free(&current->cmd);
 	while (current)
@@ -88,7 +91,6 @@ void	free_pipe_list(t_shell **shell, t_block *current)
 		}
 		unlink(current->heredoc_name);
 		safe_free(&(*shell)->heredoc_name);
-		free_quote_list(current);
 		next = current->next;
 		safe_free(&current);
 		current = next;

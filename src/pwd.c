@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../inc/minishell.h"
 
 void	c_pwd(t_shell **shell)
 {
 	char	buf[BUF];
 
-	shell = (shell);
+	(void)shell;
 	printf("%s\n", getcwd(buf, BUF));
 }

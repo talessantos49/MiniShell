@@ -1,4 +1,4 @@
-#include "../headers/minishell.h"
+#include "../inc/minishell.h"
 
 char	*strchr_mod(const char *str, int c)
 {
@@ -39,30 +39,3 @@ int	strcmp_mod(const char *s1, const char *s2)
 	return (SUCCES);
 }
 
-char	*ft_strtrim(char const *s1, const char *set)
-{
-	char	*rev;
-	char 	*s1_backup;
-	char	*set_reset;
-	char	*trim;
-
-	s1_backup = (char *)s1;
-	set_reset = (char *)set;
-	rev = (char *)s1 + ft_strlen(s1) - 1;
-	while (*set && *s1)
-	{
-		if (*s1 == *set || *rev == *set)
-		{
-			s1 += *s1 == *set;
-			rev -= *rev == *set;
-			set = set_reset;
-		}
-		else
-			set++;
-	}
-	if (s1 == s1_backup && rev == s1_backup + ft_strlen(s1) - 1)
-		return ((char *)s1);
-	trim = ft_calloc(((rev - s1) + 2) * (*s1 > 0) + (*s1 == 0), sizeof(char));
-	ft_strlcpy(trim, s1, ((rev - s1) + 2) * (*s1 > 0) + (*s1 == 0));
-	return (trim);
-}

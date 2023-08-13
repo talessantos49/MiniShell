@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../inc/minishell.h"
 
 t_env	*find_var(t_shell **shell, char *key, int key_len, int is_unset)
 {

@@ -1,0 +1,1268 @@
+==6706== Memcheck, a memory error detector
+==6706== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==6706== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==6706== Command: /usr/bin/cat
+==6706== Parent PID: 6631
+==6706== 
+==6706== 
+==6706== HEAP SUMMARY:
+==6706==     in use at exit: 0 bytes in 0 blocks
+==6706==   total heap usage: 1,051 allocs, 1,051 frees, 205,320 bytes allocated
+==6706== 
+==6706== All heap blocks were freed -- no leaks are possible
+==6706== 
+==6706== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+ad_memcheck-amd64-linux.so)
+==6704==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6704==    by 0x10EA33: ft_substr (in /home/bruno/Desktop/minishell/minishell)
+==6704==    by 0x10AC06: heredoc_name_setup (heredoc.c:41)
+==6704==    by 0x10B55A: pipe_list_build (pipe_list.c:91)
+==6704==    by 0x1095C7: minishell (minishell.c:28)
+==6704==    by 0x109539: main (main.c:28)
+==6704== 
+==6704== 7 bytes in 1 blocks are still reachable in loss record 2 of 85
+==6704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6704==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6704==    by 0x10EA33: ft_substr (in /home/bruno/Desktop/minishell/minishell)
+==6704==    by 0x109F2B: make_env (env.c:86)
+==6704==    by 0x10952D: main (main.c:27)
+==6704== 
+==6704== 13 bytes in 2 blocks are still reachable in loss record 8 of 85
+==6704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6704==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6704==    by 0x10AC59: heredoc_name_setup (heredoc.c:46)
+==6704==    by 0x10B55A: pipe_list_build (pipe_list.c:91)
+==6704==    by 0x1095C7: minishell (minishell.c:28)
+==6704==    by 0x109539: main (main.c:28)
+==6704== 
+==6704== 16 bytes in 1 blocks are still reachable in loss record 12 of 85
+==6704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6704==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6704==    by 0x10B34C: new_command (pipe_list.c:40)
+==6704==    by 0x10BFC5: is_command (validations_input.c:29)
+==6704==    by 0x10B5DF: pipe_list_build (pipe_list.c:97)
+==6704==    by 0x1095C7: minishell (minishell.c:28)
+==6704==    by 0x109539: main (main.c:28)
+==6704== 
+==6704== 16 bytes in 4 blocks are still reachable in loss record 13 of 85
+==6704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6704==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6704==    by 0x10EA33: ft_substr (in /home/bruno/Desktop/minishell/minishell)
+==6704==    by 0x10C00B: is_command (validations_input.c:33)
+==6704==    by 0x10B5DF: pipe_list_build (pipe_list.c:97)
+==6704==    by 0x1095C7: minishell (minishell.c:28)
+==6704==    by 0x109539: main (main.c:28)
+==6704== 
+==6704== 20 bytes in 1 blocks are still reachable in loss record 16 of 85
+==6704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6704==    by 0x48A5BAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==6704==    by 0x489CB39: alloc_history_entry (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==6704==    by 0x489EF65: add_history (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==6704==    by 0x1095B4: minishell (minishell.c:27)
+==6704==    by 0x109539: main (main.c:28)
+==6704== 
+==6704== 24 bytes in 1 blocks are still reachable in loss record 19 of 85
+==6704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6704==    by 0x48A5BAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==6704==    by 0x489CB1D: alloc_history_entry (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==6704==    by 0x489EF65: add_history (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==6704==    by 0x1095B4: minishell (minishell.c:27)
+==6704==    by 0x109539: main (main.c:28)
+==6704== 
+==6704== 32 bytes in 1 blocks are still reachable in loss record 20 of 85
+==6704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6704==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6704==    by 0x109E33: make_env (env.c:71)
+==6704==    by 0x10952D: main (main.c:27)
+==6704== 
+==6704== 32 bytes in 1 blocks are still reachable in loss record 21 of 85
+==6704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6704==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6704==    by 0x10A7A2: export_new_var (export.c:20)
+==6704==    by 0x109F42: make_env (env.c:86)
+==6704==    by 0x10952D: main (main.c:27)
+==6704== 
+==6704== 48 bytes in 3 blocks are still reachable in loss record 27 of 85
+==6704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6704==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6704==    by 0x10B30E: new_command (pipe_list.c:35)
+==6704==    by 0x10BFC5: is_command (validations_input.c:29)
+==6704==    by 0x10B5DF: pipe_list_build (pipe_list.c:97)
+==6704==    by 0x1095C7: minishell (minishell.c:28)
+==6704==    by 0x109539: main (main.c:28)
+==6704== 
+==6704== 56 bytes in 3 blocks are still reachable in loss record 28 of 85
+==6704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6704==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6704==    by 0x10A656: execve_matrixes (execve_matrixes.c:82)
+==6704==    by 0x10B629: pipe_list_build (pipe_list.c:101)
+==6704==    by 0x1095C7: minishell (minishell.c:28)
+==6704==    by 0x109539: main (main.c:28)
+==6704== 
+==6704== 88 bytes in 1 blocks are still reachable in loss record 30 of 85
+==6704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6704==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6704==    by 0x109516: main (main.c:26)
+==6704== 
+==6704== 104 bytes in 1 blocks are still reachable in loss record 34 of 85
+==6704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6704==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6704==    by 0x10BBFF: ft_mtx (split_commands.c:36)
+==6704==    by 0x10BC7B: split_commands (split_commands.c:45)
+==6704==    by 0x10A44F: execve_path_matrix (execve_matrixes.c:40)
+==6704==    by 0x10A4F7: execve_env_matrix (execve_matrixes.c:57)
+==6704==    by 0x10A6FF: execve_matrixes (execve_matrixes.c:93)
+==6704==    by 0x10B629: pipe_list_build (pipe_list.c:101)
+==6704==    by 0x1095C7: minishell (minishell.c:28)
+==6704==    by 0x109539: main (main.c:28)
+==6704== 
+==6704== 157 bytes in 12 blocks are still reachable in loss record 36 of 85
+==6704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6704==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6704==    by 0x10EA33: ft_substr (in /home/bruno/Desktop/minishell/minishell)
+==6704==    by 0x10BBB1: ft_mtx (split_commands.c:32)
+==6704==    by 0x10BC1B: ft_mtx (split_commands.c:37)
+==6704==    by 0x10BC7B: split_commands (split_commands.c:45)
+==6704==    by 0x10A44F: execve_path_matrix (execve_matrixes.c:40)
+==6704==    by 0x10A4F7: execve_env_matrix (execve_matrixes.c:57)
+==6704==    by 0x10A6FF: execve_matrixes (execve_matrixes.c:93)
+==6704==    by 0x10B629: pipe_list_build (pipe_list.c:101)
+==6704==    by 0x1095C7: minishell (minishell.c:28)
+==6704==    by 0x109539: main (main.c:28)
+==6704== 
+==6704== 384 bytes in 3 blocks are still reachable in loss record 39 of 85
+==6704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6704==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6704==    by 0x10B38E: new_block_on_pipe_list (pipe_list.c:49)
+==6704==    by 0x10B543: pipe_list_build (pipe_list.c:90)
+==6704==    by 0x1095C7: minishell (minishell.c:28)
+==6704==    by 0x109539: main (main.c:28)
+==6704== 
+==6704== 776 bytes in 1 blocks are still reachable in loss record 43 of 85
+==6704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6704==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6704==    by 0x10A4CE: execve_env_matrix (execve_matrixes.c:53)
+==6704==    by 0x10A6FF: execve_matrixes (execve_matrixes.c:93)
+==6704==    by 0x10B629: pipe_list_build (pipe_list.c:101)
+==6704==    by 0x1095C7: minishell (minishell.c:28)
+==6704==    by 0x109539: main (main.c:28)
+==6704== 
+==6704== 1,493 bytes in 95 blocks are still reachable in loss record 53 of 85
+==6704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6704==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6704==    by 0x10EA33: ft_substr (in /home/bruno/Desktop/minishell/minishell)
+==6704==    by 0x109EA5: make_env (env.c:78)
+==6704==    by 0x10952D: main (main.c:27)
+==6704== 
+==6704== 3,008 bytes in 94 blocks are still reachable in loss record 58 of 85
+==6704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6704==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6704==    by 0x109F5D: make_env (env.c:90)
+==6704==    by 0x10952D: main (main.c:27)
+==6704== 
+==6704== 3,551 bytes in 86 blocks are still reachable in loss record 59 of 85
+==6704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6704==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6704==    by 0x10EA33: ft_substr (in /home/bruno/Desktop/minishell/minishell)
+==6704==    by 0x109ED7: make_env (env.c:80)
+==6704==    by 0x10952D: main (main.c:27)
+==6704== 
+==6704== 5,061 bytes in 96 blocks are still reachable in loss record 71 of 85
+==6704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6704==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6704==    by 0x10A536: execve_env_matrix (execve_matrixes.c:60)
+==6704==    by 0x10A6FF: execve_matrixes (execve_matrixes.c:93)
+==6704==    by 0x10B629: pipe_list_build (pipe_list.c:101)
+==6704==    by 0x1095C7: minishell (minishell.c:28)
+==6704==    by 0x109539: main (main.c:28)
+==6704== 
+==6704== LEAK SUMMARY:
+==6704==    definitely lost: 0 bytes in 0 blocks
+==6704==    indirectly lost: 0 bytes in 0 blocks
+==6704==      possibly lost: 0 bytes in 0 blocks
+==6704==    still reachable: 14,891 bytes in 408 blocks
+==6704==         suppressed: 208,272 bytes in 224 blocks
+==6704== 
+==6704== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--6704-- 
+--6704-- used_suppression:     63 <Readline> readline.supp:2 suppressed: 204,244 bytes in 222 blocks
+--6704-- used_suppression:      2 <AddHistory> readline.supp:26 suppressed: 4,028 bytes in 2 blocks
+==6704== 
+==6704== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==6631== Syscall param unlink(pathname) points to unaddressable byte(s)
+==6631==    at 0x49D625B: unlink (syscall-template.S:120)
+==6631==    by 0x10B180: free_pipe_list (perror_free_exit.c:92)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b693d0 is 0 bytes inside a block of size 7 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B193: free_pipe_list (perror_free_exit.c:93)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10AC59: heredoc_name_setup (heredoc.c:46)
+==6631==    by 0x10B55A: pipe_list_build (pipe_list.c:91)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==7164== Invalid read of size 4
+==7164==    at 0x10A13B: pipeline_manager (execution.c:55)
+==7164==    by 0x10A17F: child (execution.c:61)
+==7164==    by 0x10A2DB: execution (execution.c:90)
+==7164==    by 0x1095E1: minishell (minishell.c:29)
+==7164==    by 0x109539: main (main.c:28)
+==7164==  Address 0x4b69348 is 56 bytes inside a block of size 128 free'd
+==7164==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==7164==    by 0x10B1AB: free_pipe_list (perror_free_exit.c:95)
+==7164==    by 0x1095FB: minishell (minishell.c:30)
+==7164==    by 0x109539: main (main.c:28)
+==7164==  Block was alloc'd at
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10B38E: new_block_on_pipe_list (pipe_list.c:49)
+==7164==    by 0x10B543: pipe_list_build (pipe_list.c:90)
+==7164==    by 0x1095C7: minishell (minishell.c:28)
+==7164==    by 0x109539: main (main.c:28)
+==7164== 
+==7164== 
+==7164== HEAP SUMMARY:
+==7164==     in use at exit: 222,971 bytes in 635 blocks
+==7164==   total heap usage: 1,054 allocs, 419 frees, 261,283 bytes allocated
+==7164== 
+==7164== 4 bytes in 1 blocks are still reachable in loss record 2 of 90
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10EA33: ft_substr (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10C00B: is_command (validations_input.c:33)
+==7164==    by 0x10B5DF: pipe_list_build (pipe_list.c:97)
+==7164==    by 0x1095C7: minishell (minishell.c:28)
+==7164==    by 0x109539: main (main.c:28)
+==7164== 
+==7164== 5 bytes in 1 blocks are still reachable in loss record 3 of 90
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10EA33: ft_substr (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10AC06: heredoc_name_setup (heredoc.c:41)
+==7164==    by 0x10B55A: pipe_list_build (pipe_list.c:91)
+==7164==    by 0x1095C7: minishell (minishell.c:28)
+==7164==    by 0x109539: main (main.c:28)
+==7164== 
+==7164== 5 bytes in 1 blocks are definitely lost in loss record 4 of 90
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10EA33: ft_substr (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10AC06: heredoc_name_setup (heredoc.c:41)
+==7164==    by 0x10B55A: pipe_list_build (pipe_list.c:91)
+==7164==    by 0x1095C7: minishell (minishell.c:28)
+==7164==    by 0x109539: main (main.c:28)
+==7164== 
+==7164== 6 bytes in 1 blocks are definitely lost in loss record 5 of 90
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10AC59: heredoc_name_setup (heredoc.c:46)
+==7164==    by 0x10B55A: pipe_list_build (pipe_list.c:91)
+==7164==    by 0x1095C7: minishell (minishell.c:28)
+==7164==    by 0x109539: main (main.c:28)
+==7164== 
+==7164== 7 bytes in 1 blocks are still reachable in loss record 6 of 90
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10EA33: ft_substr (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x109F2B: make_env (env.c:86)
+==7164==    by 0x10952D: main (main.c:27)
+==7164== 
+==7164== 8 bytes in 2 blocks are indirectly lost in loss record 9 of 90
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10EA33: ft_substr (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10C00B: is_command (validations_input.c:33)
+==7164==    by 0x10B5DF: pipe_list_build (pipe_list.c:97)
+==7164==    by 0x1095C7: minishell (minishell.c:28)
+==7164==    by 0x109539: main (main.c:28)
+==7164== 
+==7164== 16 bytes in 1 blocks are still reachable in loss record 15 of 90
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10B30E: new_command (pipe_list.c:35)
+==7164==    by 0x10BFC5: is_command (validations_input.c:29)
+==7164==    by 0x10B5DF: pipe_list_build (pipe_list.c:97)
+==7164==    by 0x1095C7: minishell (minishell.c:28)
+==7164==    by 0x109539: main (main.c:28)
+==7164== 
+==7164== 16 bytes in 1 blocks are still reachable in loss record 16 of 90
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10A656: execve_matrixes (execve_matrixes.c:82)
+==7164==    by 0x10B629: pipe_list_build (pipe_list.c:101)
+==7164==    by 0x1095C7: minishell (minishell.c:28)
+==7164==    by 0x109539: main (main.c:28)
+==7164== 
+==7164== 20 bytes in 1 blocks are definitely lost in loss record 18 of 90
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x48A5BAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==7164==    by 0x4883694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==7164==    by 0x488DD2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==7164==    by 0x109587: minishell (minishell.c:22)
+==7164==    by 0x109539: main (main.c:28)
+==7164== 
+==7164== 24 bytes in 2 blocks are still reachable in loss record 22 of 90
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x48A5BAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==7164==    by 0x489CB39: alloc_history_entry (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==7164==    by 0x489EF65: add_history (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==7164==    by 0x1095B4: minishell (minishell.c:27)
+==7164==    by 0x109539: main (main.c:28)
+==7164== 
+==7164== 26 bytes in 2 blocks are definitely lost in loss record 23 of 90
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10E7EF: ft_strjoin (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10C6FB: command_validate (validations_input2.c:53)
+==7164==    by 0x10A26C: execution (execution.c:81)
+==7164==    by 0x1095E1: minishell (minishell.c:29)
+==7164==    by 0x109539: main (main.c:28)
+==7164== 
+==7164== 32 bytes in 1 blocks are still reachable in loss record 24 of 90
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x109E33: make_env (env.c:71)
+==7164==    by 0x10952D: main (main.c:27)
+==7164== 
+==7164== 32 bytes in 1 blocks are still reachable in loss record 25 of 90
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10A7A2: export_new_var (export.c:20)
+==7164==    by 0x109F42: make_env (env.c:86)
+==7164==    by 0x10952D: main (main.c:27)
+==7164== 
+==7164== 40 (32 direct, 8 indirect) bytes in 2 blocks are definitely lost in loss record 26 of 90
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10B30E: new_command (pipe_list.c:35)
+==7164==    by 0x10BFC5: is_command (validations_input.c:29)
+==7164==    by 0x10B5DF: pipe_list_build (pipe_list.c:97)
+==7164==    by 0x1095C7: minishell (minishell.c:28)
+==7164==    by 0x109539: main (main.c:28)
+==7164== 
+==7164== 48 bytes in 2 blocks are still reachable in loss record 32 of 90
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x48A5BAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==7164==    by 0x489CB1D: alloc_history_entry (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==7164==    by 0x489EF65: add_history (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==7164==    by 0x1095B4: minishell (minishell.c:27)
+==7164==    by 0x109539: main (main.c:28)
+==7164== 
+==7164== 56 bytes in 3 blocks are definitely lost in loss record 33 of 90
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10A656: execve_matrixes (execve_matrixes.c:82)
+==7164==    by 0x10B629: pipe_list_build (pipe_list.c:101)
+==7164==    by 0x1095C7: minishell (minishell.c:28)
+==7164==    by 0x109539: main (main.c:28)
+==7164== 
+==7164== 88 bytes in 1 blocks are still reachable in loss record 35 of 90
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x109516: main (main.c:26)
+==7164== 
+==7164== 104 bytes in 1 blocks are still reachable in loss record 39 of 90
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10BBFF: ft_mtx (split_commands.c:36)
+==7164==    by 0x10BC7B: split_commands (split_commands.c:45)
+==7164==    by 0x10A44F: execve_path_matrix (execve_matrixes.c:40)
+==7164==    by 0x10A4F7: execve_env_matrix (execve_matrixes.c:57)
+==7164==    by 0x10A6FF: execve_matrixes (execve_matrixes.c:93)
+==7164==    by 0x10B629: pipe_list_build (pipe_list.c:101)
+==7164==    by 0x1095C7: minishell (minishell.c:28)
+==7164==    by 0x109539: main (main.c:28)
+==7164== 
+==7164== 128 bytes in 1 blocks are still reachable in loss record 40 of 90
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10B38E: new_block_on_pipe_list (pipe_list.c:49)
+==7164==    by 0x10B543: pipe_list_build (pipe_list.c:90)
+==7164==    by 0x1095C7: minishell (minishell.c:28)
+==7164==    by 0x109539: main (main.c:28)
+==7164== 
+==7164== 157 bytes in 12 blocks are still reachable in loss record 42 of 90
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10EA33: ft_substr (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10BBB1: ft_mtx (split_commands.c:32)
+==7164==    by 0x10BC1B: ft_mtx (split_commands.c:37)
+==7164==    by 0x10BC7B: split_commands (split_commands.c:45)
+==7164==    by 0x10A44F: execve_path_matrix (execve_matrixes.c:40)
+==7164==    by 0x10A4F7: execve_env_matrix (execve_matrixes.c:57)
+==7164==    by 0x10A6FF: execve_matrixes (execve_matrixes.c:93)
+==7164==    by 0x10B629: pipe_list_build (pipe_list.c:101)
+==7164==    by 0x1095C7: minishell (minishell.c:28)
+==7164==    by 0x109539: main (main.c:28)
+==7164== 
+==7164== 776 bytes in 1 blocks are still reachable in loss record 48 of 90
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10A4CE: execve_env_matrix (execve_matrixes.c:53)
+==7164==    by 0x10A6FF: execve_matrixes (execve_matrixes.c:93)
+==7164==    by 0x10B629: pipe_list_build (pipe_list.c:101)
+==7164==    by 0x1095C7: minishell (minishell.c:28)
+==7164==    by 0x109539: main (main.c:28)
+==7164== 
+==7164== 1,493 bytes in 95 blocks are still reachable in loss record 58 of 90
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10EA33: ft_substr (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x109EA5: make_env (env.c:78)
+==7164==    by 0x10952D: main (main.c:27)
+==7164== 
+==7164== 3,008 bytes in 94 blocks are still reachable in loss record 63 of 90
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x109F5D: make_env (env.c:90)
+==7164==    by 0x10952D: main (main.c:27)
+==7164== 
+==7164== 3,551 bytes in 86 blocks are still reachable in loss record 64 of 90
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10EA33: ft_substr (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x109ED7: make_env (env.c:80)
+==7164==    by 0x10952D: main (main.c:27)
+==7164== 
+==7164== 5,061 bytes in 96 blocks are still reachable in loss record 76 of 90
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10A536: execve_env_matrix (execve_matrixes.c:60)
+==7164==    by 0x10A6FF: execve_matrixes (execve_matrixes.c:93)
+==7164==    by 0x10B629: pipe_list_build (pipe_list.c:101)
+==7164==    by 0x1095C7: minishell (minishell.c:28)
+==7164==    by 0x109539: main (main.c:28)
+==7164== 
+==7164== LEAK SUMMARY:
+==7164==    definitely lost: 145 bytes in 10 blocks
+==7164==    indirectly lost: 8 bytes in 2 blocks
+==7164==      possibly lost: 0 bytes in 0 blocks
+==7164==    still reachable: 14,550 bytes in 398 blocks
+==7164==         suppressed: 208,268 bytes in 225 blocks
+==7164== 
+==7164== ERROR SUMMARY: 8 errors from 8 contexts (suppressed: 0 from 0)
+==7164== 
+==7164== 1 errors in context 1 of 8:
+==7164== Invalid read of size 4
+==7164==    at 0x10A13B: pipeline_manager (execution.c:55)
+==7164==    by 0x10A17F: child (execution.c:61)
+==7164==    by 0x10A2DB: execution (execution.c:90)
+==7164==    by 0x1095E1: minishell (minishell.c:29)
+==7164==    by 0x109539: main (main.c:28)
+==7164==  Address 0x4b69348 is 56 bytes inside a block of size 128 free'd
+==7164==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==7164==    by 0x10B1AB: free_pipe_list (perror_free_exit.c:95)
+==7164==    by 0x1095FB: minishell (minishell.c:30)
+==7164==    by 0x109539: main (main.c:28)
+==7164==  Block was alloc'd at
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10B38E: new_block_on_pipe_list (pipe_list.c:49)
+==7164==    by 0x10B543: pipe_list_build (pipe_list.c:90)
+==7164==    by 0x1095C7: minishell (minishell.c:28)
+==7164==    by 0x109539: main (main.c:28)
+==7164== 
+==7164== 
+==7164== 1 errors in context 2 of 8:
+==7164== Syscall param unlink(pathname) points to unaddressable byte(s)
+==7164==    at 0x49D625B: unlink (syscall-template.S:120)
+==7164==    by 0x10B180: free_pipe_list (perror_free_exit.c:92)
+==7164==    by 0x1095FB: minishell (minishell.c:30)
+==7164==    by 0x109539: main (main.c:28)
+==7164==  Address 0x4b693d0 is 0 bytes inside a block of size 7 free'd
+==7164==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==7164==    by 0x10B193: free_pipe_list (perror_free_exit.c:93)
+==7164==    by 0x1095FB: minishell (minishell.c:30)
+==7164==    by 0x109539: main (main.c:28)
+==7164==  Block was alloc'd at
+==7164==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7164==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==7164==    by 0x10AC59: heredoc_name_setup (heredoc.c:46)
+==7164==    by 0x10B55A: pipe_list_build (pipe_list.c:91)
+==7164==    by 0x1095C7: minishell (minishell.c:28)
+==7164==    by 0x109539: main (main.c:28)
+==7164== 
+--7164-- 
+--7164-- used_suppression:     63 <Readline> readline.supp:2 suppressed: 204,228 bytes in 222 blocks
+--7164-- used_suppression:      2 <AddHistory> readline.supp:26 suppressed: 4,040 bytes in 3 blocks
+==7164== 
+==7164== ERROR SUMMARY: 8 errors from 8 contexts (suppressed: 0 from 0)
+==6631== Invalid read of size 8
+==6631==    at 0x10B0FD: free_pipe_list (perror_free_exit.c:80)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d728 is 88 bytes inside a block of size 128 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B1AB: free_pipe_list (perror_free_exit.c:95)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10B38E: new_block_on_pipe_list (pipe_list.c:49)
+==6631==    by 0x10B543: pipe_list_build (pipe_list.c:90)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== Invalid read of size 8
+==6631==    at 0x10B116: free_pipe_list (perror_free_exit.c:81)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d6e8 is 24 bytes inside a block of size 128 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B1AB: free_pipe_list (perror_free_exit.c:95)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10B38E: new_block_on_pipe_list (pipe_list.c:49)
+==6631==    by 0x10B543: pipe_list_build (pipe_list.c:90)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== Invalid read of size 8
+==6631==    at 0x10B11E: free_pipe_list (perror_free_exit.c:81)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d7e0 is 0 bytes inside a block of size 16 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B15F: free_pipe_list (perror_free_exit.c:89)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10B30E: new_command (pipe_list.c:35)
+==6631==    by 0x10BFC5: is_command (validations_input.c:29)
+==6631==    by 0x10B5DF: pipe_list_build (pipe_list.c:97)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== Invalid read of size 8
+==6631==    at 0x10AF11: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B139: free_pipe_list (perror_free_exit.c:82)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d6e8 is 24 bytes inside a block of size 128 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B1AB: free_pipe_list (perror_free_exit.c:95)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10B38E: new_block_on_pipe_list (pipe_list.c:49)
+==6631==    by 0x10B543: pipe_list_build (pipe_list.c:90)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== Invalid free() / delete / delete[] / realloc()
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B139: free_pipe_list (perror_free_exit.c:82)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d830 is 0 bytes inside a block of size 4 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B153: free_pipe_list (perror_free_exit.c:88)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10EA33: ft_substr (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10C00B: is_command (validations_input.c:33)
+==6631==    by 0x10B5DF: pipe_list_build (pipe_list.c:97)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== Invalid write of size 8
+==6631==    at 0x10AF20: safe_free (perror_free_exit.c:19)
+==6631==    by 0x10B139: free_pipe_list (perror_free_exit.c:82)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d6e8 is 24 bytes inside a block of size 128 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B1AB: free_pipe_list (perror_free_exit.c:95)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10B38E: new_block_on_pipe_list (pipe_list.c:49)
+==6631==    by 0x10B543: pipe_list_build (pipe_list.c:90)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== Invalid read of size 8
+==6631==    at 0x10B140: free_pipe_list (perror_free_exit.c:87)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d7e8 is 8 bytes inside a block of size 16 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B15F: free_pipe_list (perror_free_exit.c:89)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10B30E: new_command (pipe_list.c:35)
+==6631==    by 0x10BFC5: is_command (validations_input.c:29)
+==6631==    by 0x10B5DF: pipe_list_build (pipe_list.c:97)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== Invalid read of size 8
+==6631==    at 0x10AF11: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B153: free_pipe_list (perror_free_exit.c:88)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d7e0 is 0 bytes inside a block of size 16 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B15F: free_pipe_list (perror_free_exit.c:89)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10B30E: new_command (pipe_list.c:35)
+==6631==    by 0x10BFC5: is_command (validations_input.c:29)
+==6631==    by 0x10B5DF: pipe_list_build (pipe_list.c:97)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== Invalid write of size 8
+==6631==    at 0x10AF20: safe_free (perror_free_exit.c:19)
+==6631==    by 0x10B153: free_pipe_list (perror_free_exit.c:88)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d7e0 is 0 bytes inside a block of size 16 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B15F: free_pipe_list (perror_free_exit.c:89)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10B30E: new_command (pipe_list.c:35)
+==6631==    by 0x10BFC5: is_command (validations_input.c:29)
+==6631==    by 0x10B5DF: pipe_list_build (pipe_list.c:97)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== Invalid free() / delete / delete[] / realloc()
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B15F: free_pipe_list (perror_free_exit.c:89)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d7e0 is 0 bytes inside a block of size 16 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B15F: free_pipe_list (perror_free_exit.c:89)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10B30E: new_command (pipe_list.c:35)
+==6631==    by 0x10BFC5: is_command (validations_input.c:29)
+==6631==    by 0x10B5DF: pipe_list_build (pipe_list.c:97)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== Invalid read of size 8
+==6631==    at 0x10B175: free_pipe_list (perror_free_exit.c:92)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d6f0 is 32 bytes inside a block of size 128 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B1AB: free_pipe_list (perror_free_exit.c:95)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10B38E: new_block_on_pipe_list (pipe_list.c:49)
+==6631==    by 0x10B543: pipe_list_build (pipe_list.c:90)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== Syscall param unlink(pathname) points to unaddressable byte(s)
+==6631==    at 0x49D625B: unlink (syscall-template.S:120)
+==6631==    by 0x10B180: free_pipe_list (perror_free_exit.c:92)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d790 is 0 bytes inside a block of size 5 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B193: free_pipe_list (perror_free_exit.c:93)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10EA33: ft_substr (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10AC06: heredoc_name_setup (heredoc.c:41)
+==6631==    by 0x10B55A: pipe_list_build (pipe_list.c:91)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== Invalid read of size 8
+==6631==    at 0x10B198: free_pipe_list (perror_free_exit.c:94)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d720 is 80 bytes inside a block of size 128 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B1AB: free_pipe_list (perror_free_exit.c:95)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10B38E: new_block_on_pipe_list (pipe_list.c:49)
+==6631==    by 0x10B543: pipe_list_build (pipe_list.c:90)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== Invalid free() / delete / delete[] / realloc()
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B1AB: free_pipe_list (perror_free_exit.c:95)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d6d0 is 0 bytes inside a block of size 128 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B1AB: free_pipe_list (perror_free_exit.c:95)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10B38E: new_block_on_pipe_list (pipe_list.c:49)
+==6631==    by 0x10B543: pipe_list_build (pipe_list.c:90)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== Invalid read of size 1
+==6631==    at 0x10B9E3: handle_sigquit (signals.c:34)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x50 is not stack'd, malloc'd or (recently) free'd
+==6631== 
+==6631== 
+==6631== Process terminating with default action of signal 11 (SIGSEGV)
+==6631==  Access not within mapped region at address 0x50
+==6631==    at 0x10B9E3: handle_sigquit (signals.c:34)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  If you believe this happened as a result of a stack
+==6631==  overflow in your program's main thread (unlikely but
+==6631==  possible), you can try to increase the size of the
+==6631==  main thread stack using the --main-stacksize= flag.
+==6631==  The main thread stack size used in this run was 8388608.
+==6631== 
+==6631== HEAP SUMMARY:
+==6631==     in use at exit: 222,950 bytes in 467 blocks
+==6631==   total heap usage: 1,057 allocs, 593 frees, 261,383 bytes allocated
+==6631== 
+==6631== 5 bytes in 1 blocks are definitely lost in loss record 1 of 98
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10EA33: ft_substr (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10AC06: heredoc_name_setup (heredoc.c:41)
+==6631==    by 0x10B55A: pipe_list_build (pipe_list.c:91)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== 6 bytes in 1 blocks are definitely lost in loss record 2 of 98
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10AC59: heredoc_name_setup (heredoc.c:46)
+==6631==    by 0x10B55A: pipe_list_build (pipe_list.c:91)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== 7 bytes in 1 blocks are definitely lost in loss record 3 of 98
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10EA33: ft_substr (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x109F2B: make_env (env.c:86)
+==6631==    by 0x10952D: main (main.c:27)
+==6631== 
+==6631== 8 bytes in 2 blocks are indirectly lost in loss record 6 of 98
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10EA33: ft_substr (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10C00B: is_command (validations_input.c:33)
+==6631==    by 0x10B5DF: pipe_list_build (pipe_list.c:97)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== 24 bytes in 2 blocks are definitely lost in loss record 21 of 98
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x48A5BAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==6631==    by 0x4883694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==6631==    by 0x488DD2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==6631==    by 0x109587: minishell (minishell.c:22)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== 26 bytes in 2 blocks are definitely lost in loss record 22 of 98
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10E7EF: ft_strjoin (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10C6FB: command_validate (validations_input2.c:53)
+==6631==    by 0x10A26C: execution (execution.c:81)
+==6631==    by 0x1095E1: minishell (minishell.c:29)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== 40 (32 direct, 8 indirect) bytes in 2 blocks are definitely lost in loss record 24 of 98
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10B30E: new_command (pipe_list.c:35)
+==6631==    by 0x10BFC5: is_command (validations_input.c:29)
+==6631==    by 0x10B5DF: pipe_list_build (pipe_list.c:97)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== 72 bytes in 4 blocks are definitely lost in loss record 32 of 98
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10A656: execve_matrixes (execve_matrixes.c:82)
+==6631==    by 0x10B629: pipe_list_build (pipe_list.c:101)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== 1,493 bytes in 95 blocks are definitely lost in loss record 66 of 98
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10EA33: ft_substr (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x109EA5: make_env (env.c:78)
+==6631==    by 0x10952D: main (main.c:27)
+==6631== 
+==6631== 3,551 bytes in 86 blocks are definitely lost in loss record 73 of 98
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10EA33: ft_substr (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x109ED7: make_env (env.c:80)
+==6631==    by 0x10952D: main (main.c:27)
+==6631== 
+==6631== LEAK SUMMARY:
+==6631==    definitely lost: 5,216 bytes in 194 blocks
+==6631==    indirectly lost: 8 bytes in 2 blocks
+==6631==      possibly lost: 0 bytes in 0 blocks
+==6631==    still reachable: 0 bytes in 0 blocks
+==6631==         suppressed: 217,726 bytes in 271 blocks
+==6631== 
+==6631== ERROR SUMMARY: 25 errors from 25 contexts (suppressed: 0 from 0)
+==6631== 
+==6631== 1 errors in context 1 of 25:
+==6631== Invalid read of size 1
+==6631==    at 0x10B9E3: handle_sigquit (signals.c:34)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x50 is not stack'd, malloc'd or (recently) free'd
+==6631== 
+==6631== 
+==6631== 1 errors in context 2 of 25:
+==6631== Invalid free() / delete / delete[] / realloc()
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B1AB: free_pipe_list (perror_free_exit.c:95)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d6d0 is 0 bytes inside a block of size 128 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B1AB: free_pipe_list (perror_free_exit.c:95)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10B38E: new_block_on_pipe_list (pipe_list.c:49)
+==6631==    by 0x10B543: pipe_list_build (pipe_list.c:90)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== 
+==6631== 1 errors in context 3 of 25:
+==6631== Invalid read of size 8
+==6631==    at 0x10B198: free_pipe_list (perror_free_exit.c:94)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d720 is 80 bytes inside a block of size 128 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B1AB: free_pipe_list (perror_free_exit.c:95)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10B38E: new_block_on_pipe_list (pipe_list.c:49)
+==6631==    by 0x10B543: pipe_list_build (pipe_list.c:90)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== 
+==6631== 1 errors in context 4 of 25:
+==6631== Syscall param unlink(pathname) points to unaddressable byte(s)
+==6631==    at 0x49D625B: unlink (syscall-template.S:120)
+==6631==    by 0x10B180: free_pipe_list (perror_free_exit.c:92)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d790 is 0 bytes inside a block of size 5 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B193: free_pipe_list (perror_free_exit.c:93)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10EA33: ft_substr (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10AC06: heredoc_name_setup (heredoc.c:41)
+==6631==    by 0x10B55A: pipe_list_build (pipe_list.c:91)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== 
+==6631== 1 errors in context 5 of 25:
+==6631== Invalid read of size 8
+==6631==    at 0x10B175: free_pipe_list (perror_free_exit.c:92)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d6f0 is 32 bytes inside a block of size 128 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B1AB: free_pipe_list (perror_free_exit.c:95)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10B38E: new_block_on_pipe_list (pipe_list.c:49)
+==6631==    by 0x10B543: pipe_list_build (pipe_list.c:90)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== 
+==6631== 1 errors in context 6 of 25:
+==6631== Invalid free() / delete / delete[] / realloc()
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B15F: free_pipe_list (perror_free_exit.c:89)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d7e0 is 0 bytes inside a block of size 16 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B15F: free_pipe_list (perror_free_exit.c:89)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10B30E: new_command (pipe_list.c:35)
+==6631==    by 0x10BFC5: is_command (validations_input.c:29)
+==6631==    by 0x10B5DF: pipe_list_build (pipe_list.c:97)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== 
+==6631== 1 errors in context 7 of 25:
+==6631== Invalid write of size 8
+==6631==    at 0x10AF20: safe_free (perror_free_exit.c:19)
+==6631==    by 0x10B153: free_pipe_list (perror_free_exit.c:88)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d7e0 is 0 bytes inside a block of size 16 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B15F: free_pipe_list (perror_free_exit.c:89)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10B30E: new_command (pipe_list.c:35)
+==6631==    by 0x10BFC5: is_command (validations_input.c:29)
+==6631==    by 0x10B5DF: pipe_list_build (pipe_list.c:97)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== 
+==6631== 1 errors in context 8 of 25:
+==6631== Invalid read of size 8
+==6631==    at 0x10AF11: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B153: free_pipe_list (perror_free_exit.c:88)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d7e0 is 0 bytes inside a block of size 16 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B15F: free_pipe_list (perror_free_exit.c:89)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10B30E: new_command (pipe_list.c:35)
+==6631==    by 0x10BFC5: is_command (validations_input.c:29)
+==6631==    by 0x10B5DF: pipe_list_build (pipe_list.c:97)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== 
+==6631== 1 errors in context 9 of 25:
+==6631== Invalid read of size 8
+==6631==    at 0x10B140: free_pipe_list (perror_free_exit.c:87)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d7e8 is 8 bytes inside a block of size 16 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B15F: free_pipe_list (perror_free_exit.c:89)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10B30E: new_command (pipe_list.c:35)
+==6631==    by 0x10BFC5: is_command (validations_input.c:29)
+==6631==    by 0x10B5DF: pipe_list_build (pipe_list.c:97)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== 
+==6631== 1 errors in context 10 of 25:
+==6631== Invalid write of size 8
+==6631==    at 0x10AF20: safe_free (perror_free_exit.c:19)
+==6631==    by 0x10B139: free_pipe_list (perror_free_exit.c:82)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d6e8 is 24 bytes inside a block of size 128 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B1AB: free_pipe_list (perror_free_exit.c:95)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10B38E: new_block_on_pipe_list (pipe_list.c:49)
+==6631==    by 0x10B543: pipe_list_build (pipe_list.c:90)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== 
+==6631== 1 errors in context 11 of 25:
+==6631== Invalid free() / delete / delete[] / realloc()
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B139: free_pipe_list (perror_free_exit.c:82)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d830 is 0 bytes inside a block of size 4 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B153: free_pipe_list (perror_free_exit.c:88)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10EA33: ft_substr (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10C00B: is_command (validations_input.c:33)
+==6631==    by 0x10B5DF: pipe_list_build (pipe_list.c:97)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== 
+==6631== 1 errors in context 12 of 25:
+==6631== Invalid read of size 8
+==6631==    at 0x10AF11: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B139: free_pipe_list (perror_free_exit.c:82)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d6e8 is 24 bytes inside a block of size 128 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B1AB: free_pipe_list (perror_free_exit.c:95)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10B38E: new_block_on_pipe_list (pipe_list.c:49)
+==6631==    by 0x10B543: pipe_list_build (pipe_list.c:90)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== 
+==6631== 1 errors in context 13 of 25:
+==6631== Invalid read of size 8
+==6631==    at 0x10B11E: free_pipe_list (perror_free_exit.c:81)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d7e0 is 0 bytes inside a block of size 16 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B15F: free_pipe_list (perror_free_exit.c:89)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10B30E: new_command (pipe_list.c:35)
+==6631==    by 0x10BFC5: is_command (validations_input.c:29)
+==6631==    by 0x10B5DF: pipe_list_build (pipe_list.c:97)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== 
+==6631== 1 errors in context 14 of 25:
+==6631== Invalid read of size 8
+==6631==    at 0x10B116: free_pipe_list (perror_free_exit.c:81)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d6e8 is 24 bytes inside a block of size 128 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B1AB: free_pipe_list (perror_free_exit.c:95)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10B38E: new_block_on_pipe_list (pipe_list.c:49)
+==6631==    by 0x10B543: pipe_list_build (pipe_list.c:90)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== 
+==6631== 1 errors in context 15 of 25:
+==6631== Invalid read of size 8
+==6631==    at 0x10B0FD: free_pipe_list (perror_free_exit.c:80)
+==6631==    by 0x10B0B1: free_shell (perror_free_exit.c:68)
+==6631==    by 0x10B9DB: handle_sigquit (signals.c:33)
+==6631==    by 0x109614: minishell (minishell.c:33)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b6d728 is 88 bytes inside a block of size 128 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B1AB: free_pipe_list (perror_free_exit.c:95)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10B38E: new_block_on_pipe_list (pipe_list.c:49)
+==6631==    by 0x10B543: pipe_list_build (pipe_list.c:90)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+==6631== 
+==6631== 1 errors in context 16 of 25:
+==6631== Syscall param unlink(pathname) points to unaddressable byte(s)
+==6631==    at 0x49D625B: unlink (syscall-template.S:120)
+==6631==    by 0x10B180: free_pipe_list (perror_free_exit.c:92)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Address 0x4b693d0 is 0 bytes inside a block of size 7 free'd
+==6631==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10AF1B: safe_free (perror_free_exit.c:18)
+==6631==    by 0x10B193: free_pipe_list (perror_free_exit.c:93)
+==6631==    by 0x1095FB: minishell (minishell.c:30)
+==6631==    by 0x109539: main (main.c:28)
+==6631==  Block was alloc'd at
+==6631==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6631==    by 0x10CA58: ft_calloc (in /home/bruno/Desktop/minishell/minishell)
+==6631==    by 0x10AC59: heredoc_name_setup (heredoc.c:46)
+==6631==    by 0x10B55A: pipe_list_build (pipe_list.c:91)
+==6631==    by 0x1095C7: minishell (minishell.c:28)
+==6631==    by 0x109539: main (main.c:28)
+==6631== 
+--6631-- 
+--6631-- used_suppression:     87 <Readline> readline.supp:2 suppressed: 213,710 bytes in 270 blocks
+--6631-- used_suppression:      1 <AddHistory> readline.supp:26 suppressed: 4,016 bytes in 1 blocks
+==6631== 
+==6631== ERROR SUMMARY: 25 errors from 25 contexts (suppressed: 0 from 0)

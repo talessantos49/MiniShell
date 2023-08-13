@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../inc/minishell.h"
 
 void	export_new_var(t_shell **shell, char *key, char *value)
 {
@@ -57,15 +57,14 @@ void	export_var(t_shell **shell, char *key, char *value)
 	}
 }
 
-int	is_valid_key(char *arg)
+static int	is_valid_key(char *arg)
 {
-	while(*arg  && (ft_isalnum(*arg) || (*arg == '_')))
+	while (*arg  && (ft_isalnum(*arg) || (*arg == '_')))
 		arg++;
 	if (!*arg)
 		return (TRUE);
 	return (FALSE);
 }
-
 
 void	c_export(t_shell **shell)
 {

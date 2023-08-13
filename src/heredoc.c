@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../inc/minishell.h"
 
 void wait_heredoc_child(t_shell **shell, int pid)
 {
@@ -89,7 +89,8 @@ char	*here_doc_setup(t_shell **shell, t_block *current, char *line)
 	line_diff = line_tmp - line;
 	delimiter = ft_substr(line, 0, line_diff);
 	if (current->quotes_list && current->quotes_list->quote)
-		delimiter = quotes_clean(current, &delimiter, ft_strlen(delimiter));
+		delimiter = quotes_clean(current, &delimiter, delimiter, \
+		ft_strlen(delimiter));
 	here_doc_exec(shell, current, delimiter);
 	current->set = COMMAND;
 	current->fd[0] = open(current->heredoc_name, O_RDONLY);

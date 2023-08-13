@@ -10,47 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
-
-int	is_io_valid_token(int set, char line, char *newline, char *str_void)
-{
-	if (set >= 2 && set <= 4 && (!line || ft_strchr(STR_SPECIALS, line)))
-	{
-		if (!line)
-			line = 1;
-		else
-			newline = str_void;
-		ft_printfd(ERROR_IO_CHAR, STDERR_FILENO, newline, line);
-		return (EXCEPTION);
-	}
-	return (SUCCES);
-}
-
-char	*is_no_word(t_shell **shell, t_block *current, char *line)
-{
-	if (is_io_valid_token(current->set, *line, STR_NEWLINE, STR_VOID))
-		return (NULL);
-	current->arg_0 = line;
-	while (line == is_special(shell, current, line, STR_SPECIALS))
-	{
-		if (current->set != TEST_HEREDOC && line != is_quote(current, line))
-		{
-			is_var(shell, current, line, 0);
-			while (*++line != current->current_quote->quote && *line)
-				is_var(shell, current, line, 0);
-			if (!*line)
-			{
-				current->current_quote->quote = 0;
-				current->quotes_n -= 1;
-			}
-		}
-		is_var(shell, current, line, 0);
-		if (!*line || line != is_spaces(line, STR_SPACES))
-			break;
-		line++;
-	}
-	return (line);
-}
+#include "../inc/minishell.h"
 
 char	*is_command(t_shell **shell, t_block *current, char *line)
 {
@@ -73,7 +33,8 @@ char	*is_command(t_shell **shell, t_block *current, char *line)
 		current->current_command->arg = ft_substr(line, 0, (line_tmp - line));
 	if (current->quotes_list && current->quotes_list->quote)
 		current->current_command->arg = quotes_clean(current, \
-	&current->current_command->arg, ft_strlen(current->current_command->arg));
+	&current->current_command->arg, current->current_command->arg, \
+	ft_strlen(current->current_command->arg));
 	current->expand = NULL;
 	if (!current->commands->next)
 		current->built_in = is_built_in(current->current_command->arg);
@@ -96,7 +57,8 @@ char	*is_file_io(t_shell **shell, t_block *current, char *line)
 	else
 		file_name = ft_substr(line, 0, (line_tmp - line));
 	if (current->quotes_list && current->quotes_list->quote)
-		file_name = quotes_clean(current, &file_name, ft_strlen(file_name));
+		file_name = quotes_clean(current, &file_name, file_name, \
+		ft_strlen(file_name));
 	current->expand = NULL;
 	manage_file_descriptors(current, file_name);
 	if (current->fd[0] < 0 || current->fd[1] < 0)
@@ -108,14 +70,13 @@ char	*is_file_io(t_shell **shell, t_block *current, char *line)
 	return (line_tmp);
 }
 
-char	*is_special(t_shell **shell, \
-t_block *current, char *line, char *specials)
+char	*is_special(t_shell **shell, t_block *current, char *line, char *spcls)
 {
-	while (*specials)
+	while (*spcls)
 	{
-		if (*line && *line != *specials)
-			specials++;
-		else if (!*line || *line == *specials)
+		if (*line && *line != *spcls)
+			spcls++;
+		else if (!*line || *line == *spcls)
 		{
 			if (current->set == TEST_HEREDOC)
 				return (line + 1);

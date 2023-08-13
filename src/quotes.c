@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../inc/minishell.h"
 
-void	destroy_quote_list(t_block *current)
+static void	destroy_quote_list(t_block *current)
 {
 	t_quote *current_quote;
 	t_quote *next_quote;
@@ -28,7 +28,7 @@ void	destroy_quote_list(t_block *current)
 	}
 }
 
-char	*quotes_clean(t_block *current, char **arg, int arg_len)
+char	*quotes_clean(t_block *current, char **arg, char *a_free, int arg_len)
 {
 	char			*quote_clean;
 	char			*arg_tmp;
@@ -54,11 +54,12 @@ char	*quotes_clean(t_block *current, char **arg, int arg_len)
 			quote_pair += (**arg == current_quote->quote);
 		(*arg)++;
 	}
+	safe_free(&a_free);
 	destroy_quote_list(current);
 	return (quote_clean);
 }
 
-void	quotes_update(t_block *current, char quote)
+static void	quotes_update(t_block *current, char quote)
 {
 	current->quotes_n += 1;
 	if (!current->current_quote)

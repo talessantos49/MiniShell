@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../inc/minishell.h"
 
-int	print_oldpwd(char *new_path, int error)
+static int	print_oldpwd(char *new_path, int error)
 {
 	if (new_path)
 		ft_printf("%s\n", new_path);

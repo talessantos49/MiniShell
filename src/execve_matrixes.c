@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../inc/minishell.h"
 
 void	free_execve_env_matrix(t_shell **shell)
 {
@@ -33,7 +33,7 @@ void	free_execve_env_matrix(t_shell **shell)
 	safe_free(&(*shell)->paths_mtx);
 }
 
-void	execve_path_matrix(t_shell **shell, t_env *current)
+static void	execve_path_matrix(t_shell **shell, t_env *current)
 {
 	if (!strcmp_mod("PATH", current->key))
 	{
@@ -42,7 +42,7 @@ void	execve_path_matrix(t_shell **shell, t_env *current)
 	}
 }
 
-void	execve_env_matrix(t_shell **shell, t_env *current_env, int env_n)
+static void	execve_env_matrix(t_shell **shell, t_env *current_env, int env_n)
 {
 	char	**env_mtx;
 	int		key_len;

@@ -10,41 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
-
-void	manage_file_descriptors(t_block *current, char *file_name)
-{
-	if (current->set == INFILE && current->fd[0])
-		close(current->fd[0]);
-	else if ((current->set == OUTFILE_NEW || current->set == OUTFILE_APPEND) \
-	&& current->fd[1])
-		close(current->fd[1]);
-	if (current->set == INFILE)
-		current->fd[0] = open(file_name, O_RDONLY, CHMOD);
-	else if (current->set == OUTFILE_NEW)
-		current->fd[1] = open(file_name, O_CREAT | O_WRONLY | O_TRUNC, CHMOD);
-	else if (current->set == OUTFILE_APPEND)
-		current->fd[1] = open(file_name, O_CREAT | O_WRONLY | O_APPEND, CHMOD);
-}
-
-char	*special_cases(t_shell **shell, t_block *current, char *line)
-{
-	if (*line == '<' && *line++)
-	{
-		current->set = INFILE;
-		if (*line == '<' && *line++)
-			return (here_doc_setup(shell, current, line));
-	}
-	else if (*line == '>' && *line++)
-	{
-		current->set = OUTFILE_NEW;
-		if (*line == '>' && *line++)
-			current->set = OUTFILE_APPEND;
-	}
-	else if (*line == '|' && line++)
-			current->set = NEW_BLOCK;
-	return (line);
-}
+#include "../inc/minishell.h"
 
 void	minishell(t_shell **shell)
 {
