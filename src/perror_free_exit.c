@@ -16,7 +16,7 @@ void	safe_free(void *pointer)
 {
 	if (pointer != NULL)
 		free(*((void **)pointer));
-	*(void **)pointer = NULL;
+	*((void **)pointer) = NULL;
 }
 
 void free_quote_list(t_block *current)
@@ -48,13 +48,8 @@ static void	free_env(t_shell **shell)
 	while (current_env)
 	{
 		count++;
-		if (current_env->is_exported >= 1)
-		{
-			// if (current_env->is_exported == 2)
-			// 	safe_free(current_env->key);
-			if (current_env->value)	
-				safe_free(&current_env->value);	
-		}
+		safe_free(&current_env->key);
+		safe_free(&current_env->value);	
 		safe_free(&current_env);
 		current_env = next_env;
 		if (current_env)
@@ -64,11 +59,23 @@ static void	free_env(t_shell **shell)
 
 void	free_shell(t_shell **shell)
 {
+	rl_clear_history();
 	free_execve_env_matrix(shell);
 	free_pipe_list(shell, (*shell)->pipelist);
 	free_env(shell);
+	safe_free(&(*shell)->exit_code);
 	safe_free(shell);
 }
+
+void free_args_matrix(t_block *current, char **args)
+{
+	int	count;
+
+	count = 0;
+	while (args && ++count <= current->commands_n)
+		safe_free(args++);
+}
+
 
 void	free_pipe_list(t_shell **shell, t_block *current)
 {
@@ -78,21 +85,25 @@ void	free_pipe_list(t_shell **shell, t_block *current)
 
 	if (current)
 		current_cmd = current->commands;
+	else
+		return;
 	if (current_cmd && current->cmd != current_cmd->arg)
 		safe_free(&current->cmd);
 	while (current)
 	{
+		free_args_matrix(current, current->args);
+		safe_free(&current->args);
+		unlink(current->heredoc_name);
+		safe_free(&(*shell)->heredoc_name);
 		while (current_cmd)
 		{
 			next_cmd = current_cmd->next;
-			safe_free(&current_cmd->arg);
 			safe_free(&current_cmd);
 			current_cmd = next_cmd;
 		}
-		unlink(current->heredoc_name);
-		safe_free(&(*shell)->heredoc_name);
 		next = current->next;
 		safe_free(&current);
+		(*shell)->pipelist = NULL;
 		current = next;
 	}
 }

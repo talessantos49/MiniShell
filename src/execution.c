@@ -51,23 +51,31 @@ static void	pipeline_manager(t_shell **shell, t_block *current)
 		dup2(current->fd[0], STDIN_FILENO);
 		close(current->fd[0]);
 	}
-	else if ((*shell)->previous && (*shell)->previous->pipe)
+	else if (*shell && (*shell)->previous && (*shell)->previous->pipe[0])
 		dup2((*shell)->previous->pipe[0], STDIN_FILENO);
 }
 
 static void	child(t_shell **shell, t_block *current)
 {
+	int8_t	exit_code;
+
+	exit_code = (*shell)->exit_code;
+
 	signal_handled_exec(shell);
 	pipeline_manager(shell, current);
 	if (current->built_in)
 	{
 		current->built_in(shell);
 		if (!is_env_bultins(current->built_in, current->next))
-			exit((*shell)->exit_code);
+		{
+			free_shell(shell);
+			exit(exit_code);
+		}
 	}
 	else if (execve(current->cmd, current->args, (*shell)->env_mtx) < 0)
 	{
 		perror(current->cmd);
+		free_shell(shell);
 		exit(-1);
 	}
 }

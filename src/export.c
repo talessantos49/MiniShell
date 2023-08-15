@@ -30,7 +30,6 @@ void	export_new_var(t_shell **shell, char *key, char *value)
 			value += 1;
 		new_var->value = ft_substr(value, 0, ft_strlen(value));
 	}
-	new_var->is_exported = 2;
 	(*shell)->env_n += 1;
 }
 
@@ -52,7 +51,6 @@ void	export_var(t_shell **shell, char *key, char *value)
 			else if (value[0] == '=')
 				value += 1;
 			var->value = ft_substr(value, 0, value_len + 1);
-			var->is_exported = 1;
 		}
 	}
 }

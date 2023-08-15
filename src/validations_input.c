@@ -101,10 +101,26 @@ char	*is_spaces(char *line, char *spaces)
 	return (line);
 }
 
-void	is_var(t_shell **shell, t_block *current, char *arg, int arg_len)
+
+int	var_define(t_shell **shell, t_block *current, int arg_len)
 {
 	t_env	*var;
 
+	if (current->arg_0[0] == CHAR_VAR && arg_len > 1)
+	{
+		var = find_var(shell, current->arg_0 + 1, arg_len - 1, 0);
+		current->arg_0 = NULL;
+		arg_len = 0;
+		if (var)
+			current->arg_0 = var->value;
+		if (var && var->value)
+			arg_len = ft_strlen(var->value);
+	}
+	return (arg_len); 
+}
+
+void	is_var(t_shell **shell, t_block *current, char *arg, int arg_len)
+{
 	if (current->set == TEST_HEREDOC || (current->current_quote \
 	&& current->current_quote->quote == CHAR_Q_SINGLE))
 		return ; 
@@ -112,17 +128,13 @@ void	is_var(t_shell **shell, t_block *current, char *arg, int arg_len)
 	&& (arg != is_spaces(arg, STR_SPACES) || !*arg || *arg == CHAR_EQUAL \
 	|| (current->current_quote && *arg == current->current_quote->quote))))
 	{
-		arg_len = (arg - current->arg_0);
-		if (current->arg_0[0] == CHAR_VAR && (arg - current->arg_0) > 1)
+		if (current->arg_0[1] == CHAR_QUESTION && (arg - current->arg_0) == 2)
 		{
-			var = find_var(shell, current->arg_0 + 1, arg_len - 1, 0);
-			current->arg_0 = NULL;
-			arg_len = 0;
-			if (var)
-				current->arg_0 = var->value;
-			if (var && var->value)
-				arg_len = ft_strlen(var->value);
-		} 
+			current->arg_0 = ft_itoa((*shell)->exit_code);
+			arg_len = ft_strlen(current->arg_0);
+		}
+		else
+			arg_len = var_define(shell, current, (arg - current->arg_0));
 		current->arg_0 = ft_substr(current->arg_0, 0, arg_len);
 		current->expand = ft_strjoin(current->expand, current->arg_0);
 		safe_free(&current->arg_0);

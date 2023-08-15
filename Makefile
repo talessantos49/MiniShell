@@ -79,12 +79,6 @@ re:				fclean all
 
 .PHONY: 		all clean fclean re
 
-
-#VALGRIND		= @valgrind --leak-check=full --show-leak-kinds=all \
-#--track-origins=yes --quiet --tool=memcheck --keep-debuginfo=yes --verbose \
-#--trace-children=yes --track-fds=yes \
-#--log-file=valgrind-out.txt
-
 VALGRIND 		= @valgrind --leak-check=full --show-leak-kinds=all \
 --track-origins=yes --trace-children=yes --suppressions=readline.supp --log-file=valgrind-out.txt -s
 

@@ -7,7 +7,6 @@ typedef struct s_env
 {
 	char			*key;
 	char			*value;
-	int				is_exported;
 	struct s_env	*next;
 }	t_env;
 
@@ -57,7 +56,6 @@ typedef struct s_shell
 	t_block			*pipelist;
 	t_block			*previous;
 	t_env			*env;
-	t_env			*exit_code_var;
 	t_env			*env_last;
 	u_int8_t		exit_code;
 }					t_shell;

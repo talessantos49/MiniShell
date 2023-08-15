@@ -17,8 +17,6 @@ t_env	*find_var(t_shell **shell, char *key, int key_len, int is_unset)
 	t_env	*current_var;
 
 	current_var = (*shell)->env;
-	if (!strcmp_mod(key, "?"))
-		return ((*shell)->exit_code_var);
 	while (current_var)
 	{
 		if ((is_unset && current_var->next && \

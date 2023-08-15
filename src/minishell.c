@@ -28,8 +28,12 @@ void	minishell(t_shell **shell)
 			pipe_list_build(shell, line);
 			execution(shell, (*shell)->pipelist);
 			free_pipe_list(shell, (*shell)->pipelist);
+			safe_free(&line);
 		}
 		else if (line == NULL)
+		{
+			safe_free(&line);
 			handle_sigquit(shell);
+		}
 	}
 }

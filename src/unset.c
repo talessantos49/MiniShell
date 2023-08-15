@@ -36,9 +36,11 @@ void	c_unset(t_shell **shell)
 				var_prev->next = var_target->next;
 			}
 			else
+			{
 				var_target = var_prev;
-			if (var_target->is_exported)
 				safe_free(&var_target->key);
+				safe_free(&var_target->value);
+			}
 			safe_free(&var_target);
 			(*shell)->env_n -= 1;
 		}

@@ -9,6 +9,7 @@
 # define  CHAR_Q_SINGLE	'\''
 # define  CHAR_TILDE	'~'
 # define  CHAR_VAR 		'$'
+# define  CHAR_QUESTION '?'
 
 # define  CHMOD	 		0644
 

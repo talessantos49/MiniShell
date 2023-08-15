@@ -28,10 +28,12 @@ void	signal_listener(__sighandler_t handle_quit, __sighandler_t handle_int)
 
 void	handle_sigquit(t_shell **shell)
 {
+	int8_t	exit_code;
+
+	exit_code = (*shell)->exit_code;
 	ft_putstr_fd("exit\n", 1);
-	rl_clear_history();
 	free_shell(shell);
-	exit((*shell)->exit_code);
+	exit(exit_code);
 }
 
 void	handle_sigint(int signal)

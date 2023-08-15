@@ -20,7 +20,6 @@ void	c_exit(t_shell **shell)
 		(*shell)->exit_code = 2;
 		return ;
 	}
-	rl_clear_history();
 	free_shell(shell);
 	exit(EXIT_SUCCESS);
 }
