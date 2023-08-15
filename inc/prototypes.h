@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 19:46:38 by root              #+#    #+#             */
-/*   Updated: 2023/08/15 20:13:48 by root             ###   ########.fr       */
+/*   Updated: 2023/08/15 20:22:40 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	free_shell(t_shell **shell);
 void	safe_free(void *pointer);
 void	free_args_matrix(t_block *current, char **args);
 
-
 /*----------------------------------------------------------------------------*/
 /*                           pipe_list.c                                      */
 /*----------------------------------------------------------------------------*/
@@ -135,6 +134,7 @@ int		var_define(t_shell **shell, t_block *current, int arg_len);
 /*----------------------------------------------------------------------------*/
 /*                           validations_input2.c                             */
 /*----------------------------------------------------------------------------*/
+
 char	*is_no_word(t_shell **shell, t_block *current, char *line);
 int		is_env_bultins(void *builtin, t_block *arg);
 int		command_validate(t_shell **shell, t_block *current);

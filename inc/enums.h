@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 19:45:57 by root              #+#    #+#             */
-/*   Updated: 2023/08/15 19:45:58 by root             ###   ########.fr       */
+/*   Updated: 2023/08/15 20:21:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ enum	e_return
 
 enum	e_set
 {
-	NEW_BLOCK, 
-	COMMAND, 
-	INFILE, 
-	OUTFILE_NEW, 
-	OUTFILE_APPEND, 
+	NEW_BLOCK,
+	COMMAND,
+	INFILE,
+	OUTFILE_NEW,
+	OUTFILE_APPEND,
 	TEST_HEREDOC
 };
 

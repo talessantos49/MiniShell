@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:52:02 by root              #+#    #+#             */
-/*   Updated: 2023/08/15 19:46:33 by root             ###   ########.fr       */
+/*   Updated: 2023/08/15 20:22:15 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@
 # include "structs.h"
 # include "prototypes.h"
 
-extern int  g_signal;
+extern int	g_signal;
 
 #endif
