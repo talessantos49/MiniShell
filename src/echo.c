@@ -74,8 +74,10 @@ void	c_echo(t_shell **shell)
 	if ((*shell)->line == NULL)
 		return ;
 	flag = flag_echo(shell);
-	printable = ft_strdup(print_args_echo(
-				(*shell)->pipelist->commands, flag, "echo", "-n"));
+	// printable = ft_strdup(print_args_echo(
+	// 			(*shell)->pipelist->commands, flag, "echo", "-n"));
+	printable = print_args_echo((*shell)->pipelist->commands,
+			flag, "echo", "-n");
 	printf("%s", printable);
 	if (flag == 0 || (*shell)->pipelist->commands->next == NULL)
 		printf("\n");
