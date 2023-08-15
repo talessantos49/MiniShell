@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:28:00 by root              #+#    #+#             */
-/*   Updated: 2023/07/19 16:19:57 by root             ###   ########.fr       */
+/*   Updated: 2023/08/15 19:59:55 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	pipe_list_build(t_shell **shell, char *line)
 		line = is_spaces(line, STR_SPACES);
 		line = is_command(shell, current, line);
 		if (!line || (*shell)->exit_code)
-			break;
+			break ;
 		if ((line && !*line) || current->set == 0)
 			execve_matrixes(shell, current);
 	}

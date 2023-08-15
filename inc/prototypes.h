@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   prototypes.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/15 19:46:38 by root              #+#    #+#             */
+/*   Updated: 2023/08/15 20:13:48 by root             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PROTOTYPES_H
 # define PROTOTYPES_H
 
@@ -62,15 +74,17 @@ void	minishell(t_shell **shell);
 /*                           perror_free_exit.c                               */
 /*----------------------------------------------------------------------------*/
 void	free_pipe_list(t_shell **shell, t_block *current);
-void    free_shell(t_shell **shell);
+void	free_shell(t_shell **shell);
 void	safe_free(void *pointer);
+void	free_args_matrix(t_block *current, char **args);
+
 
 /*----------------------------------------------------------------------------*/
 /*                           pipe_list.c                                      */
 /*----------------------------------------------------------------------------*/
-char 	*special_cases(t_shell **shell, t_block *current, char *line);
-void 	pipe_list_build(t_shell **shell, char *line);
-void 	manage_file_descriptors(t_block *current, char *file_name);
+char	*special_cases(t_shell **shell, t_block *current, char *line);
+void	pipe_list_build(t_shell **shell, char *line);
+void	manage_file_descriptors(t_block *current, char *file_name);
 void	new_command(t_block *current);
 t_block	*new_block_on_pipe_list(t_shell **shell, t_block *block_current);
 
@@ -116,7 +130,7 @@ char	*is_command(t_shell **shell, t_block *current, char *line);
 char	*is_file_io(t_shell **shell, t_block *current, char *line);
 char	*is_spaces(char *line, char *spaces);
 char	*is_special(t_shell **shell, t_block *current, char *line, char *spcls);
-void	is_var(t_shell **shell, t_block *current, char *arg, int arg_len);
+int		var_define(t_shell **shell, t_block *current, int arg_len);
 
 /*----------------------------------------------------------------------------*/
 /*                           validations_input2.c                             */
@@ -124,5 +138,10 @@ void	is_var(t_shell **shell, t_block *current, char *arg, int arg_len);
 char	*is_no_word(t_shell **shell, t_block *current, char *line);
 int		is_env_bultins(void *builtin, t_block *arg);
 int		command_validate(t_shell **shell, t_block *current);
+
+/*----------------------------------------------------------------------------*/
+/*                           validations_input3.c                             */
+/*----------------------------------------------------------------------------*/
+void	is_var(t_shell **shell, t_block *current, char *arg, int arg_len);
 
 #endif

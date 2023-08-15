@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:49:31 by root              #+#    #+#             */
-/*   Updated: 2023/07/15 19:49:32 by root             ###   ########.fr       */
+/*   Updated: 2023/08/15 19:50:19 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	print_oldpwd(char *new_path, int error)
 		ft_printf("%s\n", new_path);
 	else if (!new_path && ++error)
 		ft_printfd(ERROR_CD2, STDERR_FILENO);
-	return (error);	
+	return (error);
 }
 
 void	c_cd(t_shell **shell)
@@ -45,7 +45,7 @@ void	c_cd(t_shell **shell)
 	if (chdir(new_path) < 0 && ++error == 1)
 		ft_printfd(ERROR_CD3, STDERR_FILENO, new_path);
 	if (error)
-		return;
+		return ;
 	export_var(shell, "OLDPWD", old_path);
 	export_var(shell, "PWD", new_path);
 }

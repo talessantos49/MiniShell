@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/22 15:14:03 by macarval          #+#    #+#             */
-/*   Updated: 2023/07/17 11:23:50 by root             ###   ########.fr       */
+/*   Created: 2023/02/22 15:14:03 by root              #+#    #+#             */
+/*   Updated: 2023/08/15 19:51:04 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 static char	**flag_scan(t_block *current)
 {
 	char	**args;
-	int		has_flag_valid;	
+	int		has_flag_valid;
 
 	args = &current->args[1];
 	has_flag_valid = 0;
-	while(args && *args && \
-	(**args == *STR_VOID || !strcmp_mod(*args, STR_FLAG_ECHO)))
+	while (args && *args
+		&& (**args == *STR_VOID || !strcmp_mod(*args, STR_FLAG_ECHO)))
 	{
 		has_flag_valid += (!strcmp_mod(*args, STR_FLAG_ECHO));
 		args++;

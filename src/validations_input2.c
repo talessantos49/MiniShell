@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validations_input.c                                :+:      :+:    :+:   */
+/*   validations_input2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:53:49 by root              #+#    #+#             */
-/*   Updated: 2023/07/17 12:51:51 by root             ###   ########.fr       */
+/*   Updated: 2023/08/15 20:03:32 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int is_env_bultins(void *builtin, t_block *arg)
+int	is_env_bultins(void *builtin, t_block *arg)
 {
 	if ((builtin == c_export && !arg) || builtin == c_unset \
 	|| builtin == c_exit || builtin == c_cd)
@@ -20,7 +20,7 @@ int is_env_bultins(void *builtin, t_block *arg)
 	return (FALSE);
 }
 
-static int is_file_or_directory(char *arg)
+static int	is_file_or_directory(char *arg)
 {
 	char	buf[BUF];
 	char	*cwd_backup;
@@ -35,7 +35,7 @@ static int is_file_or_directory(char *arg)
 		chdir(cwd_backup);
 		return (TRUE);
 	}
-	return(FALSE);
+	return (FALSE);
 }
 
 int	command_validate(t_shell **shell, t_block *current)
@@ -54,7 +54,7 @@ int	command_validate(t_shell **shell, t_block *current)
 		safe_free(&cmd_tmp);
 		if (!(access(current->args[0], X_OK)) || !(access(cmd_tmp2, X_OK)))
 		{
-			if (!(access(current->args[0], X_OK)))	
+			if (!(access(current->args[0], X_OK)))
 				current->cmd = ft_strdup(current->args[0]);
 			else
 				current->cmd = cmd_tmp2;
@@ -101,7 +101,7 @@ char	*is_no_word(t_shell **shell, t_block *current, char *line)
 		}
 		is_var(shell, current, line, 0);
 		if (!*line || line != is_spaces(line, STR_SPACES))
-			break;
+			break ;
 		line++;
 	}
 	return (line);

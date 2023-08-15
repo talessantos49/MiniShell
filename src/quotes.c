@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:46:35 by root              #+#    #+#             */
-/*   Updated: 2023/07/15 20:49:50 by root             ###   ########.fr       */
+/*   Updated: 2023/08/15 20:00:40 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	destroy_quote_list(t_block *current)
 {
-	t_quote *current_quote;
-	t_quote *next_quote;
+	t_quote	*current_quote;
+	t_quote	*next_quote;
 
 	current_quote = current->quotes_list;
 	next_quote = current->quotes_list->next;

@@ -6,7 +6,7 @@
 #    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 15:52:33 by macarval          #+#    #+#              #
-#    Updated: 2023/07/15 22:31:40 by root             ###   ########.fr        #
+#    Updated: 2023/08/15 20:11:48 by root             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ FILES			= main.c \
 				export.c \
 				heredoc.c \
 				perror_free_exit.c \
+				perror_free_exit2.c \
 				pipe_list.c \
 				pwd.c \
 				quotes.c \
@@ -40,7 +41,8 @@ FILES			= main.c \
 				unset.c \
 				utils.c \
 				validations_input.c \
-				validations_input2.c
+				validations_input2.c \
+				validations_input3.c
 
 IFLAGS			= -I./lib/libft
 LFLAGS			= -L./lib/libft -lreadline -lft
@@ -68,6 +70,7 @@ $(LIBFT):
 					
 clean:
 				@$(RM) $(OBJS)
+				@rm -rf $(OBJS_PATH)
 				@echo "clean Done!"
 
 fclean:			clean

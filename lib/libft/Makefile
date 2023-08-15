@@ -55,6 +55,7 @@ OBJS = 	${addprefix ${O_PATH}/, ${SRCS:.c=.o}}
 NAME = 	libft.a
 
 $(O_PATH)/%.o: %.c	
+		@mkdir -p $(O_PATH)
 		@gcc -Wall -Wextra -Werror -c $< -o $@
 
 all:	${NAME} 
@@ -64,6 +65,7 @@ ${NAME}:${OBJS} ${SRCS_H}
 
 clean:
 		@rm -f ${OBJS}
+		@rm -rf ${O_PATH}
 
 fclean:	clean 
 		@rm -f ${NAME}

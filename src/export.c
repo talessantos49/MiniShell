@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:02:11 by root              #+#    #+#             */
-/*   Updated: 2023/07/17 11:18:34 by root             ###   ########.fr       */
+/*   Updated: 2023/08/15 19:54:34 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	export_var(t_shell **shell, char *key, char *value)
 
 static int	is_valid_key(char *arg)
 {
-	while (*arg  && (ft_isalnum(*arg) || (*arg == '_')))
+	while (*arg && (ft_isalnum(*arg) || (*arg == '_')))
 		arg++;
 	if (!*arg)
 		return (TRUE);
@@ -79,7 +79,7 @@ void	c_export(t_shell **shell)
 		if (value && value != current->arg)
 		{
 			key = (char *)ft_calloc((value - current->arg + 1), sizeof(char));
-			ft_strlcpy(key, current->arg,(value - current->arg + 1));
+			ft_strlcpy(key, current->arg, (value - current->arg + 1));
 		}
 		else
 			key = ft_substr(current->arg, 0, ft_strlen(current->arg));

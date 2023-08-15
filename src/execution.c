@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:57:08 by root              #+#    #+#             */
-/*   Updated: 2023/07/15 20:13:35 by root             ###   ########.fr       */
+/*   Updated: 2023/08/15 19:53:53 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	wait_children(t_shell **shell, t_block *current)
 {
-	int status;
+	int	status;
 
 	status = 0;
 	while (current)
@@ -60,7 +60,6 @@ static void	child(t_shell **shell, t_block *current)
 	int8_t	exit_code;
 
 	exit_code = (*shell)->exit_code;
-
 	signal_handled_exec(shell);
 	pipeline_manager(shell, current);
 	if (current->built_in)

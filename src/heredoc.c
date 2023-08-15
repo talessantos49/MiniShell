@@ -6,15 +6,15 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:21:30 by root              #+#    #+#             */
-/*   Updated: 2023/07/15 20:22:55 by root             ###   ########.fr       */
+/*   Updated: 2023/08/15 19:55:11 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void wait_heredoc_child(t_shell **shell, int pid)
+void	wait_heredoc_child(t_shell **shell, int pid)
 {
-	int status;
+	int	status;
 
 	signal(SIGINT, SIG_IGN);
 	waitpid(pid, &status, 0);
@@ -45,7 +45,7 @@ void	heredoc_name_setup(t_shell **shell, t_block *current)
 		len = ft_strlen(name);
 		(*shell)->heredoc_name = (char *)ft_calloc(len + 2, sizeof(char));
 		ft_strlcpy((*shell)->heredoc_name, name, len + 1);
-		(*shell)->heredoc_name[len] = 1; 
+		(*shell)->heredoc_name[len] = 1;
 	}
 	current->heredoc_name = (*shell)->heredoc_name;
 }
