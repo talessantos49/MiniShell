@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:46:35 by root              #+#    #+#             */
-/*   Updated: 2023/08/15 20:00:40 by root             ###   ########.fr       */
+/*   Updated: 2023/08/16 19:08:42 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,9 @@ static void	destroy_quote_list(t_block *current)
 	}
 }
 
-char	*quotes_clean(t_block *current, char **arg, char *a_free, int arg_len)
+void	ft_quotes_pair(char	**arg, t_quote *current_quote,
+	enum e_quote quote_pair, char *arg_tmp)
 {
-	char			*quote_clean;
-	char			*arg_tmp;
-	enum e_quote	quote_pair;
-	t_quote			*current_quote;
-
-	arg_len -= (current->quotes_n * 2);
-	quote_clean = (char *)ft_calloc(arg_len + 1, sizeof(char));
-	arg_tmp = quote_clean;
-	current_quote = current->quotes_list;
-	quote_pair = 0;
 	while (**arg)
 	{
 		if (quote_pair == QUOTE_CLOSE)
@@ -54,6 +45,21 @@ char	*quotes_clean(t_block *current, char **arg, char *a_free, int arg_len)
 			quote_pair += (**arg == current_quote->quote);
 		(*arg)++;
 	}
+}
+
+char	*quotes_clean(t_block *current, char **arg, char *a_free, int arg_len)
+{
+	char			*quote_clean;
+	char			*arg_tmp;
+	enum e_quote	quote_pair;
+	t_quote			*current_quote;
+
+	arg_len -= (current->quotes_n * 2);
+	quote_clean = (char *)ft_calloc(arg_len + 1, sizeof(char));
+	arg_tmp = quote_clean;
+	current_quote = current->quotes_list;
+	quote_pair = 0;
+	ft_quotes_pair(arg, current_quote, quote_pair, arg_tmp);
 	safe_free(&a_free);
 	destroy_quote_list(current);
 	return (quote_clean);
