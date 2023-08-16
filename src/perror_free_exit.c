@@ -89,6 +89,8 @@ void	free_pipe_list(t_shell **shell, t_block *current)
 		return;
 	if (current_cmd && current->cmd != current_cmd->arg)
 		safe_free(&current->cmd);
+	(*shell)->pipelist_n =  0;
+	(*shell)->previous = NULL;
 	while (current)
 	{
 		free_args_matrix(current, current->args);

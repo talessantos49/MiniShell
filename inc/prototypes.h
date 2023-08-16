@@ -122,7 +122,7 @@ void	is_var(t_shell **shell, t_block *current, char *arg, int arg_len);
 /*                           validations_input2.c                             */
 /*----------------------------------------------------------------------------*/
 char	*is_no_word(t_shell **shell, t_block *current, char *line);
-int		is_env_bultins(void *builtin, t_block *arg);
+int     is_parent_builtins(void *builtin, int commands_n);
 int		command_validate(t_shell **shell, t_block *current);
 
 #endif

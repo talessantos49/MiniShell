@@ -29,6 +29,7 @@ typedef struct s_block
 	char			*arg_0;
 	char			*cmd;
 	char			*heredoc_name;			
+	char			quote_tmp;			
 	enum e_set		set;
 	int				commands_n;			
 	int				fd[2];

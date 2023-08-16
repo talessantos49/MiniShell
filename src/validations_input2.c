@@ -12,9 +12,9 @@
 
 #include "../inc/minishell.h"
 
-int is_env_bultins(void *builtin, t_block *arg)
+int is_parent_builtins(void *builtin, int pipes_n)
 {
-	if ((builtin == c_export && !arg) || builtin == c_unset \
+	if ((builtin == c_export && pipes_n > 1) || builtin == c_unset \
 	|| builtin == c_exit || builtin == c_cd)
 		return (TRUE);
 	return (FALSE);
@@ -91,13 +91,9 @@ char	*is_no_word(t_shell **shell, t_block *current, char *line)
 		if (current->set != TEST_HEREDOC && line != is_quote(current, line))
 		{
 			is_var(shell, current, line, 0);
-			while (*++line != current->current_quote->quote && *line)
+			while (*++line != current->quote_tmp && *line)
 				is_var(shell, current, line, 0);
-			if (!*line)
-			{
-				current->current_quote->quote = 0;
-				current->quotes_n -= 1;
-			}
+			is_quote(current, line);
 		}
 		is_var(shell, current, line, 0);
 		if (!*line || line != is_spaces(line, STR_SPACES))
