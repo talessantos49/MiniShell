@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 19:46:38 by root              #+#    #+#             */
-/*   Updated: 2023/08/15 20:22:40 by root             ###   ########.fr       */
+/*   Updated: 2023/08/16 16:35:32 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	c_echo(t_shell **shell);
 /*                           env.c                                            */
 /*----------------------------------------------------------------------------*/
 void	c_env(t_shell **shell);
-void	make_env(t_shell **shell, char **envp);
+void	make_env(t_shell **shell, char **envp, int str_len);
 void	print_env(t_shell **shell, int is_export);
 t_env	*find_var(t_shell **shell, char *key, int key_len, int is_unset);
 /*----------------------------------------------------------------------------*/

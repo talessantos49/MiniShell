@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:49:18 by root              #+#    #+#             */
-/*   Updated: 2023/08/15 19:52:11 by root             ###   ########.fr       */
+/*   Updated: 2023/08/16 16:35:20 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,10 @@ void	c_env(t_shell **shell)
 	return (print_env(shell, 0));
 }
 
-void	make_env(t_shell **shell, char **envp)
+void	make_env(t_shell **shell, char **envp, int str_len)
 {
 	t_env	*env_node;
 	char	*equal_position;
-	int		str_len;
 
 	(*shell)->env = (t_env *)ft_calloc(1, sizeof(t_env));
 	env_node = (*shell)->env;
