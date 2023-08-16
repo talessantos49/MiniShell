@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:57:08 by root              #+#    #+#             */
-/*   Updated: 2023/08/15 19:53:53 by root             ###   ########.fr       */
+/*   Updated: 2023/08/16 19:25:33 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static void	child(t_shell **shell, t_block *current)
 	if (current->built_in)
 	{
 		current->built_in(shell);
+		exit_code = (*shell)->exit_code;
 		if (!is_env_bultins(current->built_in, current->next))
 		{
 			free_shell(shell);
