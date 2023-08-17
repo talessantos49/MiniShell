@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:29:34 by root              #+#    #+#             */
-/*   Updated: 2023/08/15 20:49:01 by root             ###   ########.fr       */
+/*   Updated: 2023/08/17 18:47:19 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,11 @@ void	c_unset(t_shell **shell)
 	current = (*shell)->pipelist->commands->next;
 	if (!current || (current && current->arg[0] == CHAR_MINUS))
 	{
-		if (current->arg[0] == CHAR_MINUS)
+		if (current->arg[0] == CHAR_MINUS || current->arg == NULL )
+		{
+			printf("Cheguei aqui!\n");
 			ft_printfd(ERROR_OPTION, STDERR_FILENO, NAME_UNSET);
+		}
 		return ;
 	}
 	while (current && current->arg)
@@ -51,6 +54,7 @@ void	c_unset(t_shell **shell)
 			previous_var(shell, var_prev);
 		current = current->next;
 	}
+	printf("exit-code %d\n", (*shell)->exit_code);
 }
 
 // void	c_unset(t_shell **shell)
