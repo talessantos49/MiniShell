@@ -65,13 +65,13 @@ char	*quotes_clean(t_block *current, char **arg, char *a_free, int arg_len)
 	ft_quotes_pair(arg, current_quote, quote_pair, arg_tmp);
 	safe_free(&a_free);
 	destroy_quote_list(current);
+	current->quote_tmp = 0;
 	return (quote_clean);
 }
 
 static void	quotes_update(t_block *current, char quote)
 {
 	current->quotes_n += 1;
-	current->quote_tmp = 0;
 	if (!current->current_quote)
 	{
 		current->current_quote = (t_quote *)ft_calloc(1, sizeof(t_quote));

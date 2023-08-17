@@ -21,7 +21,6 @@ void	minishell(t_shell **shell)
 	{
 		line = readline(COLOR_BHCYAN "MiniShell" COLOR_BHRED "$" \
 		COLOR_BHCYAN "> " COLOR_RESET);
-		(*shell)->exit_code = 0;
 		if (line && *line)
 		{
 			add_history(line);

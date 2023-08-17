@@ -14,17 +14,17 @@
 
 void	is_var(t_shell **shell, t_block *current, char *arg, int arg_len)
 {
-	if (current->set == TEST_HEREDOC || (current->current_quote \
-	&& current->current_quote->quote == CHAR_Q_SINGLE))
+	if (current->set == TEST_HEREDOC || current->quote_tmp == CHAR_Q_SINGLE)
 		return ;
-	if (*arg == CHAR_VAR || (current->expand \
-	&& (arg != is_spaces(arg, STR_SPACES) || !*arg || *arg == CHAR_EQUAL \
-	|| (current->current_quote && *arg == current->current_quote->quote))))
+	if (*arg == CHAR_VAR || (current->expand && (!*arg || *arg == CHAR_EQUAL \
+	|| arg != is_spaces(arg, STR_SPACES) || *arg == current->quote_tmp \
+	|| *arg == CHAR_QUESTION)))
 	{
-		if (current->arg_0[1] == CHAR_QUESTION && (arg - current->arg_0) == 2)
+		if (current->arg_0[0] == CHAR_VAR && *arg == CHAR_QUESTION)
 		{
 			current->arg_0 = ft_itoa((*shell)->exit_code);
 			arg_len = ft_strlen(current->arg_0);
+			arg++;
 		}
 		else
 			arg_len = var_define(shell, current, (arg - current->arg_0));

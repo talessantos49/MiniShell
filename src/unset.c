@@ -41,10 +41,7 @@ void	c_unset(t_shell **shell)
 	if (!current || (current && current->arg[0] == CHAR_MINUS))
 	{
 		if (current->arg[0] == CHAR_MINUS || current->arg == NULL )
-		{
-			printf("Cheguei aqui!\n");
 			ft_printfd(ERROR_OPTION, STDERR_FILENO, NAME_UNSET);
-		}
 		return ;
 	}
 	while (current && current->arg)
