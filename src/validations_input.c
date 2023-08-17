@@ -121,8 +121,7 @@ int	var_define(t_shell **shell, t_block *current, int arg_len)
 
 void	is_var(t_shell **shell, t_block *current, char *arg, int arg_len)
 {
-	if (current->set == TEST_HEREDOC || (current->current_quote \
-	&& current->current_quote->quote == CHAR_Q_SINGLE))
+	if (current->set == TEST_HEREDOC || (current->quote_tmp == CHAR_Q_SINGLE))
 		return ; 
 	if (*arg == CHAR_VAR || (current->expand \
 	&& (arg != is_spaces(arg, STR_SPACES) || !*arg || *arg == CHAR_EQUAL \
