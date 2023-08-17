@@ -6,13 +6,13 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:53:49 by root              #+#    #+#             */
-/*   Updated: 2023/08/15 20:03:32 by root             ###   ########.fr       */
+/*   Updated: 2023/08/17 19:19:42 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int is_parent_builtins(void *builtin, int pipes_n)
+int	is_parent_builtins(void *builtin, int pipes_n)
 {
 	if ((builtin == c_export && pipes_n > 1) || builtin == c_unset \
 	|| builtin == c_exit || builtin == c_cd)
