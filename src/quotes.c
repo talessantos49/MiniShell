@@ -26,6 +26,9 @@ static void	destroy_quote_list(t_block *current)
 		if (current_quote)
 			next_quote = next_quote->next;
 	}
+	current->quotes_list = NULL;
+	current->current_quote = NULL;
+	current->quotes_n = 0;
 }
 
 void	ft_quotes_pair(char	**arg, t_quote *current_quote,
@@ -68,12 +71,13 @@ char	*quotes_clean(t_block *current, char **arg, char *a_free, int arg_len)
 static void	quotes_update(t_block *current, char quote)
 {
 	current->quotes_n += 1;
+	current->quote_tmp = 0;
 	if (!current->current_quote)
 	{
 		current->current_quote = (t_quote *)ft_calloc(1, sizeof(t_quote));
 		current->quotes_list = current->current_quote;
 	}
-	else if (current->current_quote->quote)
+	else if (current->current_quote && current->current_quote->quote)
 	{
 		current->current_quote->next = (t_quote *)ft_calloc(1, \
 		sizeof(t_quote));
@@ -86,7 +90,10 @@ char	*is_quote(t_block *current, char *line)
 {
 	if (*line && (*line == CHAR_Q_SINGLE || *line == CHAR_Q_DOUBLE))
 	{
-		quotes_update(current, *line);
+		if (!current->quote_tmp)
+			current->quote_tmp = *line;
+		else if (*line == current->quote_tmp)
+			quotes_update(current, *line);
 		line += 1;
 	}
 	return (line);

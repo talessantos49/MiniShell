@@ -36,22 +36,23 @@ void	close_pipes(t_shell **shell, t_block *current)
 
 static void	pipeline_manager(t_shell **shell, t_block *current)
 {
-	if (current->fd[1])
+	if (current->fd && current->fd[1])
 	{
 		dup2(current->fd[1], STDOUT_FILENO);
 		close(current->fd[1]);
 	}
-	else if (current->pipe[1])
+	else if (current->pipe && current->pipe[1])
 	{
 		dup2(current->pipe[1], STDOUT_FILENO);
 		close(current->pipe[0]);
 	}
-	if (current->fd[0])
+	if (current->fd && current->fd[0])
 	{
 		dup2(current->fd[0], STDIN_FILENO);
 		close(current->fd[0]);
 	}
-	else if (*shell && (*shell)->previous && (*shell)->previous->pipe[0])
+	else if ((*shell)->previous && (*shell)->previous->pipe && \
+	(*shell)->previous->pipe[0])
 		dup2((*shell)->previous->pipe[0], STDIN_FILENO);
 }
 
@@ -66,7 +67,7 @@ static void	child(t_shell **shell, t_block *current)
 	{
 		current->built_in(shell);
 		exit_code = (*shell)->exit_code;
-		if (!is_env_bultins(current->built_in, current->next))
+		if (!is_parent_builtins(current->built_in, (*shell)->pipelist_n))
 		{
 			free_shell(shell);
 			exit(exit_code);
@@ -92,7 +93,7 @@ void	execution(t_shell **shell, t_block *current)
 			continue ;
 		}
 		signal_listener(NULL, SIG_IGN);
-		if (!is_env_bultins(current->built_in, current->next))
+		if (!is_parent_builtins(current->built_in, (*shell)->pipelist_n))
 			current->pid = fork();
 		if (!current->pid)
 			child(shell, current);
