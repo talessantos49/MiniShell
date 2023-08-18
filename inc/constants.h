@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 19:46:05 by root              #+#    #+#             */
-/*   Updated: 2023/08/15 19:46:06 by root             ###   ########.fr       */
+/*   Updated: 2023/08/18 12:19:35 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # define  COLOR_RESET  	"\001\e[0m\002"
 
 # define  ERROR_ARG     "MiniShell: too many arguments\n"
+# define  ERROR_EXIT    " too many arguments\n"
+# define  ERROR_EXIT1   " numeric argument required\n"
 # define  ERROR_CD1     "MiniShell: cd: too many arguments\n"
 # define  ERROR_CD2     "MiniShell: cd: OLDPWD not set\n"
 # define  ERROR_CD3     "MiniShell: cd: %s: No such file or directory\n"
