@@ -57,10 +57,13 @@ void	export_var(t_shell **shell, char *key, char *value)
 
 static int	is_valid_key(char *arg)
 {
-	while (*arg && (ft_isalnum(*arg) || (*arg == '_')))
-		arg++;
-	if (!*arg)
-		return (TRUE);
+	if (!ft_isdigit(*arg))
+	{
+		while (*arg && (ft_isalnum(*arg) || (*arg == '_')))
+			arg++;
+		if (!*arg)
+			return (TRUE);
+	}	
 	return (FALSE);
 }
 
