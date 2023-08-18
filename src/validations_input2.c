@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:53:49 by root              #+#    #+#             */
-/*   Updated: 2023/08/17 19:19:42 by root             ###   ########.fr       */
+/*   Updated: 2023/08/18 15:15:07 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ static int	is_file_or_directory(char *arg)
 	char	buf[BUF];
 	char	*cwd_backup;
 
-	cwd_backup = getcwd(buf, BUF);
-	if (ft_strchr(arg, *STR_SLASH))
+	if ((access(arg, X_OK)) && ft_strchr(arg, *STR_SLASH))
 	{
+		cwd_backup = getcwd(buf, BUF);
 		if (chdir(arg))
 			ft_printfd(ERROR_FD_DIR, STDERR_FILENO, arg);
 		else
