@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 19:46:42 by root              #+#    #+#             */
-/*   Updated: 2023/08/15 19:46:43 by root             ###   ########.fr       */
+/*   Updated: 2023/08/18 01:23:51 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ typedef struct s_block
 	char			*expand;
 	char			*arg_0;
 	char			*cmd;
-	char			*heredoc_name;			
-	char			quote_tmp;			
+	char			*heredoc_name;
+	char			quote_tmp;
 	enum e_set		set;
-	int				commands_n;			
+	int				commands_n;
 	int				fd[2];
 	int				pipe[2];
 	int				signal;
-	int				quotes_n;			
+	int				quotes_n;
 	pid_t			pid;
 	struct s_block	*next;
 	t_cmd			*commands;
