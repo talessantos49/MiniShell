@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bluiz-al <bluiz-al@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/15 18:50:59 by bluiz-al          #+#    #+#             */
-/*   Updated: 2022/07/05 20:55:56 by bluiz-al         ###   ########.fr       */
+/*   Created: 2022/06/03 08:36:04 by bluiz-al          #+#    #+#             */
+/*   Updated: 2022/07/07 17:51:56 by bluiz-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	char	*ptr;
-	size_t	s_len;
-	size_t	index;
+	size_t	src_len;
 
-	index = 0;
-	s_len = ft_strlen(s);
-	if (start >= s_len)
-		len = 0;
-	else if (len > s_len - start)
-		len = s_len - start;
-	ptr = ft_calloc(len + 1, sizeof(char));
-	while (len-- && s[start])
-		ptr[index++] = s[start++];
-	return (ptr);
+	src_len = ft_strlen(src);
+	if (size)
+	{
+		if (size + 1 == 0)
+			size = src_len + 1;
+		while (*src && --size)
+			*dest++ = *src++;
+		*dest = 0;
+	}
+	return (src_len);
 }

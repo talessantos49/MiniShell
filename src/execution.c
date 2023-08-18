@@ -6,114 +6,100 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:57:08 by root              #+#    #+#             */
-/*   Updated: 2023/07/24 02:11:04 by root             ###   ########.fr       */
+/*   Updated: 2023/08/17 19:13:24 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../inc/minishell.h"
 
-void	close_all_pipes(t_block *current)
+static void	wait_children(t_shell **shell, t_block *current)
 {
-	while (current && current->pipe[0])
+	int	status;
+
+	status = 0;
+	while (current)
 	{
-		close(current->pipe[0]);
-		close(current->pipe[1]);
+		waitpid(current->pid, &status, 0);
+		if (WIFEXITED(status))
+			(*shell)->exit_code = WEXITSTATUS(status);
 		current = current->next;
 	}
 }
 
-void	pipeline_manager(t_shell **shell, t_block *current)
+void	close_pipes(t_shell **shell, t_block *current)
 {
-	if (current->fd[0])
-	{
-		dup2(current->fd[0], STDIN_FILENO);
-		close(current->fd[0]);
-	}
-	if (current->pipe[0] && current->pipe[1])
-	{
-		dup2(current->pipe[1], STDOUT_FILENO);
-		close_all_pipes((*shell)->pipelist);
-	}
-	if (current->fd[1])
+	if (current != (*shell)->pipelist)
+		close((*shell)->previous->pipe[0]);
+	if (current->next)
+		close(current->pipe[1]);
+}
+
+static void	pipeline_manager(t_shell **shell, t_block *current)
+{
+	if (current->fd && current->fd[1])
 	{
 		dup2(current->fd[1], STDOUT_FILENO);
 		close(current->fd[1]);
 	}
+	else if (current->pipe && current->pipe[1])
+	{
+		dup2(current->pipe[1], STDOUT_FILENO);
+		close(current->pipe[0]);
+	}
+	if (current->fd && current->fd[0])
+	{
+		dup2(current->fd[0], STDIN_FILENO);
+		close(current->fd[0]);
+	}
+	else if ((*shell)->previous && (*shell)->previous->pipe && \
+	(*shell)->previous->pipe[0])
+		dup2((*shell)->previous->pipe[0], STDIN_FILENO);
 }
 
-void	child(t_shell **shell, t_block *current)
+static void	child(t_shell **shell, t_block *current)
 {
+	int8_t	exit_code;
+
+	exit_code = (*shell)->exit_code;
 	signal_handled_exec(shell);
 	pipeline_manager(shell, current);
 	if (current->built_in)
 	{
 		current->built_in(shell);
-		if (!((*shell)->pipelist == current && current->pipe[0] == 0))
-			exit(0);
-		else
-			restore_std_io((*shell)->std_io);
+		exit_code = (*shell)->exit_code;
+		if (!is_parent_builtins(current->built_in, (*shell)->pipelist_n))
+		{
+			free_shell(shell);
+			exit(exit_code);
+		}
 	}
 	else if (execve(current->cmd, current->args, (*shell)->env_mtx) < 0)
 	{
 		perror(current->cmd);
+		free_shell(shell);
 		exit(-1);
 	}
 }
 
-int	command_validate(t_shell **shell, t_block *current)
-{
-	char	*cmd_tmp;
-	char	*cmd_tmp2;
-	int		i;
-
-	i = -1;
-	while (++i < (*shell)->paths_n)
-	{
-		cmd_tmp = ft_strjoin((*shell)->paths_mtx[i], "/");
-		if (current->cmd != NULL)
-			cmd_tmp2 = ft_strjoin(cmd_tmp, current->cmd);
-		else
-			cmd_tmp2 = ft_strdup(cmd_tmp);
-		safe_free((void **)&cmd_tmp);
-		if (!(access(cmd_tmp2, X_OK)))
-		{
-			safe_free((void **)&current->cmd);
-			current->cmd = cmd_tmp2;
-			return (0);
-		}
-		else
-			safe_free((void **)&cmd_tmp2);
-	}
-	if (!(access(current->args[0], X_OK)))
-	{
-		current->cmd = ft_strdup(current->args[0]);
-		return (0);
-	}
-	perror_free(": command not found", current->cmd);
-	return (1);
-}
-
 void	execution(t_shell **shell, t_block *current)
 {
-	while (current && current->commands)
+	while (!(*shell)->exit_code && current && current->cmd)
 	{
+		if (current->next)
+			pipe(current->pipe);
 		if (!current->built_in && command_validate(shell, current))
 		{
 			current = current->next;
 			continue ;
 		}
 		signal_listener(NULL, SIG_IGN);
-		if (!((*shell)->pipelist == current && current->pipe[0] == 0)
-			|| !current->built_in)
-			(*shell)->pid = fork();
-		if (!(*shell)->pid)
+		if (!is_parent_builtins(current->built_in, (*shell)->pipelist_n))
+			current->pid = fork();
+		if (!current->pid)
 			child(shell, current);
-		if (current->built_in || (*shell)->pipelist == current)
-		{
-			waitpid((*shell)->pid, NULL, 0);
-			if (WIFEXITED((*shell)->status))
-				(*shell)->exit_code = WEXITSTATUS((*shell)->status);
-		}
+		close_pipes(shell, current);
+		(*shell)->previous = current;
 		current = current->next;
 	}
+	wait_children(shell, (*shell)->pipelist);
 }

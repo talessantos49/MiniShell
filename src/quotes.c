@@ -6,94 +6,95 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:46:35 by root              #+#    #+#             */
-/*   Updated: 2023/07/15 20:49:50 by root             ###   ########.fr       */
+/*   Updated: 2023/08/16 19:08:42 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../inc/minishell.h"
 
-void	quote_clean(t_block *current, char *command, char quote)
+static void	destroy_quote_list(t_block *current)
 {
-	char	*quote_ptr;
+	t_quote	*current_quote;
+	t_quote	*next_quote;
 
-	current->cmd = ft_strtrim(command, &quote);
-	quote_ptr = current->cmd;
-	while (quote_ptr)
+	current_quote = current->quotes_list;
+	next_quote = current->quotes_list->next;
+	while (current_quote)
 	{
-		quote_ptr = ft_strchr(quote_ptr, quote);
-		if (!quote_ptr || !*quote_ptr)
-			break ;
-		quote_ptr[0] = 1;
-		quote_ptr += 1;
+		safe_free(&current_quote);
+		current_quote = next_quote;
+		if (current_quote)
+			next_quote = next_quote->next;
 	}
+	current->quotes_list = NULL;
+	current->current_quote = NULL;
+	current->quotes_n = 0;
 }
 
-char	*quote_append(char **current, char *append, int newline)
+void	ft_quotes_pair(char	**arg, t_quote *current_quote,
+	enum e_quote quote_pair, char *arg_tmp)
 {
-	char	*new;
-	char	*new_appd;
-	int		appd_len;
-	int		crrt_len;
-
-	if (!*current)
-		*current = "";
-	crrt_len = ft_strlen(*current);
-	appd_len = ft_strlen(append);
-	new = (char *)ft_calloc((crrt_len + appd_len) + newline, sizeof(char));
-	new_appd = new + crrt_len + newline;
-	ft_strlcpy(new, *current, (crrt_len + appd_len) + 1);
-	ft_strlcpy(new_appd - 1, "\n", (newline * 2));
-	ft_strlcpy(new_appd, append, appd_len + 1);
-	safe_free((void **)current);
-	return (new);
-}
-
-int	quote_nested(char *string, char quote)
-{
-	char	*quote_pair;
-
-	while (*string)
+	while (**arg)
 	{
-		quote_pair = ft_strchr(string, quote);
-		if (!quote_pair)
-			break ;
-		quote_pair = ft_strchr(quote_pair + 1, quote);
-		if (!quote_pair)
-			return (1);
+		if (quote_pair == QUOTE_CLOSE)
+			current_quote = current_quote->next;
+		quote_pair = (quote_pair != QUOTE_CLOSE) * quote_pair;
+		if (!current_quote || **arg != current_quote->quote)
+		{
+			*arg_tmp = **arg;
+			arg_tmp++;
+		}
 		else
-			string = quote_pair + 1;
+			quote_pair += (**arg == current_quote->quote);
+		(*arg)++;
 	}
-	return (0);
 }
 
-char	*quote_unclosed(t_block *current, char *input)
+char	*quotes_clean(t_block *current, char **arg, char *a_free, int arg_len)
 {
-	char	**final_str;
-	char	*quote_break;
+	char			*quote_clean;
+	char			*arg_tmp;
+	enum e_quote	quote_pair;
+	t_quote			*current_quote;
 
-	quote_break = NULL;
-	new_command(current);
-	signal_listener(signal_set, handle_sigint);
-	final_str = &current->commands->arg;
-	*final_str = quote_append(&current->commands->arg, input, 0);
-	while (1 && !quote_break)
+	arg_len -= (current->quotes_n * 2);
+	quote_clean = (char *)ft_calloc(arg_len + 1, sizeof(char));
+	arg_tmp = quote_clean;
+	current_quote = current->quotes_list;
+	quote_pair = 0;
+	ft_quotes_pair(arg, current_quote, quote_pair, arg_tmp);
+	safe_free(&a_free);
+	destroy_quote_list(current);
+	current->quote_tmp = 0;
+	return (quote_clean);
+}
+
+static void	quotes_update(t_block *current, char quote)
+{
+	current->quotes_n += 1;
+	if (!current->current_quote)
 	{
-		input = readline("> ");
-		*final_str = quote_append(&current->commands->arg, input, 1);
-		if (quote_nested(input, current->current_command->quote))
-			break ;
+		current->current_quote = (t_quote *)ft_calloc(1, sizeof(t_quote));
+		current->quotes_list = current->current_quote;
 	}
-	add_history(*final_str);
-	return ("\0");
+	else if (current->current_quote && current->current_quote->quote)
+	{
+		current->current_quote->next = (t_quote *)ft_calloc(1, \
+		sizeof(t_quote));
+		current->current_quote = current->current_quote->next;
+	}
+	current->current_quote->quote = quote;
 }
 
-int	is_quote(t_block *current, char line)
+char	*is_quote(t_block *current, char *line)
 {
-	if (line == '\'')
-		current->quote = '\'';
-	else if (line == '\"')
-		current->quote = '\"';
-	else
-		return (0);
-	return (1);
+	if (*line && (*line == CHAR_Q_SINGLE || *line == CHAR_Q_DOUBLE))
+	{
+		if (!current->quote_tmp)
+			current->quote_tmp = *line;
+		else if (*line == current->quote_tmp)
+			quotes_update(current, *line);
+		line += 1;
+	}
+	return (line);
 }

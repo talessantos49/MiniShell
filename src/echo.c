@@ -5,83 +5,48 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/22 15:14:03 by root          #+#    #+#             */
-/*   Updated: 2023/07/21 18:30:57 by root             ###   ########.fr       */
+/*   Created: 2023/02/22 15:14:03 by root              #+#    #+#             */
+/*   Updated: 2023/08/15 19:51:04 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../inc/minishell.h"
 
-char	*print_args_echo(t_cmd *list, int flag_int, char *cmd, char *flag)
+static char	**flag_scan(t_block *current)
 {
-	t_cmd	*temp;
-	char	*temp_str;
+	char	**args;
+	int		has_flag_valid;
 
-	temp = list;
-	temp_str = "";
-	while (temp != NULL)
+	args = &current->args[1];
+	has_flag_valid = 0;
+	while (args && *args
+		&& (**args == *STR_VOID || !strcmp_mod(*args, STR_FLAG_ECHO)))
 	{
-		if (!strcmp_mod(temp->arg, cmd))
-			temp = temp->next;
-		else if (!strcmp_mod(temp->arg, flag) && flag_int == 1)
-			temp = temp->next;
-		else if (temp->next != NULL)
-		{
-			flag_int = 0;
-			temp_str = ft_strjoin(temp_str, temp->arg);
-			temp_str = ft_strjoin(temp_str, " ");
-			temp = temp->next;
-		}
-		else
-		{
-			temp_str = ft_strjoin(temp_str, temp->arg);
-			temp = temp->next;
-		}
+		has_flag_valid += (!strcmp_mod(*args, STR_FLAG_ECHO));
+		args++;
 	}
-	return (temp_str);
-}
-
-int	flag_echo(t_shell **shell)
-{
-	char	*temp_line;
-	int		flag;
-
-	if ((*shell)->pipelist->commands->next == NULL)
-		return (0);
-	temp_line = (*shell)->pipelist->commands->next->arg;
-	if ((*shell)->line == NULL)
-		return (0);
-	if (temp_line[0] == '-' && temp_line[1] == 'n')
-	{
-		flag = 1;
-		if (temp_line[0] == '-' && temp_line[1] == 'n')
-			(*shell)->line = " ";
-		else
-			(*shell)->line = temp_line;
-	}
+	if (has_flag_valid)
+		return (args);
 	else
-		flag = 0;
-	return (flag);
-}
+		return (NULL);
+}	
 
 void	c_echo(t_shell **shell)
 {
-	int		flag;
-	char	*printable;
-	char	*temp_line;
+	char	**args;
+	char	**flag;
 
-	temp_line = "";
-	if ((*shell)->line == NULL)
-		return ;
-	flag = flag_echo(shell);
-	// printable = ft_strdup(print_args_echo(
-	// 			(*shell)->pipelist->commands, flag, "echo", "-n"));
-	printable = print_args_echo((*shell)->pipelist->commands,
-			flag, "echo", "-n");
-	printf("%s", printable);
-	if (flag == 0 || (*shell)->pipelist->commands->next == NULL)
+	flag = flag_scan((*shell)->pipelist);
+	if (flag)
+		args = flag;
+	else
+		args = &(*shell)->pipelist->args[1];
+	while (args && *args)
+	{
+		printf("%s", *args++);
+		if (args && *args && **args)
+			printf(" ");
+	}
+	if (!flag)
 		printf("\n");
-	if (printable != temp_line)
-		free(printable);
-	(*shell)->exit_code = 0;
 }

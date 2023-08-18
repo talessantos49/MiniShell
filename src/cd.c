@@ -6,50 +6,46 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:49:31 by root              #+#    #+#             */
-/*   Updated: 2023/07/24 01:30:10 by root             ###   ########.fr       */
+/*   Updated: 2023/08/15 19:50:19 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../inc/minishell.h"
 
-void	cd_home(t_shell **shell)
+static int	print_oldpwd(char *new_path, int error)
 {
-	char	directory[1024];
-	t_cmd	*temp_cmd;
-
-	temp_cmd = (*shell)->pipelist->commands->next;
-	if (temp_cmd)
-	{
-		replace_word(temp_cmd->arg, "~", getenv("HOME"), 0);
-		if (chdir(temp_cmd->arg) == 0)
-			if (getcwd(directory, sizeof(directory)) != NULL)
-				(*shell)->actual_path = directory;
-	}
+	if (new_path)
+		ft_printf("%s\n", new_path);
+	else if (!new_path && ++error)
+		ft_printfd(ERROR_CD2, STDERR_FILENO);
+	return (error);
 }
 
 void	c_cd(t_shell **shell)
 {
-	char	directory[1024];
-	t_cmd	*temp_cmd;
+	char	buf[BUF];
+	char	*new_path;
+	char	*old_path;
+	int		error;
 
-	temp_cmd = (*shell)->pipelist->commands->next;
-	if (temp_cmd)
+	error = 0;
+	old_path = getcwd(buf, BUF);
+	if ((*shell)->pipelist->args[1])
+		new_path = (*shell)->pipelist->args[1];
+	if ((*shell)->pipelist->commands_n > 2 && ++error)
+		ft_printfd(ERROR_CD1, STDERR_FILENO);
+	else if (!(*shell)->pipelist->args[1] || !*(*shell)->pipelist->args[1] \
+	|| strchr_mod((*shell)->pipelist->args[1], CHAR_TILDE))
+		new_path = (find_var(shell, "HOME", 4, 0))->value;
+	else if ((*shell)->pipelist->args[1][0] == CHAR_MINUS)
 	{
-		if (find(temp_cmd->arg, '~'))
-		{
-			cd_home(shell);
-		}
-		else if (chdir(temp_cmd->arg) == 0)
-		{
-			if (getcwd(directory, sizeof(directory)) != NULL)
-				(*shell)->actual_path = directory;
-		}
-		else
-		{
-			printf("bash: cd: %s: No such file or directory\n", temp_cmd->arg);
-			(*shell)->exit_code = 1;
-			return ;
-		}
-	}
-	(*shell)->exit_code = 0;
+		new_path = (find_var(shell, "OLDPWD", 6, 0))->value;
+		error = print_oldpwd(new_path, error);
+	}	
+	if (chdir(new_path) < 0 && ++error == 1)
+		ft_printfd(ERROR_CD3, STDERR_FILENO, new_path);
+	if (error)
+		return ;
+	export_var(shell, "OLDPWD", old_path);
+	export_var(shell, "PWD", new_path);
 }

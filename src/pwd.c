@@ -6,15 +6,16 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 17:32:46 by root              #+#    #+#             */
-/*   Updated: 2023/07/24 02:33:48 by root             ###   ########.fr       */
+/*   Updated: 2023/06/27 11:16:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../inc/minishell.h"
 
-void	c_pwd(void)
+void	c_pwd(t_shell **shell)
 {
-	char	buf[256];
+	char	buf[BUF];
 
-	printf("%s\n", getcwd(buf, 256));
+	(void)shell;
+	printf("%s\n", getcwd(buf, BUF));
 }
