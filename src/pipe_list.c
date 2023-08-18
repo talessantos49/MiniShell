@@ -95,7 +95,7 @@ void	pipe_list_build(t_shell **shell, char *line)
 		line = is_file_io(shell, current, line);
 		line = is_spaces(line, STR_SPACES);
 		line = is_command(shell, current, line);
-		if (!line || (*shell)->exit_code)
+		if (!line)
 			break ;
 		if ((line && !*line) || current->set == 0)
 			execve_matrixes(shell, current);

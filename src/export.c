@@ -86,7 +86,10 @@ void	c_export(t_shell **shell)
 		if (is_valid_key(key))
 			export_var(shell, key, value);
 		else
+		{
+			(*shell)->exit_code = 1;
 			ft_printfd(ERROR_EXPORT, STDERR_FILENO, key);
+		}
 		current = current->next;
 	}
 }

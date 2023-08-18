@@ -45,7 +45,10 @@ void	c_cd(t_shell **shell)
 	if (chdir(new_path) < 0 && ++error == 1)
 		ft_printfd(ERROR_CD3, STDERR_FILENO, new_path);
 	if (error)
+	{
+		(*shell)->exit_code = 1;
 		return ;
+	}
 	export_var(shell, "OLDPWD", old_path);
 	export_var(shell, "PWD", new_path);
 }

@@ -63,7 +63,9 @@ char	*is_file_io(t_shell **shell, t_block *current, char *line)
 	manage_file_descriptors(current, file_name);
 	if (current->fd[0] < 0 || current->fd[1] < 0)
 	{
-		ft_printfd(ERROR_FD_DIR, STDERR_FILENO, file_name);
+		ft_printfd(ERROR_PREFIX, STDERR_FILENO);
+		perror(file_name);
+		(*shell)->exit_code = 1;
 		return (NULL);
 	}
 	current->set = COMMAND;

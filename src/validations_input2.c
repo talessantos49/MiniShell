@@ -12,9 +12,9 @@
 
 #include "../inc/minishell.h"
 
-int	is_parent_builtins(void *builtin, int pipes_n)
+int	is_parent_builtins(void *builtin, int commands_n)
 {
-	if ((builtin == c_export && pipes_n > 1) || builtin == c_unset \
+	if ((builtin == c_export && commands_n > 1) || builtin == c_unset \
 	|| builtin == c_exit || builtin == c_cd)
 		return (TRUE);
 	return (FALSE);

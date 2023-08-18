@@ -50,3 +50,4 @@ int	strcmp_mod(const char *s1, const char *s2)
 	}
 	return (SUCCES);
 }
+

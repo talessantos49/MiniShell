@@ -17,7 +17,7 @@ static void	wait_children(t_shell **shell, t_block *current)
 	int	status;
 
 	status = 0;
-	while (current)
+	while (current && current->pid)
 	{
 		waitpid(current->pid, &status, 0);
 		if (WIFEXITED(status))
@@ -67,7 +67,7 @@ static void	child(t_shell **shell, t_block *current)
 	{
 		current->built_in(shell);
 		exit_code = (*shell)->exit_code;
-		if (!is_parent_builtins(current->built_in, (*shell)->pipelist_n))
+		if (!is_parent_builtins(current->built_in, current->commands_n))
 		{
 			free_shell(shell);
 			exit(exit_code);
@@ -83,7 +83,7 @@ static void	child(t_shell **shell, t_block *current)
 
 void	execution(t_shell **shell, t_block *current)
 {
-	while (!(*shell)->exit_code && current && current->cmd)
+	while (current && current->cmd)
 	{
 		if (current->next)
 			pipe(current->pipe);
@@ -93,7 +93,7 @@ void	execution(t_shell **shell, t_block *current)
 			continue ;
 		}
 		signal_listener(NULL, SIG_IGN);
-		if (!is_parent_builtins(current->built_in, (*shell)->pipelist_n))
+		if (!is_parent_builtins(current->built_in, current->commands_n))
 			current->pid = fork();
 		if (!current->pid)
 			child(shell, current);

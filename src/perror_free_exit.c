@@ -63,7 +63,6 @@ void	free_shell(t_shell **shell)
 	free_execve_env_matrix(shell);
 	free_pipe_list(shell, (*shell)->pipelist);
 	free_env(shell);
-	safe_free(&(*shell)->exit_code);
 	safe_free(shell);
 }
 

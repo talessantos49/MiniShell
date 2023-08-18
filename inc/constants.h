@@ -17,11 +17,12 @@
 
 # define  CHAR_EQUAL	'='
 # define  CHAR_MINUS	'-'
+# define  CHAR_PLUS     '+'
 # define  CHAR_Q_DOUBLE '\"'
 # define  CHAR_Q_SINGLE	'\''
+# define  CHAR_QUESTION '?'
 # define  CHAR_TILDE	'~'
 # define  CHAR_VAR 		'$'
-# define  CHAR_QUESTION '?'
 
 # define  CHMOD	 		0644
 
@@ -39,6 +40,7 @@
 # define  ERROR_IO_CHAR "MiniShell: syntax error near unexpected token `%s%c'\n"
 # define  ERROR_IS_DIR  "MiniShell: %s: Is a directory\n"
 # define  ERROR_OPTION  "%s: invalid option or argument\n"
+# define  ERROR_PREFIX  "MiniShell: "
 
 # define  KEY_HOME		"HOME"
 # define  KEY_PWD		"PWD"
@@ -52,6 +54,8 @@
 # define  NAME_EXPORT	"export"
 # define  NAME_PWD		"pwd"
 # define  NAME_UNSET	"unset"
+
+# define  SIGINT_HD     130
 
 # define  STR_FLAG_ECHO "-n"
 # define  STR_HEREDOC	".tmp"
