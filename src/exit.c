@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:01:15 by root              #+#    #+#             */
-/*   Updated: 2023/08/18 01:21:27 by root             ###   ########.fr       */
+/*   Updated: 2023/08/18 10:42:43 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	c_exit(t_shell **shell)
 	{
 		if (!verify_num((*shell)->pipelist->args[1]))
 		{
-			ft_printfd(" numeric argument required\n", STDERR_FILENO, NAME_EXIT);
+			ft_printfd(ERROR_EXIT, STDERR_FILENO, NAME_EXIT);
 			exit_code = 2;
 		}
 		else
@@ -61,7 +61,7 @@ void	c_exit(t_shell **shell)
 	}
 	else if ((*shell)->pipelist->args[2])
 	{
-		ft_printfd(" too many arguments\n", STDERR_FILENO, NAME_EXIT);
+		ft_printfd(ERROR_EXIT1, STDERR_FILENO, NAME_EXIT);
 		exit_code = 1;
 	}
 	else
