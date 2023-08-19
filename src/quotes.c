@@ -69,7 +69,7 @@ char	*quotes_clean(t_block *current, char **arg, char *a_free, int arg_len)
 	return (quote_clean);
 }
 
-static void	quotes_update(t_block *current, char quote)
+static void	quotes_update(t_block *current)
 {
 	current->quotes_n += 1;
 	if (!current->current_quote)
@@ -83,7 +83,8 @@ static void	quotes_update(t_block *current, char quote)
 		sizeof(t_quote));
 		current->current_quote = current->current_quote->next;
 	}
-	current->current_quote->quote = quote;
+	current->current_quote->quote = current->quote_tmp;
+	current->quote_tmp = 0;
 }
 
 char	*is_quote(t_block *current, char *line)
@@ -93,7 +94,7 @@ char	*is_quote(t_block *current, char *line)
 		if (!current->quote_tmp)
 			current->quote_tmp = *line;
 		else if (*line == current->quote_tmp)
-			quotes_update(current, *line);
+			quotes_update(current);
 		line += 1;
 	}
 	return (line);

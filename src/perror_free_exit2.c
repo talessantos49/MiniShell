@@ -17,7 +17,6 @@ void	free_around(t_block *current_cmd)
 	t_cmd	*next_cmd;
 	t_cmd	*current;
 
-	next_cmd = ft_calloc(1, sizeof(t_cmd));
 	current = current_cmd->commands;
 	while (current)
 	{

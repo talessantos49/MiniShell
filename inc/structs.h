@@ -40,6 +40,7 @@ typedef struct s_block
 	char			*expand;
 	char			*arg_0;
 	char			*cmd;
+	char			*file_name;			
 	char			*heredoc_name;			
 	char			quote_tmp;			
 	enum e_set		set;

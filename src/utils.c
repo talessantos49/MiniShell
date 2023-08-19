@@ -43,11 +43,32 @@ int	strcmp_mod(const char *s1, const char *s2)
 	while (i < len)
 	{
 		if (s1[i] != s2[i] && (s1[i] != '\0' || s2[i] != '\0'))
-		{
 			return ((unsigned char) s1[i] - (unsigned char) s2[i]);
-		}
 		i++;
 	}
 	return (SUCCES);
 }
 
+int	ft_atoi64(const char *nptr)
+{
+	size_t	result;
+	int		sign;
+
+	result = 0;
+	sign = 1;
+	while ((*nptr >= 9 && *nptr <= 13) || *nptr == 32)
+		nptr++;
+	if (*nptr == '-' || *nptr == '+')
+	{	
+		if (*nptr == '-')
+			sign = -sign;
+		nptr++;
+	}
+	while (ft_isdigit(*nptr))
+		result = result * 10 + *nptr++ - '0';
+	if ((sign == -1 && result > (INT64_MAX + 1)) \
+	|| (sign == 1 && result > INT64_MAX))
+		return (2);
+	else
+		return (result * sign);
+}

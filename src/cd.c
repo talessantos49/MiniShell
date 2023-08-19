@@ -12,13 +12,33 @@
 
 #include "../inc/minishell.h"
 
-static int	print_oldpwd(char *new_path, int error)
+static char *oldpwd_switch(t_shell **shell)
 {
-	if (new_path)
-		ft_printf("%s\n", new_path);
-	else if (!new_path && ++error)
+	t_env	*var;
+
+	var = find_var(shell, "OLDPWD", 6, 0);
+	if (var)
+	{
+		ft_printf("%s\n", var->value);	
+		return (var->value);
+	}
+	else
+	{
 		ft_printfd(ERROR_CD2, STDERR_FILENO);
-	return (error);
+		return (NULL);
+	}
+
+}
+
+int	error_break(t_shell **shell, int error)
+{
+	if (error)
+	{
+		(*shell)->exit_code = 1;
+		return (TRUE);
+	}
+	return (FALSE);
+
 }
 
 void	c_cd(t_shell **shell)
@@ -37,18 +57,16 @@ void	c_cd(t_shell **shell)
 	else if (!(*shell)->pipelist->args[1] || !*(*shell)->pipelist->args[1] \
 	|| strchr_mod((*shell)->pipelist->args[1], CHAR_TILDE))
 		new_path = (find_var(shell, "HOME", 4, 0))->value;
-	else if ((*shell)->pipelist->args[1][0] == CHAR_MINUS)
+	if ((*shell)->pipelist->args[1] \
+	&&	(*shell)->pipelist->args[1][0] == CHAR_MINUS)
 	{
-		new_path = (find_var(shell, "OLDPWD", 6, 0))->value;
-		error = print_oldpwd(new_path, error);
-	}	
-	if (chdir(new_path) < 0 && ++error == 1)
-		ft_printfd(ERROR_CD3, STDERR_FILENO, new_path);
-	if (error)
-	{
-		(*shell)->exit_code = 1;
-		return ;
+		new_path = oldpwd_switch(shell);
+		error += (new_path == NULL);
 	}
+ 	if (new_path && chdir(new_path) < 0 && ++error == 1)
+		ft_printfd(ERROR_CD3, STDERR_FILENO, new_path);
+	if (error_break(shell, error))
+		return ;
 	export_var(shell, "OLDPWD", old_path);
 	export_var(shell, "PWD", new_path);
 }

@@ -20,7 +20,7 @@ void	export_new_var(t_shell **shell, char *key, char *value)
 	new_var = (t_env *)ft_calloc(1, sizeof(t_env));
 	(*shell)->env_last->next = new_var;
 	(*shell)->env_last = new_var;
-	new_var->key = key;
+	new_var->key = ft_substr(key, 0, ft_strlen(key));
 	if (value)
 	{
 		value_len = ft_strlen(value);
@@ -50,6 +50,7 @@ void	export_var(t_shell **shell, char *key, char *value)
 				value[0] = 1;
 			else if (value[0] == '=')
 				value += 1;
+			safe_free(&var->value);
 			var->value = ft_substr(value, 0, value_len + 1);
 		}
 	}
@@ -67,12 +68,24 @@ static int	is_valid_key(char *arg)
 	return (FALSE);
 }
 
+int	is_pipelined(t_shell **shell)
+{
+	if ((*shell)->pipelist_n > 1)
+	{
+		(*shell)->exit_code = 1;
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
 void	c_export(t_shell **shell)
 {
 	t_cmd	*current;
 	char	*key;
 	char	*value;
 
+	if (is_pipelined(shell))
+		return ;
 	current = (*shell)->pipelist->commands->next;
 	if (!current)
 		return (print_env(shell, 1));

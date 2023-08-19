@@ -78,12 +78,6 @@ void	make_env(t_shell **shell, char **envp, int str_len)
 		(*shell)->env_last = env_node;
 		if (!*++envp)
 			break ;
-		if ((*shell)->env_n == 47)
-		{
-			export_new_var(shell, ft_substr(KEY_OLDPWD, 0, 6), \
-			NULL);
-			env_node = env_node->next;
-		}
 		env_node->next = (t_env *)ft_calloc(1, sizeof(t_env));
 		env_node = env_node->next;
 	}

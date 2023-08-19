@@ -17,7 +17,7 @@ void	is_var(t_shell **shell, t_block *current, char *arg, int arg_len)
 	if (current->set == TEST_HEREDOC || current->quote_tmp == CHAR_Q_SINGLE)
 		return ;
 	if (*arg == CHAR_VAR || (current->expand && (!*arg || *arg == CHAR_EQUAL \
-	|| arg != is_spaces(arg, STR_SPACES) || *arg == current->quote_tmp \
+	|| arg != is_spaces(arg, STR_SPACES) || *arg == CHAR_Q_DOUBLE \
 	|| *arg == CHAR_QUESTION)))
 	{
 		if (current->arg_0[0] == CHAR_VAR && *arg == CHAR_QUESTION)

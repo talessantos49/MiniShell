@@ -120,6 +120,7 @@ void	c_unset(t_shell **shell);
 /*                           utils.c                                          */
 /*----------------------------------------------------------------------------*/
 char	*strchr_mod(const char *str, int c);
+int     ft_atoi64(const char *nptr);
 int		strcmp_mod(const char *s1, const char *s2);
 
 /*----------------------------------------------------------------------------*/

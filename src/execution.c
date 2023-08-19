@@ -36,23 +36,28 @@ void	close_pipes(t_shell **shell, t_block *current)
 
 static void	pipeline_manager(t_shell **shell, t_block *current)
 {
-	if (current->fd && current->fd[1])
+	if (current->fd[0] < 0 || current->fd[1] < 0)
+	{
+		ft_printfd(ERROR_PREFIX, STDERR_FILENO);
+		perror(current->file_name);
+		exit(1);
+	}
+	if (current->fd[1])
 	{
 		dup2(current->fd[1], STDOUT_FILENO);
 		close(current->fd[1]);
 	}
-	else if (current->pipe && current->pipe[1])
+	else if (current->pipe[1])
 	{
 		dup2(current->pipe[1], STDOUT_FILENO);
 		close(current->pipe[0]);
 	}
-	if (current->fd && current->fd[0])
+	if (current->fd[0])
 	{
 		dup2(current->fd[0], STDIN_FILENO);
 		close(current->fd[0]);
 	}
-	else if ((*shell)->previous && (*shell)->previous->pipe && \
-	(*shell)->previous->pipe[0])
+	else if ((*shell)->previous && (*shell)->previous->pipe[0])
 		dup2((*shell)->previous->pipe[0], STDIN_FILENO);
 }
 
@@ -62,7 +67,8 @@ static void	child(t_shell **shell, t_block *current)
 
 	exit_code = (*shell)->exit_code;
 	signal_handled_exec(shell);
-	pipeline_manager(shell, current);
+	if (!is_parent_builtins(current->built_in, current->commands_n))
+		pipeline_manager(shell, current);
 	if (current->built_in)
 	{
 		current->built_in(shell);
@@ -85,13 +91,13 @@ void	execution(t_shell **shell, t_block *current)
 {
 	while (current && current->cmd)
 	{
-		if (current->next)
-			pipe(current->pipe);
 		if (!current->built_in && command_validate(shell, current))
 		{
 			current = current->next;
 			continue ;
 		}
+		if (current->next)
+			pipe(current->pipe);
 		signal_listener(NULL, SIG_IGN);
 		if (!is_parent_builtins(current->built_in, current->commands_n))
 			current->pid = fork();

@@ -14,6 +14,12 @@
 
 void	manage_file_descriptors(t_block *current, char *file_name)
 {
+	if (current->fd[0] < 0 || current->fd[1] < 0)
+	{
+		if (!current->file_name)
+			current->file_name = file_name;
+		return ;
+	}
 	if (current->set == INFILE && current->fd[0])
 		close(current->fd[0]);
 	else if ((current->set == OUTFILE_NEW || current->set == OUTFILE_APPEND) \

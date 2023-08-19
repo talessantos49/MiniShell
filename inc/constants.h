@@ -32,7 +32,7 @@
 
 # define  ERROR_ARG     "MiniShell: too many arguments\n"
 # define  ERROR_EXIT    " too many arguments\n"
-# define  ERROR_EXIT1   " numeric argument required\n"
+# define  ERROR_EXIT1   "Minishell: exit: %s: numeric argument required\n"
 # define  ERROR_CD1     "MiniShell: cd: too many arguments\n"
 # define  ERROR_CD2     "MiniShell: cd: OLDPWD not set\n"
 # define  ERROR_CD3     "MiniShell: cd: %s: No such file or directory\n"
@@ -43,6 +43,8 @@
 # define  ERROR_IS_DIR  "MiniShell: %s: Is a directory\n"
 # define  ERROR_OPTION  "%s: invalid option or argument\n"
 # define  ERROR_PREFIX  "MiniShell: "
+
+# define  INT64_MAX     (size_t)9223372036854775807
 
 # define  KEY_HOME		"HOME"
 # define  KEY_PWD		"PWD"

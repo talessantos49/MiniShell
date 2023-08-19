@@ -20,24 +20,6 @@ int	is_parent_builtins(void *builtin, int commands_n)
 	return (FALSE);
 }
 
-static int	is_file_or_directory(char *arg)
-{
-	char	buf[BUF];
-	char	*cwd_backup;
-
-	cwd_backup = getcwd(buf, BUF);
-	if (ft_strchr(arg, *STR_SLASH))
-	{
-		if (chdir(arg))
-			ft_printfd(ERROR_FD_DIR, STDERR_FILENO, arg);
-		else
-			ft_printfd(ERROR_IS_DIR, STDERR_FILENO, arg);
-		chdir(cwd_backup);
-		return (TRUE);
-	}
-	return (FALSE);
-}
-
 int	command_validate(t_shell **shell, t_block *current)
 {
 	char	*cmd_tmp;
@@ -45,8 +27,6 @@ int	command_validate(t_shell **shell, t_block *current)
 	int		i;
 
 	i = -1;
-	if (is_file_or_directory(current->cmd))
-		return (EXCEPTION);
 	while (*current->cmd && ++i < (*shell)->paths_n)
 	{
 		cmd_tmp = ft_strjoin((*shell)->paths_mtx[i], STR_SLASH);

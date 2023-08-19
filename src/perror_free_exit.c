@@ -40,14 +40,11 @@ static void	free_env(t_shell **shell)
 {
 	t_env	*current_env;
 	t_env	*next_env;
-	int		count;
 
-	count = 0;
 	current_env = (*shell)->env;
 	next_env = (*shell)->env->next;
 	while (current_env)
 	{
-		count++;
 		safe_free(&current_env->key);
 		safe_free(&current_env->value);
 		safe_free(&current_env);
