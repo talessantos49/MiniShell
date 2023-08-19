@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:57:08 by root              #+#    #+#             */
-/*   Updated: 2023/08/17 19:13:24 by root             ###   ########.fr       */
+/*   Updated: 2023/08/18 15:24:38 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ void	close_pipes(t_shell **shell, t_block *current)
 
 static void	pipeline_manager(t_shell **shell, t_block *current)
 {
-	if (current->fd && current->fd[1])
+	if (current->fd[1])
 	{
 		dup2(current->fd[1], STDOUT_FILENO);
 		close(current->fd[1]);
 	}
-	else if (current->pipe && current->pipe[1])
+	else if (current->pipe[1])
 	{
 		dup2(current->pipe[1], STDOUT_FILENO);
 		close(current->pipe[0]);
@@ -51,8 +51,7 @@ static void	pipeline_manager(t_shell **shell, t_block *current)
 		dup2(current->fd[0], STDIN_FILENO);
 		close(current->fd[0]);
 	}
-	else if ((*shell)->previous && (*shell)->previous->pipe && \
-	(*shell)->previous->pipe[0])
+	else if ((*shell)->previous &&	(*shell)->previous->pipe[0])
 		dup2((*shell)->previous->pipe[0], STDIN_FILENO);
 }
 

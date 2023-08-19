@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:53:49 by root              #+#    #+#             */
-/*   Updated: 2023/08/18 15:15:07 by root             ###   ########.fr       */
+/*   Updated: 2023/08/18 23:53:45 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	command_validate(t_shell **shell, t_block *current)
 			safe_free(&cmd_tmp2);
 	}
 	ft_printfd(ERROR_CMD, STDERR_FILENO, current->cmd);
+	(*shell)->exit_code = 127;
 	return (EXCEPTION);
 }
 
