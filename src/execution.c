@@ -91,7 +91,7 @@ void	execution(t_shell **shell, t_block **current)
 	while (*current)
 	{
 		if ((*current)->cmd && !(*current)->built_in \
-		&& command_validate(shell, (*current)))
+		&& command_validate(shell, *current))
 		{
 			*current = (*current)->next;
 			continue ;

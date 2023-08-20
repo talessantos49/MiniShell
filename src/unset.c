@@ -15,20 +15,12 @@
 void	previous_var(t_shell **shell, t_env *var_prev)
 {
 	t_env	*var_target;
-
-	if (var_prev->next)
-	{
-		var_target = var_prev->next;
-		var_prev->next = var_target->next;
-		safe_free(&var_target->key);
-		safe_free(&var_target->value);
-	}
-	else
-	{
-		var_target = var_prev;
-		safe_free(&var_target->key);
-		safe_free(&var_target->value);
-	}
+	
+	var_target = var_prev->next;
+	var_prev->next = var_target->next;
+	(*shell)->env_last = var_prev->next;
+	safe_free(&var_target->key);
+	safe_free(&var_target->value);
 	safe_free(&var_target);
 	(*shell)->env_n -= 1;
 	return ;

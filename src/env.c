@@ -22,7 +22,7 @@ t_env	*find_var(t_shell **shell, char *key, int key_len, int is_unset)
 		if ((is_unset && current_var->next && \
 		key_len == (int)ft_strlen(current_var->next->key) \
 		&& !ft_strncmp(current_var->next->key, key, key_len)) \
-		|| (key_len == (int)ft_strlen(current_var->key) \
+		|| (!is_unset && key_len == (int)ft_strlen(current_var->key) \
 		&& !ft_strncmp(current_var->key, key, key_len)))
 			return (current_var);
 		current_var = current_var->next;

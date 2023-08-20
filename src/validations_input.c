@@ -62,6 +62,7 @@ char	*is_file_io(t_shell **shell, t_block *current, char *line)
 	current->expand = NULL;
 	manage_file_descriptors(current, file_name);
 	current->set = COMMAND;
+	safe_free(&file_name);
 	return (line_tmp);
 }
 

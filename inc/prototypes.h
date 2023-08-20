@@ -135,7 +135,6 @@ int		var_define(t_shell **shell, t_block *current, int arg_len);
 /*----------------------------------------------------------------------------*/
 /*                           validations_input2.c                             */
 /*----------------------------------------------------------------------------*/
-
 char	*is_no_word(t_shell **shell, t_block *current, char *line);
 int     is_parent_builtins(void *builtin, int commands_n);
 int		command_validate(t_shell **shell, t_block *current);
