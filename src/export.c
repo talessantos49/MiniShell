@@ -70,7 +70,7 @@ static int	is_valid_key(char *arg)
 
 int	is_pipelined(t_shell **shell)
 {
-	if ((*shell)->pipelist_n > 1)
+	if ((*shell)->current->commands_n > 1 && (*shell)->pipelist_n > 1)
 	{
 		(*shell)->exit_code = 1;
 		return (TRUE);
@@ -86,9 +86,9 @@ void	c_export(t_shell **shell)
 
 	if (is_pipelined(shell))
 		return ;
-	current = (*shell)->pipelist->commands->next;
-	if (!current)
+	if ((*shell)->current->commands_n == 1)
 		return (print_env(shell, 1));
+	current = (*shell)->pipelist->commands->next;
 	while (current && current->arg)
 	{
 		value = ft_strchr(current->arg, '=');

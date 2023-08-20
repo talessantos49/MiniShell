@@ -15,11 +15,7 @@
 void	manage_file_descriptors(t_block *current, char *file_name)
 {
 	if (current->fd[0] < 0 || current->fd[1] < 0)
-	{
-		if (!current->file_name)
-			current->file_name = file_name;
 		return ;
-	}
 	if (current->set == INFILE && current->fd[0])
 		close(current->fd[0]);
 	else if ((current->set == OUTFILE_NEW || current->set == OUTFILE_APPEND) \
@@ -31,6 +27,11 @@ void	manage_file_descriptors(t_block *current, char *file_name)
 		current->fd[1] = open(file_name, O_CREAT | O_WRONLY | O_TRUNC, CHMOD);
 	else if (current->set == OUTFILE_APPEND)
 		current->fd[1] = open(file_name, O_CREAT | O_WRONLY | O_APPEND, CHMOD);
+	if (current->fd[0] < 0 || current->fd[1] < 0)
+	{
+		ft_printfd(ERROR_PREFIX, STDERR_FILENO);
+		perror(file_name);
+	}
 }
 
 void	new_command(t_block *current)
@@ -67,20 +68,23 @@ t_block	*new_block_on_pipe_list(t_shell **shell, t_block *block_current)
 
 char	*special_cases(t_shell **shell, t_block *current, char *line)
 {
-	if (*line == '<' && *line++)
+	if (current->set == 1)
 	{
-		current->set = INFILE;
 		if (*line == '<' && *line++)
-			return (here_doc_setup(shell, current, line));
+		{
+			current->set = INFILE;
+			if (*line == '<' && *line++)
+				return (here_doc_setup(shell, current, line));
+		}
+		else if (*line == '>' && *line++)
+		{
+			current->set = OUTFILE_NEW;
+			if (*line == '>' && *line++)
+				current->set = OUTFILE_APPEND;
+		}
+		else if (*line == '|' && line++)
+				current->set = NEW_BLOCK;
 	}
-	else if (*line == '>' && *line++)
-	{
-		current->set = OUTFILE_NEW;
-		if (*line == '>' && *line++)
-			current->set = OUTFILE_APPEND;
-	}
-	else if (*line == '|' && line++)
-			current->set = NEW_BLOCK;
 	return (line);
 }
 
@@ -106,4 +110,5 @@ void	pipe_list_build(t_shell **shell, char *line)
 		if ((line && !*line) || current->set == 0)
 			execve_matrixes(shell, current);
 	}
+	(*shell)->current = (*shell)->pipelist;
 }

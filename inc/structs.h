@@ -39,8 +39,7 @@ typedef struct s_block
 	char			**args;
 	char			*expand;
 	char			*arg_0;
-	char			*cmd;
-	char			*file_name;			
+	char			*cmd;		
 	char			*heredoc_name;			
 	char			quote_tmp;			
 	enum e_set		set;
@@ -68,6 +67,7 @@ typedef struct s_shell
 	int				paths_n;
 	int				pipelist_n;
 	t_block			*pipelist;
+	t_block			*current;
 	t_block			*previous;
 	t_env			*env;
 	t_env			*env_last;

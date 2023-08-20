@@ -37,11 +37,7 @@ void	close_pipes(t_shell **shell, t_block *current)
 static void	pipeline_manager(t_shell **shell, t_block *current)
 {
 	if (current->fd[0] < 0 || current->fd[1] < 0)
-	{
-		ft_printfd(ERROR_PREFIX, STDERR_FILENO);
-		perror(current->file_name);
 		exit(1);
-	}
 	if (current->fd[1])
 	{
 		dup2(current->fd[1], STDOUT_FILENO);
@@ -78,34 +74,38 @@ static void	child(t_shell **shell, t_block *current)
 			free_shell(shell);
 			exit(exit_code);
 		}
+		return ;
 	}
-	else if (execve(current->cmd, current->args, (*shell)->env_mtx) < 0)
+	else if (current->cmd \
+	&& execve(current->cmd, current->args, (*shell)->env_mtx) < 0)
 	{
 		perror(current->cmd);
 		free_shell(shell);
 		exit(-1);
 	}
+	exit(0);
 }
 
-void	execution(t_shell **shell, t_block *current)
+void	execution(t_shell **shell, t_block **current)
 {
-	while (current && current->cmd)
+	while (*current)
 	{
-		if (!current->built_in && command_validate(shell, current))
+		if ((*current)->cmd && !(*current)->built_in \
+		&& command_validate(shell, (*current)))
 		{
-			current = current->next;
+			*current = (*current)->next;
 			continue ;
 		}
-		if (current->next)
-			pipe(current->pipe);
+		if ((*current)->next)
+			pipe((*current)->pipe);
 		signal_listener(NULL, SIG_IGN);
-		if (!is_parent_builtins(current->built_in, current->commands_n))
-			current->pid = fork();
-		if (!current->pid)
-			child(shell, current);
-		close_pipes(shell, current);
-		(*shell)->previous = current;
-		current = current->next;
+		if (!is_parent_builtins((*current)->built_in, (*current)->commands_n))
+			(*current)->pid = fork();
+		if (!(*current)->pid)
+			child(shell, *current);
+		close_pipes(shell, *current);
+		(*shell)->previous = *current;
+		*current = (*current)->next;
 	}
 	wait_children(shell, (*shell)->pipelist);
 }

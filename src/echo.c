@@ -36,11 +36,11 @@ void	c_echo(t_shell **shell)
 	char	**args;
 	char	**flag;
 
-	flag = flag_scan((*shell)->pipelist);
+	flag = flag_scan((*shell)->current);
 	if (flag)
 		args = flag;
 	else
-		args = &(*shell)->pipelist->args[1];
+		args = &(*shell)->current->args[1];
 	while (args && *args)
 	{
 		printf("%s", *args++);

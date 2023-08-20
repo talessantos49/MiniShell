@@ -25,7 +25,7 @@ void	minishell(t_shell **shell)
 		{
 			add_history(line);
 			pipe_list_build(shell, line);
-			execution(shell, (*shell)->pipelist);
+			execution(shell, &(*shell)->current);
 			free_pipe_list(shell, (*shell)->pipelist);
 		}
 		else if (line == NULL)

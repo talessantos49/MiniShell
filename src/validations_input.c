@@ -73,7 +73,7 @@ char	*is_special(t_shell **shell, t_block *current, char *line, char *spcls)
 			spcls++;
 		else if (!*line || *line == *spcls)
 		{
-			if (current->set == TEST_HEREDOC)
+			if (current->set != COMMAND)
 				return (line + 1);
 			return (special_cases(shell, current, line));
 		}

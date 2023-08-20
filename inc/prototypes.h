@@ -38,7 +38,7 @@ t_env	*find_var(t_shell **shell, char *key, int key_len, int is_unset);
 /*----------------------------------------------------------------------------*/
 /*                           execution.c                                      */
 /*----------------------------------------------------------------------------*/
-void	execution(t_shell **shell, t_block *current);
+void	execution(t_shell **shell, t_block **current);
 
 /*----------------------------------------------------------------------------*/
 /*                           execve_matrixes.c                                */
