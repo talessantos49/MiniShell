@@ -66,8 +66,8 @@ typedef struct s_shell
 	int				env_n;
 	int				paths_n;
 	int				pipelist_n;
-	t_block			*pipelist;
 	t_block			*current;
+	t_block			*pipelist;
 	t_block			*previous;
 	t_env			*env;
 	t_env			*env_last;
