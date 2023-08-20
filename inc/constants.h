@@ -23,6 +23,7 @@
 # define  CHAR_QUESTION '?'
 # define  CHAR_TILDE	'~'
 # define  CHAR_VAR 		'$'
+# define  CHAR_SLASH 	'/'
 
 # define  CHMOD	 		0644
 

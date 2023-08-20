@@ -18,12 +18,12 @@ void	previous_var(t_shell **shell, t_env *var_prev)
 	
 	var_target = var_prev->next;
 	var_prev->next = var_target->next;
-	(*shell)->env_last = var_prev->next;
+	if (var_prev->next == NULL)
+		(*shell)->env_last = var_prev;
 	safe_free(&var_target->key);
 	safe_free(&var_target->value);
 	safe_free(&var_target);
 	(*shell)->env_n -= 1;
-	return ;
 }
 
 void	c_unset(t_shell **shell)

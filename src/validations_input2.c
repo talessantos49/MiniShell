@@ -44,6 +44,7 @@ int	command_validate(t_shell **shell, t_block *current)
 			safe_free(&cmd_tmp2);
 	}
 	ft_printfd(ERROR_CMD, STDERR_FILENO, current->cmd);
+	(*shell)->exit_code = 127;
 	return (EXCEPTION);
 }
 

@@ -49,4 +49,5 @@ void	c_echo(t_shell **shell)
 	}
 	if (!flag)
 		printf("\n");
+	(*shell)->exit_code = 0;
 }
